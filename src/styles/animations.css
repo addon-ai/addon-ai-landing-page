@@ -1,0 +1,80 @@
+@keyframes liquidMorph {
+  0%, 100% { border-radius: 24px; }
+  25% { border-radius: 28px 22px 26px 24px; }
+  50% { border-radius: 22px 28px 24px 26px; }
+  75% { border-radius: 26px 24px 28px 22px; }
+}
+
+.liquid-card {
+  animation: liquidMorph 8s ease-in-out infinite;
+}
+.liquid-card:nth-child(2) { animation-delay: -2s; }
+.liquid-card:nth-child(3) { animation-delay: -4s; }
+.liquid-card:nth-child(4) { animation-delay: -6s; }
+
+@keyframes ping-slow {
+  75%, 100% { transform: scale(2.5); opacity: 0; }
+}
+
+.ping-slow {
+  animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.pulse {
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.65); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes sectorsDrift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    filter: blur(90px) saturate(170%) hue-rotate(0deg);
+  }
+  50% {
+    transform: translate3d(-3%, 2%, 0) rotate(6deg) scale(1.08);
+    filter: blur(100px) saturate(185%) hue-rotate(-10deg);
+  }
+  100% {
+    transform: translate3d(3%, -2%, 0) rotate(-6deg) scale(1.04);
+    filter: blur(95px) saturate(175%) hue-rotate(8deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sectors-section::before,
+  .pilares-section::before {
+    animation: none !important;
+  }
+  .liquid-card {
+    animation: none !important;
+  }
+  .float-logo,
+  .float-delay-1,
+  .float-delay-2 {
+    animation: none !important;
+  }
+}

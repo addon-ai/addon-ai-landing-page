@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Addon.ai Enterprise - El puente hacia la eficiencia inteligente</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050a14;--text:#e2e8f0;--text-secondary:#b4c4d8;--text-muted:#8099b4;--cyan:#06b6d4;--emerald:#22c55e;--blue:#3b82f6;--violet:#a855f7;--canvas-opacity:0.35}
+[data-theme="light"]{--bg:#f0f4f8;--text:#1e293b;--text-secondary:#334155;--text-muted:#64748b;--canvas-opacity:0.2}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',-apple-system,'Helvetica Neue',sans-serif;font-size:16px;line-height:1.65;background:var(--bg);color:var(--text);overflow-x:hidden;transition:background .4s,color .4s}
+#neural-grid{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;opacity:var(--canvas-opacity);transition:opacity .4s}
+.liquid-glass{background:linear-gradient(135deg,rgba(255,255,255,0.06) 0%,rgba(255,255,255,0.02) 50%,rgba(255,255,255,0.08) 100%);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 32px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.1),inset 0 -1px 0 rgba(255,255,255,0.05);border-radius:24px;position:relative;overflow:hidden}
+.liquid-glass-strong{background:linear-gradient(135deg,rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.04) 50%,rgba(255,255,255,0.12) 100%);backdrop-filter:blur(40px) saturate(200%);-webkit-backdrop-filter:blur(40px) saturate(200%);border:1px solid rgba(255,255,255,0.15);box-shadow:0 8px 32px rgba(0,0,0,0.4),inset 0 2px 0 rgba(255,255,255,0.15),inset 0 -1px 0 rgba(255,255,255,0.05);border-radius:24px;position:relative;overflow:hidden}
+.liquid-glass-subtle{background:linear-gradient(135deg,rgba(255,255,255,0.04) 0%,rgba(255,255,255,0.01) 100%);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border:1px solid rgba(255,255,255,0.06);box-shadow:0 4px 16px rgba(0,0,0,0.2),inset 0 1px 0 rgba(255,255,255,0.06);border-radius:999px}
+.liquid-glass::before,.liquid-glass-strong::before{content:'';position:absolute;top:0;left:-50%;width:200%;height:100%;background:linear-gradient(105deg,transparent 20%,rgba(255,255,255,0.04) 30%,rgba(255,255,255,0.08) 35%,rgba(255,255,255,0.04) 40%,transparent 50%);pointer-events:none;transition:transform .6s cubic-bezier(.23,1,.32,1)}
+.liquid-glass:hover::before,.liquid-glass-strong:hover::before{transform:translateX(30%)}
+.glass-bisel{background:rgba(255,255,255,0.055);backdrop-filter:blur(36px) saturate(180%) brightness(1.06);-webkit-backdrop-filter:blur(36px) saturate(180%) brightness(1.06);border-radius:26px;border:none;box-shadow:inset 0 1.5px 1px rgba(255,255,255,0.32),inset 0 -1px 1px rgba(0,0,0,0.25),inset 1px 0 0 rgba(255,255,255,0.07),inset -1px 0 0 rgba(255,255,255,0.04),inset 0 0 0 0.5px rgba(255,255,255,0.1),0 28px 70px rgba(0,0,0,0.32),0 8px 18px rgba(0,0,0,0.16);position:relative;overflow:hidden}
+.glass-bisel::after{content:'';position:absolute;top:0;left:6%;right:6%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.28) 20%,rgba(255,255,255,0.6) 50%,rgba(255,255,255,0.28) 80%,transparent);pointer-events:none;z-index:3}
+[data-theme="light"] .glass-bisel::after{display:none}
+[data-theme="light"] .glass-bisel{background:rgba(255,255,255,0.82);border:1px solid rgba(0,0,0,0.08);box-shadow:0 4px 24px rgba(0,0,0,0.07),0 1px 4px rgba(0,0,0,0.05)}
+[data-theme="light"] .liquid-glass{background:linear-gradient(135deg,rgba(255,255,255,0.7) 0%,rgba(255,255,255,0.5) 50%,rgba(255,255,255,0.8) 100%);border:1px solid rgba(0,0,0,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.08),inset 0 1px 0 rgba(255,255,255,0.6),inset 0 -1px 0 rgba(0,0,0,0.04)}
+[data-theme="light"] .liquid-glass-strong{background:linear-gradient(135deg,rgba(255,255,255,0.85) 0%,rgba(255,255,255,0.7) 50%,rgba(255,255,255,0.9) 100%);border:1px solid rgba(0,0,0,0.12);box-shadow:0 8px 32px rgba(0,0,0,0.12),inset 0 2px 0 rgba(255,255,255,0.8),inset 0 -1px 0 rgba(0,0,0,0.06)}
+[data-theme="light"] .liquid-glass-subtle{background:linear-gradient(135deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.3) 100%);border:1px solid rgba(0,0,0,0.08)}
+.refract-layer{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;opacity:0;transition:opacity .4s ease;overflow:hidden;background:radial-gradient(circle 140px at var(--rx,50%) var(--ry,50%),rgba(255,255,255,0.09) 0%,rgba(255,255,255,0.03) 40%,transparent 70%);mix-blend-mode:overlay}
+.gradient-text{background:linear-gradient(135deg,var(--cyan),var(--blue),var(--emerald));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gradient-text-alt{background:linear-gradient(135deg,var(--cyan),var(--emerald));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-glass{position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:rgba(5,10,20,0.6);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(255,255,255,0.06);transition:background .3s}
+[data-theme="light"] .nav-glass{background:rgba(255,255,255,0.96);border-bottom:1px solid rgba(0,0,0,0.10);box-shadow:0 1px 20px rgba(0,0,0,0.06)}
+[data-theme="light"] .nav-link{color:#334155;opacity:1}
+[data-theme="light"] .nav-link:hover{color:#0f172a}
+[data-theme="light"] .btn-secondary{color:#0891b2;border-color:rgba(8,145,178,0.5)}
+.btn-primary{position:relative;background:linear-gradient(135deg,#0891b2,#059669);border:none;border-radius:999px;padding:13px 32px;font-size:15px;font-weight:600;color:#fff;cursor:pointer;letter-spacing:-.15px;transition:all .3s cubic-bezier(.23,1,.32,1);overflow:hidden;text-decoration:none;display:inline-block}
+.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--cyan),var(--emerald));opacity:0;transition:opacity .3s;border-radius:inherit}
+.btn-primary:hover::before{opacity:1}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(6,182,212,0.3),0 5px 15px rgba(16,185,129,0.2)}
+.btn-primary span{position:relative;z-index:1}
+.btn-secondary{position:relative;border:1px solid rgba(6,182,212,0.4);background:rgba(6,182,212,0.05);border-radius:999px;padding:13px 30px;font-size:15px;font-weight:500;color:var(--cyan);cursor:pointer;letter-spacing:-.15px;transition:all .3s cubic-bezier(.23,1,.32,1);overflow:hidden;text-decoration:none;display:inline-block}
+.btn-secondary:hover{border-color:rgba(6,182,212,0.8);background:rgba(6,182,212,0.1);transform:translateY(-2px);box-shadow:0 10px 40px rgba(6,182,212,0.15)}
+[data-theme="light"] .btn-secondary{color:#0891b2;border-color:rgba(8,145,178,0.4);background:rgba(8,145,178,0.05)}
+[data-theme="light"] .btn-secondary:hover{border-color:rgba(8,145,178,0.8);background:rgba(8,145,178,0.1)}
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.23,1,.32,1)}
+.reveal.active{opacity:1;transform:translateY(0)}
+@keyframes liquidMorph{0%,100%{border-radius:24px}25%{border-radius:28px 22px 26px 24px}50%{border-radius:22px 28px 24px 26px}75%{border-radius:26px 24px 28px 22px}}
+.liquid-card{animation:liquidMorph 8s ease-in-out infinite}
+.liquid-card:nth-child(2){animation-delay:-2s}
+.liquid-card:nth-child(3){animation-delay:-4s}
+.liquid-card:nth-child(4){animation-delay:-6s}
+@keyframes ping-slow{75%,100%{transform:scale(2.5);opacity:0}}
+.ping-slow{animation:ping-slow 2s cubic-bezier(0,0,.2,1) infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.pulse{animation:pulse 2s ease infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.65)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes float-delayed{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+.float-logo{animation:float 6s ease-in-out infinite}
+.float-delay-1{animation:float-delayed 7s ease-in-out infinite;animation-delay:-2s}
+.float-delay-2{animation:float-delayed 8s ease-in-out infinite;animation-delay:-4s}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:rgba(6,182,212,0.45);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(6,182,212,0.5)}
+.mobile-menu{position:fixed;top:0;right:0;width:300px;height:100vh;z-index:60;transform:translateX(100%);transition:transform .4s cubic-bezier(.23,1,.32,1)}
+.mobile-menu.open{transform:translateX(0)}
+.menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:55;display:none}
+.menu-overlay.open{display:block}
+.toast{position:fixed;bottom:24px;right:24px;z-index:9999;transform:translateY(120%);transition:transform .4s cubic-bezier(.23,1,.32,1)}
+.toast.show{transform:translateY(0)}
+.compare-table{width:100%;border-collapse:separate;border-spacing:0}
+.compare-table th,.compare-table td{padding:14px 18px;text-align:left;font-size:14px}
+.compare-table thead th{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-secondary);font-weight:600}
+.compare-table tbody td{border-top:1px solid rgba(255,255,255,0.1)}
+.compare-table tbody tr:first-child td{border-top:none}
+.compare-table .highlight{color:var(--cyan);font-weight:600}
+.theme-btn{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--text);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s,transform .2s;flex-shrink:0}
+.theme-btn:hover{transform:scale(1.08);border-color:rgba(6,182,212,0.4)}
+[data-theme="light"] .theme-btn{border:1px solid rgba(22,58,101,0.18);background:rgba(22,58,101,0.04);color:#163A65}
+[data-theme="light"] .theme-btn:hover{border-color:#338A7B;color:#338A7B;background:rgba(51,138,123,0.06)}
+.logo-wrap{height:36px;display:flex;align-items:center}
+.logo-wrap svg{height:100%;width:auto}
+.logo-dark{display:block}
+.logo-light{display:none}
+[data-theme="light"] .logo-dark{display:none}
+[data-theme="light"] .logo-light{display:block}
+section{position:relative;z-index:1}
+@keyframes ring-spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+/* Sector cards — light mode fix */
+[data-theme="light"] .sector-panel{background:rgba(248,250,252,0.97)!important}
+[data-theme="light"] .sector-panel h3{color:#0f172a!important}
+[data-theme="light"] .sector-panel p{color:#334155!important}
+[data-theme="light"] .sector-img-overlay{background:none!important}
+[data-theme="light"] .sector-img-overlay-r{background:none!important}
+h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans','Sora','DM Sans',sans-serif!important;font-weight:200!important}
+h1 .gradient-text,h2 .gradient-text,h3 .gradient-text,h4 .gradient-text,h5 .gradient-text,h6 .gradient-text,h1 .gradient-text-alt,h2 .gradient-text-alt,h3 .gradient-text-alt,h4 .gradient-text-alt,h5 .gradient-text-alt,h6 .gradient-text-alt{font-weight:800!important}
+.badge span{font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:500;letter-spacing:.06em}
+.btn-primary span,.btn-secondary{font-family:'DM Sans',sans-serif}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:999px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:rgba(6,182,212,0.9);box-shadow:0 0 10px rgba(6,182,212,0.9);animation:blink 2s ease infinite}
+.card-hover{transition:transform .3s cubic-bezier(.23,1,.32,1),box-shadow .3s;border:1px solid rgba(255,255,255,0.04)}
+.card-hover:hover{transform:translateY(-6px) scale(1.015);box-shadow:0 24px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(6,182,212,0.12)}
+.progress-track{background:rgba(255,255,255,0.07);border-radius:999px;height:7px;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,0.25),inset 0 0 0 0.5px rgba(255,255,255,0.06)}
+[data-theme="light"] .progress-track{background:rgba(0,0,0,0.06);box-shadow:inset 0 1px 3px rgba(0,0,0,0.08),inset 0 0 0 0.5px rgba(0,0,0,0.04)}
+.progress-fill{height:100%;border-radius:999px;position:relative;transition:width 1.5s cubic-bezier(.4,0,.2,1)}
+.progress-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25) 50%,transparent);animation:shimmer 2.5s ease infinite;border-radius:999px}
+.nav-link{font-size:14px;font-weight:500;color:var(--text);text-decoration:none;transition:color .2s;opacity:0.75}
+.nav-link:hover{color:var(--text);opacity:1}
+@media(max-width:768px){
+.desktop-nav{display:none!important}
+.hero-grid{grid-template-columns:1fr!important}
+.hero-visual{display:none!important}
+.cols-3,.cols-2{grid-template-columns:1fr!important}
+.cols-4{grid-template-columns:1fr 1fr!important}
+.stats-row{flex-direction:column!important;gap:16px!important;align-items:flex-start!important}
+.stat-divider{display:none!important}
+.footer-grid{grid-template-columns:1fr!important;gap:32px!important}
+}
+@media(max-width:480px){.cols-4{grid-template-columns:1fr!important}h1{font-size:clamp(2rem,8vw,3rem)!important}}
+@media(max-width:640px){
+.wrap{padding:0 20px}
+.btn-primary,.btn-secondary{padding:12px 22px;font-size:14px}
+h1{line-height:1.1!important}
+}
+.glow-aurora{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;opacity:0;transition:opacity .5s ease;background:conic-gradient(from var(--angle,0deg) at 50% 50%,rgba(6,182,212,0.20) 0deg,rgba(34,197,94,0.12) 60deg,rgba(6,182,212,0.05) 120deg,transparent 150deg,transparent 210deg,rgba(168,85,247,0.05) 240deg,rgba(6,182,212,0.12) 300deg,rgba(6,182,212,0.20) 360deg);mask:radial-gradient(circle at var(--gx,50%) var(--gy,50%),transparent 25%,#000 65%,#000 100%);-webkit-mask:radial-gradient(circle at var(--gx,50%) var(--gy,50%),transparent 25%,#000 65%,#000 100%)}
+.glow-core{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;opacity:0;transition:opacity .4s ease;background:radial-gradient(circle 160px at var(--gx,50%) var(--gy,50%),rgba(6,182,212,0.07) 0%,rgba(34,197,94,0.03) 35%,transparent 65%);mix-blend-mode:screen}
+.glow-rim{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;opacity:0;transition:opacity .6s ease;background:radial-gradient(300px circle at var(--gx,50%) var(--gy,50%),rgba(6,182,212,0.10) 0%,rgba(34,197,94,0.05) 25%,transparent 60%)}
+.glass-bisel:hover .glow-aurora,.liquid-glass:hover .glow-aurora,.liquid-glass-strong:hover .glow-aurora,.glass-bisel:hover .glow-core,.liquid-glass:hover .glow-core,.liquid-glass-strong:hover .glow-core,.glass-bisel:hover .glow-rim,.liquid-glass:hover .glow-rim,.liquid-glass-strong:hover .glow-rim{opacity:1}
+
+/* === Ajustes UI v4g — Navbar light, Hero typography, Layout botones, Logo === */
+/* 1. NAVBAR — solo modo light: fondo blanco puro, borde inferior sutil, enlaces #163A65, hover #338A7B */
+[data-theme="light"] .nav-glass{background:#FFFFFF;border-bottom:1px solid rgba(22,58,101,0.12);box-shadow:none}
+[data-theme="light"] .nav-link{color:#163A65;opacity:1;transition:color .2s ease}
+[data-theme="light"] .nav-link:hover{color:#338A7B;opacity:1}
+/* Botón theme: separado de los ítems principales, al extremo derecho con respiro y centrado vertical */
+.nav-glass .theme-btn{margin-left:24px;align-self:center}
+.nav-glass .wrap{padding-right:40px}
+@media(max-width:640px){.nav-glass .wrap{padding-right:24px}.nav-glass .theme-btn{margin-left:12px}}
+
+/* 2. HERO TITLE — Plus Jakarta Sans 200, palabras en degradé 800 */
+.hero-title{font-family:'Plus Jakarta Sans',-apple-system,'Helvetica Neue',sans-serif!important;font-weight:200!important}
+.hero-title .gradient-text,.hero-title .gradient-text-alt{font-weight:800!important}
+
+/* 4. HERO CTA — distribución horizontal en línea, sin palabras huérfanas */
+.hero-cta{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:16px}
+.hero-cta .btn-primary,.hero-cta .btn-secondary{white-space:nowrap}
+@media(max-width:540px){.hero-cta{flex-wrap:wrap}}
+
+/* 5. BRANDING — subir logo 2rem para mejor centrado vertical en hero (margin para no romper animación float) */
+.float-logo{margin-top:-2rem}
+
+/* 6. SECCIÓN COMPROMISO E IMPACTO — fondo con imagen + overlay oscuro para contraste */
+.compromiso-section{position:relative;isolation:isolate;background-image:url('../img/pexels-marek-piwnicki-3907296-7430463.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed}
+.compromiso-section::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,10,20,0.78) 0%,rgba(5,10,20,0.68) 50%,rgba(5,10,20,0.82) 100%);z-index:0;pointer-events:none}
+.compromiso-section > *{position:relative;z-index:1}
+/* Tarjeta interna: refuerzo opacidad para legibilidad sobre la imagen, en ambos temas */
+.compromiso-section .compromiso-card{background:rgba(10,18,32,0.62)!important;backdrop-filter:blur(28px) saturate(160%);-webkit-backdrop-filter:blur(28px) saturate(160%);border:1px solid rgba(255,255,255,0.14)!important;box-shadow:0 24px 60px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.08)!important}
+[data-theme="light"] .compromiso-section .compromiso-card{background:rgba(10,18,32,0.58)!important;border:1px solid rgba(255,255,255,0.16)!important}
+.compromiso-section .progress-track{background:rgba(255,255,255,0.18);box-shadow:inset 0 1px 3px rgba(0,0,0,0.35),inset 0 0 0 0.5px rgba(255,255,255,0.12)}
+[data-theme="light"] .compromiso-section .progress-track{background:rgba(255,255,255,0.18);box-shadow:inset 0 1px 3px rgba(0,0,0,0.35),inset 0 0 0 0.5px rgba(255,255,255,0.12)}
+/* Si fixed attach causa problemas en iOS, fallback a scroll */
+@supports (-webkit-touch-callout:none){.compromiso-section{background-attachment:scroll}}
+
+/* 7. SECCIÓN SECTORES — fondo con gradiente irregular animado, claro y saturado (sin overlay oscuro) */
+.sectors-section{position:relative;isolation:isolate;overflow:hidden;
+  background:linear-gradient(135deg,#C7F4EC 0%,#9EE6F5 35%,#7DD3FC 65%,#A7F3D0 100%)}
+[data-theme="light"] .sectors-section{background:linear-gradient(135deg,#D6F7F0 0%,#B5ECF8 35%,#90DCFB 65%,#BFF5DC 100%)}
+/* Capa de blobs ambientales: radial-gradients luminosos en paleta cyan/verde/teal, blur alto */
+.sectors-section::before{content:'';position:absolute;inset:-15%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(38% 32% at 18% 22%,rgba(94,234,212,0.95) 0%,rgba(94,234,212,0) 62%),
+    radial-gradient(34% 30% at 82% 28%,rgba(110,231,183,0.90) 0%,rgba(110,231,183,0) 64%),
+    radial-gradient(42% 36% at 28% 78%,rgba(125,211,252,0.92) 0%,rgba(125,211,252,0) 66%),
+    radial-gradient(36% 32% at 76% 82%,rgba(52,211,153,0.88) 0%,rgba(52,211,153,0) 64%),
+    radial-gradient(30% 28% at 50% 50%,rgba(165,243,252,0.85) 0%,rgba(165,243,252,0) 68%);
+  filter:blur(90px) saturate(170%);
+  animation:sectorsDrift 28s ease-in-out infinite alternate;
+  will-change:transform,filter}
+.sectors-section > *{position:relative;z-index:1}
+@keyframes sectorsDrift{
+  0%   {transform:translate3d(0,0,0) rotate(0deg) scale(1);filter:blur(90px) saturate(170%) hue-rotate(0deg)}
+  50%  {transform:translate3d(-3%,2%,0) rotate(6deg) scale(1.08);filter:blur(100px) saturate(185%) hue-rotate(-10deg)}
+  100% {transform:translate3d(3%,-2%,0) rotate(-6deg) scale(1.04);filter:blur(95px) saturate(175%) hue-rotate(8deg)}
+}
+@media(prefers-reduced-motion:reduce){.sectors-section::before{animation:none}}
+/* Legibilidad sobre fondo claro: badges/títulos del header en azul marino, panels internos conservan su look oscuro */
+.sectors-section .text-center h2{color:#0F2A4A!important;text-shadow:0 1px 14px rgba(255,255,255,0.45)}
+.sectors-section .text-center .badge{background:rgba(255,255,255,0.65)!important;border:1px solid rgba(15,42,74,0.12)}
+.sectors-section .text-center .badge span{color:#0E7C6B!important}
+.sectors-section .text-center .badge svg{stroke:#0E7C6B!important}
+
+/* 8. SECTOR CARDS — Modo Dark: fondo negro sólido #2D2926 para contraste óptimo sobre el aurora */
+:root:not([data-theme="light"]) .sector-panel,
+[data-theme="dark"] .sector-panel{background:#2D2926!important}
+
+/* 9. DESAFÍOS DEL MERCADO — imagen de fondo con parallax (background-attachment:fixed) */
+#desafios{position:relative;overflow:hidden}
+.desafios-bg{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:url('../img/pexels-rostislav-5307735.jpg');
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  background-attachment:fixed}
+.desafios-overlay{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,10,20,0.72) 0%,rgba(5,10,20,0.58) 50%,rgba(5,10,20,0.78) 100%)}
+[data-theme="light"] .desafios-overlay{background:linear-gradient(180deg,rgba(5,10,20,0.68) 0%,rgba(5,10,20,0.55) 50%,rgba(5,10,20,0.75) 100%)}
+@supports (-webkit-touch-callout:none){.desafios-bg{background-attachment:scroll}}
+
+/* 10. HOVER SHADOWS — Modo Light: opacidad y radio reducidos para sutileza */
+[data-theme="light"] .card-hover:hover{box-shadow:0 8px 18px rgba(15,23,42,0.06),0 0 0 1px rgba(8,145,178,0.08)}
+[data-theme="light"] .btn-primary:hover{box-shadow:0 4px 14px rgba(8,145,178,0.10),0 2px 6px rgba(5,150,105,0.08)}
+[data-theme="light"] .btn-secondary:hover{box-shadow:0 4px 14px rgba(8,145,178,0.06)}
+[data-theme="light"] .glass-bisel:hover,[data-theme="light"] .liquid-glass:hover,[data-theme="light"] .liquid-glass-strong:hover{box-shadow:0 6px 16px rgba(15,23,42,0.05),0 1px 3px rgba(15,23,42,0.04)}
+
+/* 11. AJUSTE GLOBAL DE IMÁGENES EN CARDS — sin desborde, sin espacios vacíos */
+.glass-bisel,.liquid-glass,.liquid-glass-strong,.sector-panel,.card-hover{overflow:hidden}
+.glass-bisel img,.liquid-glass img,.liquid-glass-strong img,.card-hover img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+/* Contenedor directo de <img> dentro de cards: que estire su altura al panel hermano */
+.glass-bisel > div:has(> img),.liquid-glass > div:has(> img){height:100%;min-height:100%}
+/* Verticales de Industria — fix definitivo de la celda de imagen para evitar espacio vacío inferior */
+#sectores .glass-bisel{align-items:stretch!important}
+/* Anula el height:380px inline y deja que el grid estire la celda al alto del panel hermano */
+#sectores .glass-bisel > div:has(> img){height:auto!important;min-height:380px;align-self:stretch;display:block;position:relative;overflow:hidden}
+#sectores .glass-bisel > div:has(> img) > img{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover;object-position:center;display:block}
+/* Hereda el border-radius de la card en las esquinas correspondientes (imagen izquierda en odd / derecha en even) */
+#sectores .glass-bisel > div:first-child:has(> img){border-top-left-radius:32px;border-bottom-left-radius:32px}
+#sectores .glass-bisel > div:last-child:has(> img){border-top-right-radius:32px;border-bottom-right-radius:32px}
+@media(max-width:768px){
+  #sectores .glass-bisel{grid-template-columns:1fr!important}
+  #sectores .glass-bisel > div:has(> img){min-height:280px;border-radius:32px 32px 0 0!important}
+  #sectores .glass-bisel > div:last-child:has(> img){border-radius:0 0 32px 32px!important}
+}
+
+/* 12. FORMULARIO DE CONTACTO — coherencia con cards (border-radius, glass, Plus Jakarta Sans) */
+.contact-form{font-family:'Plus Jakarta Sans','DM Sans',sans-serif;text-align:left;margin:0 auto 32px;max-width:560px}
+.cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;margin-bottom:24px}
+.cf-field{display:flex;flex-direction:column;gap:8px}
+.cf-field-full{grid-column:1 / -1}
+.cf-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:500;letter-spacing:.04em;color:var(--text-secondary);text-transform:uppercase}
+.cf-input{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:400;color:var(--text);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.10);border-radius:14px;padding:14px 16px;outline:none;transition:border-color .2s ease,background .2s ease,box-shadow .2s ease;width:100%;line-height:1.5}
+.cf-input::placeholder{color:var(--text-muted);font-weight:300}
+.cf-textarea{resize:vertical;min-height:120px;font-family:'Plus Jakarta Sans',sans-serif}
+.cf-input:hover{border-color:rgba(255,255,255,0.18)}
+.cf-input:focus{border-color:#338A7B;background:rgba(51,138,123,0.06);box-shadow:0 0 0 3px rgba(51,138,123,0.18)}
+.cf-input:focus-visible{outline:none}
+.cf-input:invalid:not(:placeholder-shown){border-color:rgba(239,68,68,0.55)}
+.cf-submit{width:auto;min-width:220px;padding:14px 36px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600}
+.cf-status{font-size:13px;color:var(--text-secondary);margin-top:14px;min-height:18px;text-align:center}
+.cf-status.success{color:#22c55e}
+.cf-status.error{color:#ef4444}
+/* Modo light: paleta limpia, blanco */
+[data-theme="light"] .cf-input{background:#FFFFFF;border:1px solid rgba(22,58,101,0.18);color:#163A65}
+[data-theme="light"] .cf-input::placeholder{color:#94A3B8}
+[data-theme="light"] .cf-input:hover{border-color:rgba(22,58,101,0.30)}
+[data-theme="light"] .cf-input:focus{border-color:#338A7B;background:#FFFFFF;box-shadow:0 0 0 3px rgba(51,138,123,0.20)}
+[data-theme="light"] .cf-label{color:#163A65}
+[data-theme="light"] .cf-status{color:#475569}
+@media(max-width:520px){.cf-grid{grid-template-columns:1fr}.cf-submit{width:100%}}
+
+/* 13. PILARES — fondo: dark conserva color sólido, light replica el aurora de "Sectores" */
+.pilares-section{position:relative;isolation:isolate;overflow:hidden;background:#0f172a}
+[data-theme="light"] .pilares-section{background:linear-gradient(135deg,#D6F7F0 0%,#B5ECF8 35%,#90DCFB 65%,#BFF5DC 100%)}
+[data-theme="light"] .pilares-section::before{content:'';position:absolute;inset:-15%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(38% 32% at 18% 22%,rgba(94,234,212,0.95) 0%,rgba(94,234,212,0) 62%),
+    radial-gradient(34% 30% at 82% 28%,rgba(110,231,183,0.90) 0%,rgba(110,231,183,0) 64%),
+    radial-gradient(42% 36% at 28% 78%,rgba(125,211,252,0.92) 0%,rgba(125,211,252,0) 66%),
+    radial-gradient(36% 32% at 76% 82%,rgba(52,211,153,0.88) 0%,rgba(52,211,153,0) 64%),
+    radial-gradient(30% 28% at 50% 50%,rgba(165,243,252,0.85) 0%,rgba(165,243,252,0) 68%);
+  filter:blur(90px) saturate(170%);
+  animation:sectorsDrift 28s ease-in-out infinite alternate;
+  will-change:transform,filter}
+.pilares-section > *{position:relative;z-index:1}
+@media(prefers-reduced-motion:reduce){.pilares-section::before{animation:none}}
+
+/* 14. DESAFÍOS DEL MERCADO — modo light usa imagen específica */
+[data-theme="light"] .desafios-bg{background-image:url('../img/desafíos del mercado-light.jpg')}
+
+/* 20. FOOTER LOGO — más grande y sin "ENTERPRISE" */
+footer .logo-wrap.footer-logo{height:auto!important;display:inline-flex;align-items:center}
+footer .logo-wrap.footer-logo svg{height:56px!important;width:auto!important}
+@media(max-width:640px){footer .logo-wrap.footer-logo svg{height:48px!important}}
+
+/* 16. PÍLDORA "DESAFÍOS DEL MERCADO" — Modo light: glass verde translúcido alto contraste */
+[data-theme="light"] #desafios .badge{
+  background:linear-gradient(135deg,rgba(14,124,107,0.32) 0%,rgba(34,197,94,0.28) 100%)!important;
+  backdrop-filter:blur(18px) saturate(180%);
+  -webkit-backdrop-filter:blur(18px) saturate(180%);
+  border:1px solid rgba(14,124,107,0.35)!important;
+  box-shadow:0 4px 18px rgba(14,124,107,0.18),inset 0 1px 0 rgba(255,255,255,0.40)}
+[data-theme="light"] #desafios .badge span{color:#4cc783!important;font-weight:600}
+[data-theme="light"] #desafios .badge svg{stroke:#4cc783!important}
+
+/* 17. PÍLDORA "PILARES DE ESPECIALIZACIÓN" — Modo light: texto blanco */
+[data-theme="light"] #pilares .text-center .badge span{color:#FFFFFF!important}
+[data-theme="light"] #pilares .text-center .badge svg{stroke:#FFFFFF!important}
+[data-theme="light"] #pilares .text-center .badge{background:linear-gradient(135deg,rgba(168,85,247,0.85),rgba(59,130,246,0.85))!important;border:1px solid rgba(255,255,255,0.25)!important;box-shadow:0 4px 14px rgba(168,85,247,0.25)}
+
+/* 18. CARD AI SOLUTIONS — chips 03 / NLP / LLMs unificados */
+#pilares .ai-chip{background:rgba(113,231,255,0.3)!important;color:#66e8ff!important;padding:10px 18px;border-radius:10px;font-size:13px;display:inline-flex;align-items:center}
+#pilares .ai-chip-num{background:rgba(113,231,255,0.3)!important;color:#66e8ff!important;font-size:14px;font-weight:700;padding:8px 16px;border-radius:8px;display:inline-flex;align-items:center}
+#pilares .ai-chip-label{color:#66e8ff!important}
+
+/* 19. FORMULARIO — bloque de info de contacto con iconos */
+.contact-info{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:8px}
+.contact-info-item{display:inline-flex;align-items:center;gap:12px;padding:12px 18px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-decoration:none;transition:background .2s ease,border-color .2s ease,transform .2s ease;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.contact-info-item:hover{background:rgba(51,138,123,0.10);border-color:rgba(51,138,123,0.45);transform:translateY(-2px)}
+.contact-info-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,rgba(6,182,212,0.20),rgba(34,197,94,0.18));display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(255,255,255,0.08)}
+.contact-info-icon svg{width:18px;height:18px;stroke:var(--cyan)}
+.contact-info-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2;text-align:left}
+.contact-info-label{font-size:11px;text-transform:uppercase;letter-spacing:.10em;color:var(--text-muted);font-weight:500;margin-bottom:3px}
+.contact-info-value{font-size:14px;font-weight:600;color:var(--text)}
+[data-theme="light"] .contact-info-item{background:#FFFFFF;border:1px solid rgba(22,58,101,0.14);box-shadow:0 2px 10px rgba(15,23,42,0.04)}
+[data-theme="light"] .contact-info-item:hover{background:rgba(51,138,123,0.06);border-color:rgba(51,138,123,0.45);box-shadow:0 4px 16px rgba(51,138,123,0.10)}
+[data-theme="light"] .contact-info-icon{background:linear-gradient(135deg,rgba(8,145,178,0.12),rgba(51,138,123,0.12));border:1px solid rgba(22,58,101,0.10)}
+[data-theme="light"] .contact-info-icon svg{stroke:#0E7C6B}
+[data-theme="light"] .contact-info-label{color:#64748B}
+[data-theme="light"] .contact-info-value{color:#163A65}
+@media(max-width:520px){.contact-info{flex-direction:column;align-items:stretch}.contact-info-item{justify-content:flex-start}}
+
+/* 15. PLANES — Fix corte de etiqueta "Popular" en card Fase 2 */
+/* La card padre debe permitir desbordar para que la píldora sobresalga */
+#planes .glass-bisel,#planes .liquid-card{overflow:visible!important}
+/* Las capas internas de glass mantienen su clipping con border-radius heredado */
+#planes .glass-bisel .refract-layer,#planes .glass-bisel .glow-aurora,#planes .glass-bisel .glow-core,#planes .glass-bisel .glow-rim{border-radius:inherit;overflow:hidden}
+/* Espacio superior en la fila/grid para que el badge no quede tapado por la card vecina */
+#planes .cols-3,#planes [style*="grid-template-columns"]{padding-top:18px}
+/* Píldora Popular: posicionada y sobre el resto */
+.popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--cyan),var(--emerald));border-radius:999px;padding:6px 18px;font-size:10px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;z-index:10;box-shadow:0 8px 20px rgba(6,182,212,0.35),0 2px 6px rgba(16,185,129,0.25);font-family:'Plus Jakarta Sans',sans-serif}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="neural-grid"></canvas>
+<nav class="nav-glass">
+<div class="wrap" style="height:100%;display:flex;align-items:center;justify-between">
+<div style="display:flex;align-items:center;justify-content:center;flex:1;gap:32px">
+<div class="desktop-nav" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center">
+<a href="#desafios" class="nav-link">Desaf&iacute;os</a>
+<a href="#pilares" class="nav-link">Pilares</a>
+<a href="#servicios" class="nav-link">Servicios</a>
+<a href="#sectores" class="nav-link">Sectores</a>
+<a href="#planes" class="nav-link">Planes</a>
+<a href="#casos" class="nav-link">Casos</a>
+<a href="#modelo" class="nav-link">Modelo</a>
+</div>
+<div style="display:flex;align-items:center;gap:16px">
+<a href="#contacto" class="btn-primary" id="navCta" style="display:none"><span>Solicita tu diagn&oacute;stico</span></a>
+<button class="theme-btn" id="themeToggle" aria-label="Toggle theme">&#9790;</button>
+<button id="menuToggle" style="width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);cursor:pointer;display:none;align-items:center;justify-content:center;color:var(--text)" aria-label="Menu">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+</div>
+</div>
+</nav>
+<div class="mobile-menu liquid-glass-strong" id="mobileMenu" style="padding:80px 32px 32px;display:flex;flex-direction:column;gap:24px">
+<button id="menuClose" style="position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text)" aria-label="Close">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+</button>
+<a href="#desafios" style="font-size:18px;color:var(--text-secondary);text-decoration:none" onclick="closeMobileMenu()">Desaf&iacute;os</a>
+<a href="#pilares" style="font-size:18px;color:var(--text-secondary);text-decoration:none" onclick="closeMobileMenu()">Pilares</a>
+<a href="#servicios" style="font-size:18px;color:var(--text-secondary);text-decoration:none" onclick="closeMobileMenu()">Servicios</a>
+<a href="#sectores" style="font-size:18px;color:var(--text-secondary);text-decoration:none" onclick="closeMobileMenu()">Sectores</a>
+<a href="#planes" style="font-size:18px;color:var(--text-secondary);text-decoration:none" onclick="closeMobileMenu()">Planes</a>
+<a href="#casos" style="font-size:18px;color:var(--text-secondary);text-decoration:none" onclick="closeMobileMenu()">Casos</a>
+<a href="#modelo" style="font-size:18px;color:var(--text-secondary);text-decoration:none" onclick="closeMobileMenu()">Modelo</a>
+<div style="padding-top:24px;border-top:1px solid rgba(255,255,255,0.1)">
+<a href="#contacto" class="btn-primary" style="display:block;text-align:center;text-decoration:none" onclick="closeMobileMenu()"><span>Solicita tu diagn&oacute;stico gratuito</span></a>
+</div>
+</div>
+<div class="menu-overlay" id="menuOverlay" onclick="closeMobileMenu()"></div>
+
+<section class="min-h-screen flex items-center" style="padding-top:64px;position:relative;overflow:hidden">
+<canvas id="hero-blobs" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0"></canvas>
+<div class="wrap" style="padding-top:80px;padding-bottom:80px;position:relative;z-index:1">
+<div class="hero-grid" style="display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:center">
+<div>
+<h1 class="reveal hero-title" style="font-size:clamp(2.5rem,5vw,4rem);letter-spacing:-.03em;line-height:1.08;margin-bottom:24px">El puente hacia la <span class="gradient-text">eficiencia inteligente</span></h1>
+<p class="reveal" style="font-size:17px;line-height:1.8;color:var(--text-secondary);margin-bottom:40px;max-width:520px">Dise&ntilde;amos ecosistemas tecnol&oacute;gicos robustos combinando arquitectura de software e IA para optimizar procesos.</p>
+<div class="reveal hero-cta" style="margin-bottom:48px">
+<a href="#contacto" class="btn-primary"><span>Solicita tu diagn&oacute;stico gratuito</span></a>
+<a href="#servicios" class="btn-secondary">Conoce nuestros servicios</a>
+</div>
+<div class="reveal stats-row" style="display:flex;align-items:center;gap:32px">
+<div><div class="counter" data-target="30" data-suffix="%" style="font-size:2rem;font-weight:700;color:var(--text)">0%</div><div style="font-size:12.5px;color:var(--text-secondary);margin-top:4px">Optimizaci&oacute;n de procesos</div></div>
+<div class="stat-divider" style="width:1px;height:40px;background:rgba(255,255,255,0.1)"></div>
+<div><div class="counter" data-target="500" data-suffix="+" style="font-size:2rem;font-weight:700;color:var(--text)">0+</div><div style="font-size:12.5px;color:var(--text-secondary);margin-top:4px">Horas automatizadas / mes</div></div>
+<div class="stat-divider" style="width:1px;height:40px;background:rgba(255,255,255,0.1)"></div>
+<div><div class="counter" data-target="99.5" data-suffix="%" data-decimal="true" style="font-size:2rem;font-weight:700;color:var(--text)">0%</div><div style="font-size:12.5px;color:var(--text-secondary);margin-top:4px">Uptime garantizado</div></div>
+</div>
+</div>
+<div class="hero-visual reveal" style="position:relative;display:flex;align-items:center;justify-content:center;min-height:500px">
+<div style="position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center">
+<div class="float-logo" style="position:relative;z-index:2">
+<svg viewBox="0 0 444 184" style="height:180px;filter:drop-shadow(0 1px 8px rgba(18,210,124,0.12))" xmlns="http://www.w3.org/2000/svg"><g transform="matrix(1,0,0,1,-7377.781151,-170.180574)"><g transform="matrix(0.712167,0,0,0.712167,5028.971158,-567.36509)"><g><g transform="matrix(0.785597,0,0,0.785597,2799.009834,517.554025)"><circle cx="762.104" cy="786.291" r="125.819" style="fill:none;stroke:rgb(22,58,101);stroke-width:1.93px"/></g><g transform="matrix(0.785597,0,0,0.785597,2897.827199,517.528326)"><circle cx="762.104" cy="786.291" r="125.819" style="fill:none;stroke:rgb(71,112,153);stroke-width:1.93px"/></g><g transform="matrix(0.785597,0,0,0.785597,2996.670263,517.528326)"><circle cx="762.104" cy="786.291" r="125.819" style="fill:none;stroke:rgb(51,138,123);stroke-width:1.93px"/></g><g transform="matrix(0.785597,0,0,0.785597,3095.513327,517.528326)"><circle cx="762.104" cy="786.291" r="125.819" style="fill:none;stroke:rgb(18,210,124);stroke-width:1.93px"/></g><g transform="matrix(0.988174,0,0,0.988174,3010.776399,833.308568)"><g><g transform="matrix(0.852227,0,0,0.852227,123.146139,52.539321)"><path d="M936.838,238.201L936.838,355.541L819.499,355.541L819.499,238.201L936.838,238.201ZM854.484,317.25L879.815,317.25L884.703,332.112L900.194,332.112L873.86,261.63L860.354,261.63L834.166,332.112L849.608,332.112L854.484,317.25ZM867.134,278.694L876.074,305.875L858.216,305.875L867.134,278.694ZM922.171,261.63L907.697,261.63L907.697,332.112L922.171,332.112L922.171,261.63Z" style="fill:rgb(18,210,124)"/></g><g transform="matrix(1,0,0,1,276.589017,0)"><path d="M364.956,255.54C392.551,255.54 414.956,277.945 414.956,305.54C414.956,333.137 392.551,355.541 364.956,355.541C337.36,355.541 314.956,333.137 314.956,305.54C314.956,277.945 337.36,255.54 364.956,255.54ZM364.956,270.54C345.639,270.54 329.956,286.223 329.956,305.54C329.956,324.858 345.639,340.54 364.956,340.54C384.273,340.54 399.956,324.858 399.956,305.54C399.956,286.223 384.273,270.54 364.956,270.54Z" style="fill:rgb(18,210,124)"/></g><path d="M376.545,341.234C367.523,350.082 355.166,355.541 341.545,355.541C313.949,355.541 291.545,333.137 291.545,305.54C291.545,277.945 313.949,255.54 341.545,255.54C355.166,255.54 367.523,260.999 376.545,269.847L376.545,255.54L391.545,255.54L391.545,355.541L376.545,355.541L376.545,341.234ZM376.545,305.54C376.545,286.223 360.862,270.54 341.545,270.54C322.228,270.54 306.545,286.223 306.545,305.54C306.545,324.858 322.228,340.54 341.545,340.54C360.862,340.54 376.545,324.858 376.545,305.54Z" style="fill:rgb(22,58,101)"/><path d="M776.545,305.54C776.545,286.223 760.862,270.54 741.545,270.54C722.228,270.54 706.545,286.223 706.545,305.54L706.545,355.541L691.545,355.541L691.545,255.54L706.545,255.54L706.545,269.847C715.566,260.999 727.923,255.54 741.545,255.54C755.166,255.54 767.523,260.999 776.545,269.847C785.8,278.924 791.545,291.566 791.545,305.54L791.545,355.541L776.545,355.541L776.545,305.54Z" style="fill:rgb(18,210,124)"/><path d="M476.545,341.234C467.523,350.082 455.166,355.541 441.545,355.541C413.949,355.541 391.545,333.137 391.545,305.54C391.545,277.945 413.949,255.54 441.545,255.54C455.166,255.54 467.523,260.999 476.545,269.847L476.545,205.541L491.545,205.541L491.545,355.541L476.545,355.541L476.545,341.234ZM476.545,305.54C476.545,286.223 460.862,270.54 441.545,270.54C422.228,270.54 406.545,286.223 406.545,305.54C406.545,324.858 422.228,340.54 441.545,340.54C460.862,340.54 476.545,324.858 476.545,305.54Z" style="fill:rgb(71,112,153)"/><path d="M576.545,341.234C567.523,350.082 555.166,355.541 541.545,355.541C513.949,355.541 491.545,333.137 491.545,305.54C491.545,277.945 513.949,255.54 541.545,255.54C555.166,255.54 567.523,260.999 576.545,269.847L576.545,205.541L591.545,205.541L591.545,355.541L576.545,355.541L576.545,341.234ZM576.545,305.54C576.545,286.223 560.862,270.54 541.545,270.54C522.228,270.54 506.545,286.223 506.545,305.54C506.545,324.858 522.228,340.54 541.545,340.54C560.862,340.54 576.545,324.858 576.545,305.54Z" style="fill:rgb(51,138,123)"/><g transform="matrix(0.492254,0,0,0.492254,353.294024,136.163886)"><circle cx="179.278" cy="168.15" r="15.236" style="fill:rgb(71,112,153)"/></g><g transform="matrix(0.492254,0,0,0.492254,353.294024,309.372382)"><circle cx="179.278" cy="168.15" r="15.236" style="fill:rgb(71,112,153)"/></g><g transform="matrix(0.492254,0,0,0.492254,453.294024,136.163886)"><circle cx="179.278" cy="168.15" r="15.236" style="fill:rgb(51,138,123)"/></g><g transform="matrix(0.492254,0,0,0.492254,453.294024,309.372382)"><circle cx="179.278" cy="168.15" r="15.236" style="fill:rgb(51,138,123)"/></g><g transform="matrix(0.492254,0,0,0.492254,553.294024,136.163886)"><circle cx="179.278" cy="168.15" r="15.236" style="fill:rgb(18,210,124)"/></g><g transform="matrix(0.492254,0,0,0.492254,553.294024,309.372382)"><circle cx="179.278" cy="168.15" r="15.236" style="fill:rgb(18,210,124)"/></g><g transform="matrix(1.642781,0,0,1.642781,24.143733,-305.140467)"><text x="397.149px" y="468.904px" style="font-family:'Roboto-Medium','Roboto';font-weight:500;font-size:25px;fill:rgb(22,58,101)">E<tspan x="411.848 429.805 445.615 460.313 476.623 493.153 509.463 517.118 532.829" y="468.904 468.904 468.904 468.904 468.904 468.904 468.904 468.904 468.904">NTERPRISE</tspan></text></g></g></g></g></svg>
+</div>
+
+</div>
+<div class="liquid-glass card-hover" style="position:absolute;top:10px;right:10px;border-radius:20px;padding:14px 18px;display:flex;align-items:center;gap:10px">
+<div style="width:32px;height:32px;border-radius:10px;background:rgba(34,197,94,0.2);display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+<div><div style="font-size:10px;color:var(--text-muted)">Eficiencia</div><div style="font-size:14px;font-weight:700;color:var(--emerald)">+30%</div></div>
+</div>
+<div class="liquid-glass card-hover" style="position:absolute;bottom:10px;left:10px;border-radius:20px;padding:14px 18px;display:flex;align-items:center;gap:10px">
+<div style="width:32px;height:32px;border-radius:10px;background:rgba(6,182,212,0.2);display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+<div><div style="font-size:10px;color:var(--text-muted)">Uptime</div><div style="font-size:14px;font-weight:700;color:var(--cyan)">99.5%</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="desafios" style="padding:140px 0;position:relative;overflow:hidden">
+<div class="desafios-bg"></div>
+<div class="desafios-overlay"></div>
+<div class="wrap" style="position:relative">
+<div class="text-center" style="margin-bottom:64px">
+<div class="reveal badge liquid-glass-subtle" style="margin-bottom:24px;display:inline-flex;background:rgba(239,68,68,0.2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span style="color:#ef4444">Desaf&iacute;os del Mercado</span></div>
+<h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:#fff;margin-bottom:16px">&iquest;Por qu&eacute; las empresas no logran <span class="gradient-text">escalar su tecnolog&iacute;a</span>?</h2>
+</div>
+<div class="cols-2" style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+<div class="reveal glass-bisel card-hover" style="padding:36px;background:rgba(255,255,255,0.03)"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="width:56px;height:56px;border-radius:16px;background:rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:24px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div><h3 style="font-size:18px;font-weight:600;color:#fff;margin-bottom:10px">Sistemas Legados</h3><p style="font-size:14px;color:#dde5ef;line-height:1.6">Software que frena la operaci&oacute;n en lugar de impulsarla.</p></div>
+<div class="reveal glass-bisel card-hover" style="padding:36px;background:rgba(255,255,255,0.03)"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="width:56px;height:56px;border-radius:16px;background:rgba(245,158,11,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:24px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><h3 style="font-size:18px;font-weight:600;color:#fff;margin-bottom:10px">Datos Aislados</h3><p style="font-size:14px;color:#dde5ef;line-height:1.6">Informaci&oacute;n valiosa atrapada en silos sin an&aacute;lisis real.</p></div>
+<div class="reveal glass-bisel card-hover" style="padding:36px;background:rgba(255,255,255,0.03)"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="width:56px;height:56px;border-radius:16px;background:rgba(168,85,247,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:24px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M20.66 7A10 10 0 0 0 14 2v5.37"/></svg></div><h3 style="font-size:18px;font-weight:600;color:#fff;margin-bottom:10px">IA Experimental</h3><p style="font-size:14px;color:#dde5ef;line-height:1.6">Dificultad para pasar de "prototipos" a soluciones con ROI real.</p></div>
+<div class="reveal glass-bisel card-hover" style="padding:36px;background:rgba(255,255,255,0.03)"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="width:56px;height:56px;border-radius:16px;background:rgba(236,72,153,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:24px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3 style="font-size:18px;font-weight:600;color:#fff;margin-bottom:10px">Ineficiencia Operativa</h3><p style="font-size:14px;color:#dde5ef;line-height:1.6">Procesos manuales que consumen cientos de horas hombre.</p></div>
+</div>
+</div>
+</section>
+
+<section style="padding:140px 0;background:linear-gradient(180deg,rgba(34,197,94,0.05) 0%,rgba(6,182,212,0.08) 100%)">
+<div class="wrap">
+<div class="reveal glass-bisel" style="padding:64px;text-align:center;background:linear-gradient(135deg,rgba(34,197,94,0.08),rgba(6,182,212,0.05))"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div>
+<div class="badge liquid-glass-subtle" style="margin-bottom:24px;display:inline-flex;background:linear-gradient(135deg,rgba(34,197,94,0.2),rgba(6,182,212,0.15))"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span style="color:var(--emerald)">Arquitectura + IA</span></div>
+<h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:16px">Ventaja Operativa <span class="gradient-text-alt">Sostenible</span></h2>
+<p class="reveal" style="font-size:16px;color:var(--text-secondary);line-height:1.7;max-width:720px;margin:0 auto">Addon AI es el socio tecnol&oacute;gico estrat&eacute;gico integral que construye, despliega y mantiene ecosistemas digitales completos impulsados por IA. Arquitectamos soluciones de clase producci&oacute;n basadas en cloud computing.</p>
+</div>
+</div>
+</section>
+
+<section id="pilares" class="pilares-section" style="padding:140px 0">
+<div class="wrap">
+<div class="text-center" style="margin-bottom:72px">
+<div class="reveal badge liquid-glass-subtle" style="margin-bottom:24px;display:inline-flex;background:linear-gradient(135deg,rgba(168,85,247,0.25),rgba(59,130,246,0.2))"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span style="color:var(--violet)">Pilares de Especializaci&oacute;n</span></div>
+<h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:16px">Tres pilares, una <span class="gradient-text">visi&oacute;n integral</span></h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:40px">
+<div class="reveal" style="position:relative;overflow:hidden;border-radius:32px;height:400px">
+<img src="../img/pexels-googledeepmind-25626428.jpg" alt="Software" style="width:100%;height:100%;object-fit:cover;transition:transform 0.8s"/>
+<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,10,20,0.92) 0%,rgba(5,10,20,0.6) 40%,transparent 70%)"></div>
+<div style="position:absolute;top:50%;left:60px;transform:translateY(-50%);max-width:480px">
+<div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+<span style="font-size:14px;font-weight:700;color:var(--cyan);background:rgba(6,182,212,0.2);padding:8px 16px;border-radius:8px">01</span>
+<span style="font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--cyan)">Software &amp; Modernizaci&oacute;n</span>
+</div>
+<h3 style="font-size:36px;font-weight:700;color:#fff;margin-bottom:16px;line-height:1.2">Arquitectura cloud-native</h3>
+<p style="font-size:16px;color:#dde5ef;line-height:1.7;margin-bottom:24px">Microservicios seguros, APIs, CI/CD automatizadas y despliegue continuo.</p>
+<div style="display:flex;gap:12px"><span style="background:rgba(6,182,212,0.3);padding:10px 18px;border-radius:10px;font-size:13px;color:var(--cyan)">DevSecOps</span><span style="background:rgba(6,182,212,0.3);padding:10px 18px;border-radius:10px;font-size:13px;color:var(--cyan)">Kubernetes</span></div>
+</div>
+</div>
+<div class="reveal" style="position:relative;overflow:hidden;border-radius:32px;height:400px">
+<img src="../img/binario.jpg" alt="Data" style="width:100%;height:100%;object-fit:cover;transition:transform 0.8s"/>
+<div style="position:absolute;inset:0;background:linear-gradient(270deg,rgba(5,10,20,0.92) 0%,rgba(5,10,20,0.6) 40%,transparent 70%)"></div>
+<div style="position:absolute;top:50%;right:60px;transform:translateY(-50%);max-width:480px;text-align:right">
+<div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-direction:row-reverse">
+<span style="font-size:14px;font-weight:700;color:var(--emerald);background:rgba(34,197,94,0.2);padding:8px 16px;border-radius:8px">02</span>
+<span style="font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--emerald)">Data &amp; MLOps</span>
+</div>
+<h3 style="font-size:36px;font-weight:700;color:#fff;margin-bottom:16px;line-height:1.2">Ingenier&iacute;a de datos</h3>
+<p style="font-size:16px;color:#dde5ef;line-height:1.7;margin-bottom:24px">Lakehouse, pipelines de alto flujo y modelos predictivos en producci&oacute;n.</p>
+<div style="display:flex;gap:12px;justify-content:flex-end"><span style="background:rgba(34,197,94,0.3);padding:10px 18px;border-radius:10px;font-size:13px;color:var(--emerald)">Spark</span><span style="background:rgba(34,197,94,0.3);padding:10px 18px;border-radius:10px;font-size:13px;color:var(--emerald)">MLflow</span></div>
+</div>
+</div>
+<div class="reveal" style="position:relative;overflow:hidden;border-radius:32px;height:400px">
+<img src="../img/pexels-googledeepmind-18069816.jpg" alt="AI" style="width:100%;height:100%;object-fit:cover;transition:transform 0.8s"/>
+<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,10,20,0.92) 0%,rgba(5,10,20,0.6) 40%,transparent 70%)"></div>
+<div style="position:absolute;top:50%;left:60px;transform:translateY(-50%);max-width:480px">
+<div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+<span class="ai-chip-num">03</span>
+<span class="ai-chip-label" style="font-size:11px;text-transform:uppercase;letter-spacing:.15em">AI Solutions</span>
+</div>
+<h3 style="font-size:36px;font-weight:700;color:#fff;margin-bottom:16px;line-height:1.2">Agentes inteligentes</h3>
+<p style="font-size:16px;color:#dde5ef;line-height:1.7;margin-bottom:24px">Agentes conversacionales, detecci&oacute;n de fraude y diagn&oacute;stico asistido por IA.</p>
+<div style="display:flex;gap:12px"><span class="ai-chip">NLP</span><span class="ai-chip">LLMs</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<style>.glass-bisel:hover img{transform:scale(1.03)}</style>
+
+<section style="padding:112px 0">
+<div class="wrap">
+<div class="text-center" style="margin-bottom:64px"><div class="reveal badge liquid-glass-subtle" style="margin-bottom:24px;display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span style="color:var(--emerald)">Quick Wins</span></div><h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:16px">Resultados <span class="gradient-text-alt">semanales</span></h2></div>
+<div class="cols-2" style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+<div class="reveal glass-bisel card-hover" style="padding:32px"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="display:flex;align-items:center;gap:16px;margin-bottom:16px"><div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--emerald),var(--cyan));display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div style="font-size:12.5px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.1em">Inmediato</div><div style="font-size:16px;font-weight:600;color:var(--text)">Diagn&oacute;stico de negocio</div></div></div><p style="font-size:14px;color:var(--text-secondary);line-height:1.6">Identificaci&oacute;n de 3 a 5 mejoras cr&iacute;ticas de salud y deuda t&eacute;cnica.</p></div>
+<div class="reveal glass-bisel card-hover" style="padding:32px"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="display:flex;align-items:center;gap:16px;margin-bottom:16px"><div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--blue));display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff">2</div><div><div style="font-size:12.5px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.1em">Semanas</div><div style="font-size:16px;font-weight:600;color:var(--text)">Propuesta tecnol&oacute;gica</div></div></div><p style="font-size:14px;color:var(--text-secondary);line-height:1.6">Diagn&oacute;stico t&eacute;cnico y plan de acci&oacute;n de 90 d&iacute;as.</p></div>
+</div>
+</div>
+</section>
+
+<section id="servicios" style="padding:112px 0">
+<div class="wrap">
+<div class="text-center" style="margin-bottom:64px"><div class="reveal badge liquid-glass-subtle" style="margin-bottom:24px;display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><span style="color:var(--cyan)">Paquetes de Servicios</span></div><h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:16px">Soluciones a <span class="gradient-text">medida</span></h2></div>
+<div class="cols-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+<div class="reveal glass-bisel card-hover liquid-card" style="padding:32px 24px;text-align:center"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="width:56px;height:56px;border-radius:16px;background:rgba(6,182,212,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h3 style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px">Consultor&iacute;a Estrat&eacute;gica</h3><p style="font-size:13px;color:var(--text-secondary);line-height:1.5">Diagn&oacute;stico y hoja de ruta</p><div class="liquid-glass-subtle" style="display:inline-block;padding:4px 12px;font-size:11px;color:var(--cyan);margin-top:12px">Discovery</div></div>
+<div class="reveal glass-bisel card-hover liquid-card" style="padding:32px 24px;text-align:center"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="width:56px;height:56px;border-radius:16px;background:rgba(34,197,94,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3 style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px">Desarrollo a Medida</h3><p style="font-size:13px;color:var(--text-secondary);line-height:1.5">Microservicios, APIs y agentes de IA</p><div class="liquid-glass-subtle" style="display:inline-block;padding:4px 12px;font-size:11px;color:var(--emerald);margin-top:12px">Build</div></div>
+<div class="reveal glass-bisel card-hover liquid-card" style="padding:32px 24px;text-align:center"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="width:56px;height:56px;border-radius:16px;background:rgba(59,130,246,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h3 style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px">Data &amp; Analytics</h3><p style="font-size:13px;color:var(--text-secondary);line-height:1.5">Ingenier&iacute;a de datos y dashboards interactivos</p><div class="liquid-glass-subtle" style="display:inline-block;padding:4px 12px;font-size:11px;color:var(--blue);margin-top:12px">Analyze</div></div>
+<div class="reveal glass-bisel card-hover liquid-card" style="padding:32px 24px;text-align:center"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="width:56px;height:56px;border-radius:16px;background:rgba(168,85,247,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3 style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px">Managed Services</h3><p style="font-size:13px;color:var(--text-secondary);line-height:1.5">Monitoreo 24/7 y SLA garantizado</p><div class="liquid-glass-subtle" style="display:inline-block;padding:4px 12px;font-size:11px;color:#a855f7;margin-top:12px">Operate</div></div>
+</div>
+</div>
+</section>
+
+<section id="sectores" class="sectors-section" style="padding:140px 0">
+<div class="wrap">
+<div class="text-center" style="margin-bottom:72px"><div class="reveal badge liquid-glass-subtle" style="margin-bottom:24px;display:inline-flex;background:linear-gradient(135deg,rgba(6,182,212,0.2),rgba(34,197,94,0.15))"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span style="color:var(--cyan)">Soluciones por Sector</span></div><h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:16px">Verticales de <span class="gradient-text">industria</span></h2></div>
+<div style="display:flex;flex-direction:column;gap:48px">
+<div class="reveal glass-bisel" style="display:grid;grid-template-columns:1.3fr 1fr;overflow:hidden;border-radius:32px">
+<div style="height:380px;overflow:hidden;position:relative">
+<img src="../img/trading.jpg" alt="Finanzas" style="width:100%;height:100%;object-fit:cover"/>
+<div class="sector-img-overlay" style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,10,20,0.9) 0%,transparent 50%)"></div>
+<div style="position:absolute;bottom:32px;left:32px">
+<span style="background:rgba(6,182,212,0.9);padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;color:#fff">SERVICIOS FINANCIEROS</span>
+</div>
+</div>
+<div class="sector-panel" style="padding:48px;background:linear-gradient(135deg,rgba(6,182,212,0.08),rgba(5,10,20,0.95))">
+<div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,var(--cyan),var(--blue));display:flex;align-items:center;justify-content:center;margin-bottom:28px;box-shadow:0 12px 32px rgba(6,182,212,0.35)">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+</div>
+<h3 style="font-size:28px;font-weight:700;color:#fff;margin-bottom:20px">Finanzas</h3>
+<div style="margin-bottom:24px"><span style="font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:.12em;display:block;margin-bottom:8px">Arquitectura</span><p style="font-size:15px;color:#dde5ef;line-height:1.7">Microservicios con API gateways y bases de datos segregadas.</p></div>
+<div style="margin-bottom:24px"><span style="font-size:11px;color:var(--emerald);text-transform:uppercase;letter-spacing:.12em;display:block;margin-bottom:8px">Resultado</span><p style="font-size:15px;color:var(--emerald);font-weight:500">Detecci&oacute;n de fraude en tiempo real y auditor&iacute;a automatizada.</p></div>
+</div>
+</div>
+<div class="reveal glass-bisel" style="display:grid;grid-template-columns:1fr 1.3fr;overflow:hidden;border-radius:32px">
+<div class="sector-panel" style="padding:48px;background:linear-gradient(135deg,rgba(34,197,94,0.08),rgba(5,10,20,0.95))">
+<div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,var(--emerald),var(--cyan));display:flex;align-items:center;justify-content:center;margin-bottom:28px;box-shadow:0 12px 32px rgba(34,197,94,0.35)">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+</div>
+<h3 style="font-size:28px;font-weight:700;color:#fff;margin-bottom:20px">Salud</h3>
+<div style="margin-bottom:24px"><span style="font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:.12em;display:block;margin-bottom:8px">Arquitectura</span><p style="font-size:15px;color:#dde5ef;line-height:1.7">Plataforma HIPAA/GDPR-ready, lakehouse de datos m&eacute;dicos.</p></div>
+<div style="margin-bottom:24px"><span style="font-size:11px;color:var(--emerald);text-transform:uppercase;letter-spacing:.12em;display:block;margin-bottom:8px">Resultado</span><p style="font-size:15px;color:var(--emerald);font-weight:500">Diagn&oacute;stico asistido por IA y optimizaci&oacute;n de recursos.</p></div>
+</div>
+<div style="height:380px;overflow:hidden;position:relative">
+<img src="../img/pexels-merlin-10874554.jpg" alt="Salud" style="width:100%;height:100%;object-fit:cover"/>
+<div class="sector-img-overlay-r" style="position:absolute;inset:0;background:linear-gradient(270deg,rgba(5,10,20,0.9) 0%,transparent 50%)"></div>
+<div style="position:absolute;bottom:32px;right:32px">
+<span style="background:rgba(34,197,94,0.9);padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;color:#fff">SALUD &amp; FARMA</span>
+</div>
+</div>
+</div>
+<div class="reveal glass-bisel" style="display:grid;grid-template-columns:1.3fr 1fr;overflow:hidden;border-radius:32px">
+<div style="height:380px;overflow:hidden;position:relative">
+<img src="../img/ecomerce.jpg" alt="Comercial" style="width:100%;height:100%;object-fit:cover"/>
+<div class="sector-img-overlay" style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,10,20,0.9) 0%,transparent 50%)"></div>
+<div style="position:absolute;bottom:32px;left:32px">
+<span style="background:rgba(59,130,246,0.9);padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;color:#fff">COMERCIO &amp; RETAIL</span>
+</div>
+</div>
+<div class="sector-panel" style="padding:48px;background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(5,10,20,0.95))">
+<div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,var(--blue),var(--violet));display:flex;align-items:center;justify-content:center;margin-bottom:28px;box-shadow:0 12px 32px rgba(59,130,246,0.35)">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+</div>
+<h3 style="font-size:28px;font-weight:700;color:#fff;margin-bottom:20px">Comercial</h3>
+<div style="margin-bottom:24px"><span style="font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:.12em;display:block;margin-bottom:8px">Arquitectura</span><p style="font-size:15px;color:#dde5ef;line-height:1.7">Orientada a eventos (event-driven) y serverless.</p></div>
+<div style="margin-bottom:24px"><span style="font-size:11px;color:var(--emerald);text-transform:uppercase;letter-spacing:.12em;display:block;margin-bottom:8px">Resultado</span><p style="font-size:15px;color:var(--emerald);font-weight:500">Predicci&oacute;n de demanda y personalizaci&oacute;n masiva.</p></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="casos" style="padding:112px 0">
+<div class="wrap">
+<div class="text-center" style="margin-bottom:64px"><div class="reveal badge liquid-glass-subtle" style="margin-bottom:24px;display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="color:var(--cyan)">Casos de &Eacute;xito</span></div><h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:16px">Resultados que <span class="gradient-text">hablan solos</span></h2></div>
+<div class="cols-2" style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+<div class="reveal glass-bisel card-hover" style="padding:28px"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:40px;height:40px;border-radius:12px;background:rgba(6,182,212,0.15);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><h3 style="font-size:16px;font-weight:600;color:var(--text)">Comprobaci&oacute;n Inteligente</h3></div><p style="font-size:14px;color:var(--text-secondary);line-height:1.5">Validaci&oacute;n de documentos/veh&iacute;culos con Computer Vision.</p></div>
+<div class="reveal glass-bisel card-hover" style="padding:28px"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:40px;height:40px;border-radius:12px;background:rgba(34,197,94,0.15);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><h3 style="font-size:16px;font-weight:600;color:var(--text)">Control Tower</h3></div><p style="font-size:14px;color:var(--text-secondary);line-height:1.5">Gesti&oacute;n log&iacute;stica de Impo/Expo.</p></div>
+<div class="reveal glass-bisel card-hover" style="padding:28px"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:40px;height:40px;border-radius:12px;background:rgba(59,130,246,0.15);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h3 style="font-size:16px;font-weight:600;color:var(--text)">Lectura Inteligente</h3></div><p style="font-size:14px;color:var(--text-secondary);line-height:1.5">Automatizaci&oacute;n documental con Agentes IA.</p></div>
+<div class="reveal glass-bisel card-hover" style="padding:28px"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:40px;height:40px;border-radius:12px;background:rgba(168,85,247,0.15);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div><h3 style="font-size:16px;font-weight:600;color:var(--text)">Migraci&oacute;n Cloud</h3></div><p style="font-size:14px;color:var(--text-secondary);line-height:1.5">Sotracar, CI Global y Asercol.</p></div>
+</div>
+</div>
+</section>
+
+<section style="padding:112px 0">
+<div class="wrap">
+<div class="text-center" style="margin-bottom:64px"><div class="reveal badge liquid-glass-subtle" style="margin-bottom:24px;display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><span style="color:var(--cyan)">Comparativa</span></div><h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:16px">Addon AI vs. <span class="gradient-text">Big Four</span></h2></div>
+<div class="reveal glass-bisel" style="padding:32px;max-width:800px;margin:0 auto"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div>
+<table class="compare-table"><thead><tr><th style="width:30%">Criterio</th><th style="width:35%;color:var(--cyan)">Addon AI</th><th style="width:35%">Big Four</th></tr></thead><tbody>
+<tr><td style="color:var(--text-secondary)">Tiempo de respuesta</td><td class="highlight">D&iacute;as</td><td style="color:var(--text-secondary)">Meses</td></tr>
+<tr><td style="color:var(--text-secondary)">Costo de proyecto</td><td class="highlight">$15-50k</td><td style="color:var(--text-secondary)">$200k+</td></tr>
+<tr><td style="color:var(--text-secondary)">Especializaci&oacute;n IA</td><td class="highlight">Core business</td><td style="color:var(--text-secondary)">Una pr&aacute;ctica m&aacute;s</td></tr>
+<tr><td style="color:var(--text-secondary)">Arquitectura</td><td class="highlight">Build + Operate</td><td style="color:var(--text-secondary)">Solo consultor&iacute;a</td></tr>
+</tbody></table>
+</div>
+</div>
+</section>
+
+<section id="planes" style="padding:112px 0">
+<div class="wrap">
+<div class="text-center" style="margin-bottom:64px"><div class="reveal badge liquid-glass-subtle" style="margin-bottom:24px;display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span style="color:var(--cyan)">Modelos de Compromiso</span></div><h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:16px">Planes que escalan <span class="gradient-text">contigo</span></h2></div>
+<div class="cols-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:0 auto">
+<div class="reveal glass-bisel card-hover liquid-card" style="padding:36px 28px"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="font-size:12.5px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Fase 1</div><h3 style="font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px">Surgical Strike</h3><div style="font-size:28px;font-weight:700;color:var(--cyan);margin-bottom:4px">$15k &ndash; $50k</div><p style="font-size:13px;color:var(--text-secondary);margin-bottom:24px">MVP de 4 semanas, Roadmap y Dashboard ROI.</p><ul style="list-style:none;padding:0;margin:0"><li style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);padding:6px 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>MVP en 4 semanas</li><li style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);padding:6px 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Roadmap estrat&eacute;gico</li><li style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);padding:6px 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Dashboard ROI</li></ul></div>
+<div class="reveal glass-bisel card-hover liquid-card" style="padding:36px 28px;position:relative;border:1px solid rgba(6,182,212,0.3)"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div class="popular-badge">Popular</div><div style="font-size:12.5px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Fase 2</div><h3 style="font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px">PLG H&iacute;brido</h3><div style="font-size:28px;font-weight:700;color:var(--cyan);margin-bottom:4px">$500 &ndash; $30k</div><p style="font-size:13px;color:var(--text-secondary);margin-bottom:24px">Herramientas Self-Service y Consultor&iacute;a de Escalabilidad.</p><ul style="list-style:none;padding:0;margin:0"><li style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);padding:6px 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Herramientas Self-Service</li><li style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);padding:6px 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Consultor&iacute;a de escalabilidad</li></ul></div>
+<div class="reveal glass-bisel card-hover liquid-card" style="padding:36px 28px"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="font-size:12.5px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Fase 3</div><h3 style="font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px">Managed Partner</h3><div style="font-size:28px;font-weight:700;color:var(--cyan);margin-bottom:4px">$5k &ndash; $50k/mes</div><p style="font-size:13px;color:var(--text-secondary);margin-bottom:24px">SRE team extension, co-gesti&oacute;n y SLA contractual.</p><ul style="list-style:none;padding:0;margin:0"><li style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);padding:6px 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>SRE team extension</li><li style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);padding:6px 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Co-gesti&oacute;n</li><li style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);padding:6px 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>SLA contractual</li></ul></div>
+</div>
+</div>
+</section>
+
+<section class="compromiso-section" style="padding:112px 0">
+<div class="wrap">
+<div class="text-center" style="margin-bottom:64px;position:relative;z-index:1"><div class="reveal badge liquid-glass-subtle" style="margin-bottom:24px;display:inline-flex;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.18)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5EEAD4" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span style="color:#5EEAD4">Compromiso e Impacto</span></div><h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:#FFFFFF;margin-bottom:16px;text-shadow:0 2px 18px rgba(0,0,0,0.55)">Impacto en <span class="gradient-text-alt">ODS</span></h2></div>
+<div class="reveal glass-bisel compromiso-card" style="padding:40px;max-width:700px;margin:0 auto;position:relative;z-index:1"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div>
+<div style="margin-bottom:28px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:14px;color:#F1F5F9">Eficiencia (ODS 9)</span><span style="font-size:13px;color:#CBD5E1">+30%</span></div><div class="progress-track"><div class="progress-fill" style="width:78%;background:linear-gradient(90deg,rgba(6,182,212,0.95),rgba(59,130,246,1));box-shadow:0 0 16px rgba(6,182,212,0.45)"></div></div></div>
+<div style="margin-bottom:28px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:14px;color:#F1F5F9">Crecimiento (ODS 8)</span><span style="font-size:13px;color:#CBD5E1">500+ horas</span></div><div class="progress-track"><div class="progress-fill" style="width:65%;background:linear-gradient(90deg,rgba(34,197,94,0.95),rgba(16,185,129,1));box-shadow:0 0 16px rgba(34,197,94,0.4)"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:14px;color:#F1F5F9">Sostenibilidad (ODS 12)</span><span style="font-size:13px;color:#CBD5E1">-35% energ&iacute;a</span></div><div class="progress-track"><div class="progress-fill" style="width:55%;background:linear-gradient(90deg,rgba(168,85,247,0.95),rgba(139,92,246,1));box-shadow:0 0 16px rgba(168,85,247,0.4)"></div></div></div>
+</div>
+</div>
+</section>
+
+<section id="modelo" style="padding:112px 0">
+<div class="wrap">
+<div class="text-center" style="margin-bottom:64px"><div class="reveal badge liquid-glass-subtle" style="margin-bottom:24px;display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span style="color:var(--cyan)">Modelo de Trabajo</span></div><h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:16px">De la idea al <span class="gradient-text">impacto</span></h2></div>
+<div class="cols-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+<div class="reveal glass-bisel card-hover liquid-card" style="padding:32px 24px;text-align:center"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="font-size:36px;font-weight:800;color:var(--cyan);opacity:0.12;margin-bottom:16px">01</div><div style="width:48px;height:48px;border-radius:14px;background:rgba(6,182,212,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h3 style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px">Discovery</h3><p style="font-size:13px;color:var(--text-secondary);line-height:1.5">Talleres de requerimientos y NFRs.</p></div>
+<div class="reveal glass-bisel card-hover liquid-card" style="padding:32px 24px;text-align:center"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="font-size:36px;font-weight:800;color:var(--emerald);opacity:0.12;margin-bottom:16px">02</div><div style="width:48px;height:48px;border-radius:14px;background:rgba(34,197,94,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3 style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px">Desarrollo &Aacute;gil</h3><p style="font-size:13px;color:var(--text-secondary);line-height:1.5">Entregas iterativas (Sprints).</p></div>
+<div class="reveal glass-bisel card-hover liquid-card" style="padding:32px 24px;text-align:center"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="font-size:36px;font-weight:800;color:var(--blue);opacity:0.12;margin-bottom:16px">03</div><div style="width:48px;height:48px;border-radius:14px;background:rgba(59,130,246,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3 style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px">Managed Services</h3><p style="font-size:13px;color:var(--text-secondary);line-height:1.5">Monitoreo y alertas 24/7.</p></div>
+<div class="reveal glass-bisel card-hover liquid-card" style="padding:32px 24px;text-align:center"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div><div style="font-size:36px;font-weight:800;color:var(--violet);opacity:0.12;margin-bottom:16px">04</div><div style="width:48px;height:48px;border-radius:14px;background:rgba(168,85,247,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><h3 style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px">Transferencia</h3><p style="font-size:13px;color:var(--text-secondary);line-height:1.5">Entrega de Runbooks y documentaci&oacute;n t&eacute;cnica.</p></div>
+</div>
+</div>
+</section>
+
+<section id="contacto" style="padding:112px 0">
+<div class="wrap">
+<div class="reveal glass-bisel" style="padding:64px 48px;text-align:center;max-width:700px;margin:0 auto"><div class="refract-layer"></div><div class="glow-aurora"></div><div class="glow-core"></div><div class="glow-rim"></div>
+<div style="width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,rgba(6,182,212,0.2),rgba(34,197,94,0.2));border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 32px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+<h2 class="reveal" style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:16px">&iquest;Listo para implementar IA <span class="gradient-text">de verdad</span>?</h2>
+<p class="reveal" style="font-size:16px;color:var(--text-secondary);line-height:1.7;max-width:520px;margin:0 auto 36px">Solicita tu diagn&oacute;stico gratuito. Sin compromiso, sin jerga innecesaria &mdash; solo soluciones.</p>
+<form class="reveal contact-form" id="contactForm" novalidate>
+<div class="cf-grid">
+<div class="cf-field">
+<label for="cf-name" class="cf-label">Nombre completo</label>
+<input id="cf-name" name="name" type="text" class="cf-input" placeholder="Tu nombre" autocomplete="name" required>
+</div>
+<div class="cf-field">
+<label for="cf-email" class="cf-label">Correo corporativo</label>
+<input id="cf-email" name="email" type="email" class="cf-input" placeholder="nombre@empresa.com" autocomplete="email" required>
+</div>
+<div class="cf-field cf-field-full">
+<label for="cf-company" class="cf-label">Empresa</label>
+<input id="cf-company" name="company" type="text" class="cf-input" placeholder="Nombre de tu empresa" autocomplete="organization" required>
+</div>
+<div class="cf-field cf-field-full">
+<label for="cf-message" class="cf-label">Mensaje / Desaf&iacute;o t&eacute;cnico</label>
+<textarea id="cf-message" name="message" class="cf-input cf-textarea" rows="5" placeholder="Cu&eacute;ntanos brevemente el reto que quieres resolver" required></textarea>
+</div>
+</div>
+<button type="submit" class="btn-primary cf-submit"><span>Enviar mensaje</span></button>
+<p class="cf-status" id="cfStatus" aria-live="polite"></p>
+</form>
+<div class="reveal contact-info">
+<a href="mailto:jiliar.silgado@gmail.com" class="contact-info-item" aria-label="Enviar correo">
+<span class="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+<span class="contact-info-text"><span class="contact-info-label">Email</span><span class="contact-info-value">jiliar.silgado@gmail.com</span></span>
+</a>
+<a href="tel:+573016733590" class="contact-info-item" aria-label="Llamar por tel&eacute;fono">
+<span class="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+<span class="contact-info-text"><span class="contact-info-label">Tel&eacute;fono</span><span class="contact-info-value">+57 301 673 3590</span></span>
+</a>
+<div class="contact-info-item" aria-label="Ubicaci&oacute;n">
+<span class="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+<span class="contact-info-text"><span class="contact-info-label">Ubicaci&oacute;n</span><span class="contact-info-value">Cartagena, Colombia</span></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<footer style="padding:64px 0;border-top:1px solid rgba(255,255,255,0.05)">
+<div class="wrap">
+<div class="footer-grid" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px">
+<div>
+<a href="#" class="logo-wrap footer-logo" style="margin-bottom:20px;display:inline-flex;align-items:center;height:auto"><svg class="logo-dark" viewBox="0 0 396 164" style="height:56px;width:auto" xmlns="http://www.w3.org/2000/svg"><g transform="matrix(1,0,0,1,-9702.04,-267.95)"><g transform="matrix(0.628,0,0,0.628,9518.83,138.78)"><g><g transform="matrix(0.852,0,0,0.852,123.15,52.54)"><path d="M936.84,238.2L936.84,355.54L819.5,355.54L819.5,238.2L936.84,238.2ZM854.48,317.25L879.82,317.25L884.7,332.11L900.19,332.11L873.86,261.63L860.35,261.63L834.17,332.11L849.61,332.11L854.48,317.25ZM867.13,278.69L876.07,305.88L858.22,305.88L867.13,278.69ZM922.17,261.63L907.7,261.63L907.7,332.11L922.17,332.11L922.17,261.63Z" style="fill:white"/></g><g transform="matrix(1,0,0,1,276.59,0)"><path d="M364.96,255.54C392.55,255.54 414.96,277.95 414.96,305.54C414.96,333.14 392.55,355.54 364.96,355.54C337.36,355.54 314.96,333.14 314.96,305.54C314.96,277.95 337.36,255.54 364.96,255.54ZM364.96,270.54C345.64,270.54 329.96,286.22 329.96,305.54C329.96,324.86 345.64,340.54 364.96,340.54C384.27,340.54 399.96,324.86 399.96,305.54C399.96,286.22 384.27,270.54 364.96,270.54Z" style="fill:white"/></g><path d="M376.55,341.23C367.52,350.08 355.17,355.54 341.55,355.54C313.95,355.54 291.55,333.14 291.55,305.54C291.55,277.95 313.95,255.54 341.55,255.54C355.17,255.54 367.52,261 376.55,269.85L376.55,255.54L391.55,255.54L391.55,355.54L376.55,355.54L376.55,341.23ZM376.55,305.54C376.55,286.22 360.86,270.54 341.55,270.54C322.23,270.54 306.55,286.22 306.55,305.54C306.55,324.86 322.23,340.54 341.55,340.54C360.86,340.54 376.55,324.86 376.55,305.54Z" style="fill:white"/><path d="M776.55,305.54C776.55,286.22 760.86,270.54 741.55,270.54C722.23,270.54 706.55,286.22 706.55,305.54L706.55,355.54L691.55,355.54L691.55,255.54L706.55,255.54L706.55,269.85C715.57,261 727.92,255.54 741.55,255.54C755.17,255.54 767.52,261 776.55,269.85C785.8,278.92 791.55,291.57 791.55,305.54L791.55,355.54L776.55,355.54L776.55,305.54Z" style="fill:white"/><path d="M476.55,341.23C467.52,350.08 455.17,355.54 441.55,355.54C413.95,355.54 391.55,333.14 391.55,305.54C391.55,277.95 413.95,255.54 441.55,255.54C455.17,255.54 467.52,261 476.55,269.85L476.55,205.54L491.55,205.54L491.55,355.54L476.55,355.54L476.55,341.23ZM476.55,305.54C476.55,286.22 460.86,270.54 441.55,270.54C422.23,270.54 406.55,286.22 406.55,305.54C406.55,324.86 422.23,340.54 441.55,340.54C460.86,340.54 476.55,324.86 476.55,305.54Z" style="fill:white"/><path d="M576.55,341.23C567.52,350.08 555.17,355.54 541.55,355.54C513.95,355.54 491.55,333.14 491.55,305.54C491.55,277.95 513.95,255.54 541.55,255.54C555.17,255.54 567.52,261 576.55,269.85L576.55,205.54L591.55,205.54L591.55,355.54L576.55,355.54L576.55,341.23ZM576.55,305.54C576.55,286.22 560.86,270.54 541.55,270.54C522.23,270.54 506.55,286.22 506.55,305.54C506.55,324.86 522.23,340.54 541.55,340.54C560.86,340.54 576.55,324.86 576.55,305.54Z" style="fill:white"/><g transform="matrix(0.492,0,0,0.492,353.29,136.16)"><circle cx="179.28" cy="168.15" r="15.24" style="fill:white"/></g><g transform="matrix(0.492,0,0,0.492,353.29,309.37)"><circle cx="179.28" cy="168.15" r="15.24" style="fill:white"/></g><g transform="matrix(0.492,0,0,0.492,453.29,136.16)"><circle cx="179.28" cy="168.15" r="15.24" style="fill:white"/></g><g transform="matrix(0.492,0,0,0.492,453.29,309.37)"><circle cx="179.28" cy="168.15" r="15.24" style="fill:white"/></g><g transform="matrix(0.492,0,0,0.492,553.29,136.16)"><circle cx="179.28" cy="168.15" r="15.24" style="fill:white"/></g><g transform="matrix(0.492,0,0,0.492,553.29,309.37)"><circle cx="179.28" cy="168.15" r="15.24" style="fill:white"/></g></g></g></g></svg><svg class="logo-light" viewBox="0 0 444 184" style="height:56px;width:auto" xmlns="http://www.w3.org/2000/svg"><g transform="matrix(1,0,0,1,-7377.78,-170.18)"><g transform="matrix(0.712,0,0,0.712,5028.97,-567.37)"><g><g transform="matrix(0.786,0,0,0.786,2799.01,517.55)"><circle cx="762.1" cy="786.29" r="125.82" style="fill:none;stroke:rgb(22,58,101);stroke-width:1.93px"/></g><g transform="matrix(0.786,0,0,0.786,2897.83,517.53)"><circle cx="762.1" cy="786.29" r="125.82" style="fill:none;stroke:rgb(71,112,153);stroke-width:1.93px"/></g><g transform="matrix(0.786,0,0,0.786,2996.67,517.53)"><circle cx="762.1" cy="786.29" r="125.82" style="fill:none;stroke:rgb(51,138,123);stroke-width:1.93px"/></g><g transform="matrix(0.786,0,0,0.786,3095.51,517.53)"><circle cx="762.1" cy="786.29" r="125.82" style="fill:none;stroke:rgb(18,210,124);stroke-width:1.93px"/></g><g transform="matrix(0.988,0,0,0.988,3010.78,833.31)"><g><g transform="matrix(0.852,0,0,0.852,123.15,52.54)"><path d="M936.84,238.2L936.84,355.54L819.5,355.54L819.5,238.2L936.84,238.2ZM854.48,317.25L879.82,317.25L884.7,332.11L900.19,332.11L873.86,261.63L860.35,261.63L834.17,332.11L849.61,332.11L854.48,317.25ZM867.13,278.69L876.07,305.88L858.22,305.88L867.13,278.69ZM922.17,261.63L907.7,261.63L907.7,332.11L922.17,332.11L922.17,261.63Z" style="fill:rgb(18,210,124)"/></g><g transform="matrix(1,0,0,1,276.59,0)"><path d="M364.96,255.54C392.55,255.54 414.96,277.95 414.96,305.54C414.96,333.14 392.55,355.54 364.96,355.54C337.36,355.54 314.96,333.14 314.96,305.54C314.96,277.95 337.36,255.54 364.96,255.54ZM364.96,270.54C345.64,270.54 329.96,286.22 329.96,305.54C329.96,324.86 345.64,340.54 364.96,340.54C384.27,340.54 399.96,324.86 399.96,305.54C399.96,286.22 384.27,270.54 364.96,270.54Z" style="fill:rgb(18,210,124)"/></g><path d="M376.55,341.23C367.52,350.08 355.17,355.54 341.55,355.54C313.95,355.54 291.55,333.14 291.55,305.54C291.55,277.95 313.95,255.54 341.55,255.54C355.17,255.54 367.52,261 376.55,269.85L376.55,255.54L391.55,255.54L391.55,355.54L376.55,355.54L376.55,341.23ZM376.55,305.54C376.55,286.22 360.86,270.54 341.55,270.54C322.23,270.54 306.55,286.22 306.55,305.54C306.55,324.86 322.23,340.54 341.55,340.54C360.86,340.54 376.55,324.86 376.55,305.54Z" style="fill:rgb(22,58,101)"/><path d="M776.55,305.54C776.55,286.22 760.86,270.54 741.55,270.54C722.23,270.54 706.55,286.22 706.55,305.54L706.55,355.54L691.55,355.54L691.55,255.54L706.55,255.54L706.55,269.85C715.57,261 727.92,255.54 741.55,255.54C755.17,255.54 767.52,261 776.55,269.85C785.8,278.92 791.55,291.57 791.55,305.54L791.55,355.54L776.55,355.54L776.55,305.54Z" style="fill:rgb(18,210,124)"/><path d="M476.55,341.23C467.52,350.08 455.17,355.54 441.55,355.54C413.95,355.54 391.55,333.14 391.55,305.54C391.55,277.95 413.95,255.54 441.55,255.54C455.17,255.54 467.52,261 476.55,269.85L476.55,205.54L491.55,205.54L491.55,355.54L476.55,355.54L476.55,341.23ZM476.55,305.54C476.55,286.22 460.86,270.54 441.55,270.54C422.23,270.54 406.55,286.22 406.55,305.54C406.55,324.86 422.23,340.54 441.55,340.54C460.86,340.54 476.55,324.86 476.55,305.54Z" style="fill:rgb(71,112,153)"/><path d="M576.55,341.23C567.52,350.08 555.17,355.54 541.55,355.54C513.95,355.54 491.55,333.14 491.55,305.54C491.55,277.95 513.95,255.54 541.55,255.54C555.17,255.54 567.52,261 576.55,269.85L576.55,205.54L591.55,205.54L591.55,355.54L576.55,355.54L576.55,341.23ZM576.55,305.54C576.55,286.22 560.86,270.54 541.55,270.54C522.23,270.54 506.55,286.22 506.55,305.54C506.55,324.86 522.23,340.54 541.55,340.54C560.86,340.54 576.55,324.86 576.55,305.54Z" style="fill:rgb(51,138,123)"/><g transform="matrix(0.492,0,0,0.492,353.29,136.16)"><circle cx="179.28" cy="168.15" r="15.24" style="fill:rgb(71,112,153)"/></g><g transform="matrix(0.492,0,0,0.492,353.29,309.37)"><circle cx="179.28" cy="168.15" r="15.24" style="fill:rgb(71,112,153)"/></g><g transform="matrix(0.492,0,0,0.492,453.29,136.16)"><circle cx="179.28" cy="168.15" r="15.24" style="fill:rgb(51,138,123)"/></g><g transform="matrix(0.492,0,0,0.492,453.29,309.37)"><circle cx="179.28" cy="168.15" r="15.24" style="fill:rgb(51,138,123)"/></g><g transform="matrix(0.492,0,0,0.492,553.29,136.16)"><circle cx="179.28" cy="168.15" r="15.24" style="fill:rgb(18,210,124)"/></g><g transform="matrix(0.492,0,0,0.492,553.29,309.37)"><circle cx="179.28" cy="168.15" r="15.24" style="fill:rgb(18,210,124)"/></g></g></g></g></g></svg></a>
+<p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin-bottom:20px">Arquitectura de software empresarial combinada con IA aplicada para optimizar procesos desde la ra&iacute;z.</p>
+<div style="display:flex;gap:12px"><a href="#" class="liquid-glass-subtle" style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--text-secondary)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a><a href="#" class="liquid-glass-subtle" style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--text-secondary)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a></div>
+</div>
+<div><h4 style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:16px;text-transform:uppercase;letter-spacing:.08em">Servicios</h4><ul style="list-style:none;padding:0"><li style="margin-bottom:10px"><a href="#servicios" style="font-size:14px;color:var(--text-secondary);text-decoration:none">Consultor&iacute;a</a></li><li style="margin-bottom:10px"><a href="#servicios" style="font-size:14px;color:var(--text-secondary);text-decoration:none">Desarrollo</a></li><li style="margin-bottom:10px"><a href="#servicios" style="font-size:14px;color:var(--text-secondary);text-decoration:none">Data &amp; Analytics</a></li><li style="margin-bottom:10px"><a href="#servicios" style="font-size:14px;color:var(--text-secondary);text-decoration:none">Managed Services</a></li></ul></div>
+<div><h4 style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:16px;text-transform:uppercase;letter-spacing:.08em">Sectores</h4><ul style="list-style:none;padding:0"><li style="margin-bottom:10px"><a href="#sectores" style="font-size:14px;color:var(--text-secondary);text-decoration:none">Finanzas</a></li><li style="margin-bottom:10px"><a href="#sectores" style="font-size:14px;color:var(--text-secondary);text-decoration:none">Salud</a></li><li style="margin-bottom:10px"><a href="#sectores" style="font-size:14px;color:var(--text-secondary);text-decoration:none">Comercial</a></li></ul></div>
+<div><h4 style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:16px;text-transform:uppercase;letter-spacing:.08em">Contacto</h4><ul style="list-style:none;padding:0"><li style="margin-bottom:10px"><a href="mailto:jiliar.silgado@gmail.com" style="font-size:14px;color:var(--text-secondary);text-decoration:none">jiliar.silgado@gmail.com</a></li><li style="margin-bottom:10px"><a href="tel:+573016733590" style="font-size:14px;color:var(--text-secondary);text-decoration:none">+57 301 673 3590</a></li><li style="margin-bottom:10px"><span style="font-size:14px;color:var(--text-secondary)">Cartagena, Colombia</span></li></ul></div>
+</div>
+<div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px">
+<p style="font-size:12.5px;color:var(--text-secondary)">&copy; 2026 Addon.ai Enterprise. Todos los derechos reservados.</p>
+</div>
+</div>
+</footer>
+
+<script>
+const canvas=document.getElementById('neural-grid');const ctx=canvas.getContext('2d');let nodes=[];let mouse={x:-1000,y:-1000};const NODE_COUNT=60;const CONNECTION_DIST=150;const NODE_RADIUS=2;const MOUSE_INFLUENCE_RADIUS=200;let graphEdges=[];let lastHoveredDot=null;const GRAPH_DIAG_STEPS=[[-2,-2],[-2,-1],[-2,-1],[-2,2],[-1,-2],[-1,-1],[-1,1],[-1,2],[1,-2],[1,-1],[1,1],[1,2],[2,-2],[2,-1],[2,1],[2,2]];function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}window.addEventListener('resize',resizeCanvas);resizeCanvas();function initNodes(){nodes=[];for(let i=0;i<NODE_COUNT;i++){nodes.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*0.15,vy:(Math.random()-0.5)*0.15,radius:NODE_RADIUS+Math.random()*1.5,pulse:Math.random()*Math.PI*2,pulseSpeed:0.005+Math.random()*0.01})}}initNodes();const gridStep=60;function getNearestGridDot(mx,my){const gx=Math.round(mx/gridStep)*gridStep;const gy=Math.round(my/gridStep)*gridStep;const snappedX=Math.max(gridStep,Math.min(Math.floor(canvas.width/gridStep)*gridStep,gx));const snappedY=Math.max(gridStep,Math.min(Math.floor(canvas.height/gridStep)*gridStep,gy));return{x:snappedX,y:snappedY}}function spawnGraphEdges(dotX,dotY){const isDark=document.documentElement.getAttribute('data-theme')!=='light';const shuffled=[...GRAPH_DIAG_STEPS].sort(()=>Math.random()-0.5);const selected=shuffled.slice(0,3);for(const[dx,dy]of selected){const tx=dotX+dx*gridStep;const ty=dotY+dy*gridStep;if(tx<0||tx>canvas.width||ty<0||ty>canvas.height)continue;graphEdges.push({x1:dotX,y1:dotY,x2:tx,y2:ty,progress:0,phase:'draw',holdTimer:0,speed:0.018+Math.random()*0.022,alpha:0,maxAlpha:0.18+Math.random()*0.18,isDark})}if(graphEdges.length>60)graphEdges=graphEdges.slice(-60)}function drawGrid(){ctx.save();const isDark=document.documentElement.getAttribute('data-theme')!=='light';ctx.strokeStyle=isDark?'rgba(0,212,255,0.04)':'rgba(0,100,200,0.06)';ctx.lineWidth=0.5;for(let x=0;x<canvas.width;x+=gridStep){ctx.beginPath();ctx.moveTo(x+0.5,0);ctx.lineTo(x+0.5,canvas.height);ctx.stroke()}for(let y=0;y<canvas.height;y+=gridStep){ctx.beginPath();ctx.moveTo(0,y+0.5);ctx.lineTo(canvas.width,y+0.5);ctx.stroke()}ctx.restore()}function drawGridDots(){ctx.save();const isDark=document.documentElement.getAttribute('data-theme')!=='light';for(let x=gridStep;x<canvas.width;x+=gridStep){for(let y=gridStep;y<canvas.height;y+=gridStep){const dist=Math.hypot(mouse.x-x,mouse.y-y);const glow=Math.max(0,1-dist/MOUSE_INFLUENCE_RADIUS);const alpha=0.06+glow*0.3;const r=1+glow*2;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=isDark?`rgba(0,212,255,${alpha})`:`rgba(0,100,200,${alpha})`;ctx.fill()}}ctx.restore()}function drawGraphEdges(){ctx.save();const toRemove=[];for(let i=0;i<graphEdges.length;i++){const e=graphEdges[i];const color=e.isDark?'0,212,255':'0,100,200';if(e.phase==='draw'){e.progress+=e.speed;e.alpha=Math.min(e.maxAlpha,e.alpha+0.015);if(e.progress>=1){e.progress=1;e.phase='hold';e.holdTimer=18+Math.floor(Math.random()*24)}}else if(e.phase==='hold'){e.holdTimer--;if(e.holdTimer<=0)e.phase='fade'}else if(e.phase==='fade'){e.alpha-=0.012;if(e.alpha<=0){toRemove.push(i);continue}}const cx=e.x1+(e.x2-e.x1)*e.progress;const cy=e.y1+(e.y2-e.y1)*e.progress;const grad=ctx.createLinearGradient(e.x1,e.y1,cx,cy);grad.addColorStop(0,`rgba(${color},${e.alpha*0.3})`);grad.addColorStop(0.5,`rgba(${color},${e.alpha})`);grad.addColorStop(1,`rgba(${color},${e.alpha*0.6})`);ctx.beginPath();ctx.moveTo(e.x1,e.y1);ctx.lineTo(cx,cy);ctx.strokeStyle=grad;ctx.lineWidth=0.7;ctx.stroke();if(e.phase==='draw'){ctx.beginPath();ctx.arc(cx,cy,1.5,0,Math.PI*2);ctx.fillStyle=`rgba(${color},${e.alpha*1.4})`;ctx.fill()}else{ctx.beginPath();ctx.arc(e.x2,e.y2,1.8,0,Math.PI*2);ctx.fillStyle=`rgba(${color},${e.alpha*1.2})`;ctx.fill()}}for(let i=toRemove.length-1;i>=0;i--)graphEdges.splice(toRemove[i],1);ctx.restore()}function updateHoveredDot(){const dot=getNearestGridDot(mouse.x,mouse.y);const dist=Math.hypot(mouse.x-dot.x,mouse.y-dot.y);if(dist<gridStep*0.38){const key=`${dot.x},${dot.y}`;if(lastHoveredDot!==key){lastHoveredDot=key;spawnGraphEdges(dot.x,dot.y)}}else{lastHoveredDot=null}}function animateNeural(){ctx.clearRect(0,0,canvas.width,canvas.height);drawGrid();drawGridDots();drawGraphEdges();const isDark=document.documentElement.getAttribute('data-theme')!=='light';const nodeColor=isDark?'0,212,255':'0,100,200';const nodeColorAlt=isDark?'124,58,237':'50,50,180';const connectionColor=isDark?'0,212,255':'0,100,200';for(const node of nodes){node.x+=node.vx;node.y+=node.vy;node.pulse+=node.pulseSpeed;if(node.x<0||node.x>canvas.width)node.vx*=-1;if(node.y<0||node.y>canvas.height)node.vy*=-1;const mouseDist=Math.hypot(mouse.x-node.x,mouse.y-node.y);if(mouseDist<MOUSE_INFLUENCE_RADIUS){const force=(1-mouseDist/MOUSE_INFLUENCE_RADIUS)*0.05;node.vx+=(node.x-mouse.x)/mouseDist*force;node.vy+=(node.y-mouse.y)/mouseDist*force}}for(let i=0;i<nodes.length;i++){for(let j=i+1;j<nodes.length;j++){const dx=nodes[i].x-nodes[j].x;const dy=nodes[i].y-nodes[j].y;const dist=Math.hypot(dx,dy);if(dist<CONNECTION_DIST){const alpha=(1-dist/CONNECTION_DIST)*0.15;ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.strokeStyle=`rgba(${connectionColor},${alpha})`;ctx.lineWidth=0.5;ctx.stroke()}}}for(const node of nodes){const pulseAlpha=0.2+Math.sin(node.pulse)*0.15;const mouseDist=Math.hypot(mouse.x-node.x,mouse.y-node.y);const glowRadius=mouseDist<MOUSE_INFLUENCE_RADIUS?(1-mouseDist/MOUSE_INFLUENCE_RADIUS)*8+4:4;ctx.shadowColor=`rgba(${nodeColor},0.3)`;ctx.shadowBlur=glowRadius;ctx.beginPath();ctx.arc(node.x,node.y,node.radius*(0.8+Math.sin(node.pulse)*0.2),0,Math.PI*2);ctx.fillStyle=`rgba(${nodeColor},${pulseAlpha})`;ctx.fill();if(mouseDist<MOUSE_INFLUENCE_RADIUS){ctx.beginPath();ctx.arc(node.x,node.y,node.radius*2,0,Math.PI*2);ctx.fillStyle=`rgba(${nodeColorAlt},${(1-mouseDist/MOUSE_INFLUENCE_RADIUS)*0.3})`;ctx.fill()}ctx.shadowBlur=0}requestAnimationFrame(animateNeural)}animateNeural();document.addEventListener('mousemove',(e)=>{mouse.x=e.clientX;mouse.y=e.clientY;updateHoveredDot()});window.addEventListener('resize',()=>{initNodes()});
+
+// Theme toggle
+const themeToggle=document.getElementById('themeToggle');themeToggle.addEventListener('click',()=>{const html=document.documentElement;const isDark=html.getAttribute('data-theme')!=='light';html.setAttribute('data-theme',isDark?'light':'dark');themeToggle.textContent=isDark?'\u2600':'\u263E';window.dispatchEvent(new Event('scroll'))});
+
+// Mobile menu
+const menuToggle=document.getElementById('menuToggle');const mobileMenu=document.getElementById('mobileMenu');const menuOverlay=document.getElementById('menuOverlay');const menuClose=document.getElementById('menuClose');
+function showMobileMenu(){mobileMenu.classList.add('open');menuOverlay.classList.add('open')}
+function closeMobileMenu(){mobileMenu.classList.remove('open');menuOverlay.classList.remove('open')}
+if(menuToggle)menuToggle.addEventListener('click',showMobileMenu);if(menuClose)menuClose.addEventListener('click',closeMobileMenu);
+
+// Contact form — sin backend: valida y abre mailto coherente con el resto de la página
+const contactForm=document.getElementById('contactForm');const cfStatus=document.getElementById('cfStatus');
+if(contactForm){contactForm.addEventListener('submit',(e)=>{e.preventDefault();const f=contactForm;if(!f.checkValidity()){cfStatus.textContent='Por favor completa todos los campos correctamente.';cfStatus.className='cf-status error';return}const name=f.name.value.trim();const email=f.email.value.trim();const company=f.company.value.trim();const message=f.message.value.trim();const subject=encodeURIComponent('Nuevo contacto desde landing — '+company);const body=encodeURIComponent('Nombre: '+name+'\nEmpresa: '+company+'\nCorreo: '+email+'\n\nMensaje:\n'+message);cfStatus.textContent='Abriendo tu cliente de correo…';cfStatus.className='cf-status success';window.location.href='mailto:jiliar.silgado@gmail.com?subject='+subject+'&body='+body;setTimeout(()=>{contactForm.reset();cfStatus.textContent='¡Gracias! Te responderemos en menos de 24 h.';},800)})}
+
+// Scroll reveal
+const revealElements=document.querySelectorAll('.reveal');const revealObserver=new IntersectionObserver((entries)=>{entries.forEach((entry)=>{if(entry.isIntersecting){entry.target.classList.add('active');revealObserver.unobserve(entry.target)}})},{threshold:0.1});revealElements.forEach(el=>revealObserver.observe(el));
+
+// Counter animation
+const counters=document.querySelectorAll('.counter');const counterObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){const el=entry.target;const target=parseFloat(el.dataset.target);const suffix=el.dataset.suffix||'';const isDecimal=el.dataset.decimal==='true';const duration=2000;const start=performance.now();function update(now){const elapsed=now-start;const progress=Math.min(elapsed/duration,1);const eased=1-Math.pow(1-progress,3);const current=eased*target;el.textContent=(isDecimal?current.toFixed(1):Math.floor(current))+suffix;if(progress<1)requestAnimationFrame(update);counterObserver.unobserve(el)}requestAnimationFrame(update)}})},{threshold:0.5});counters.forEach(el=>counterObserver.observe(el));
+
+// Nav CTA on scroll
+const nav=document.querySelector('.nav-glass');const navCta=document.getElementById('navCta');const menuToggleBtn=document.getElementById('menuToggle');
+window.addEventListener('scroll',()=>{const isLight=document.documentElement.getAttribute('data-theme')==='light';if(window.scrollY>50){nav.style.background=isLight?'#FFFFFF':'rgba(5,10,20,0.85)';if(navCta)navCta.style.display='inline-block'}else{nav.style.background=isLight?'#FFFFFF':'rgba(5,10,20,0.6)';if(navCta)navCta.style.display='none'}if(window.innerWidth<=768){if(menuToggleBtn)menuToggleBtn.style.display='flex'}});
+window.addEventListener('resize',()=>{if(window.innerWidth<=768){if(menuToggleBtn)menuToggleBtn.style.display='flex';if(navCta)navCta.style.display='none'}else{if(menuToggleBtn)menuToggleBtn.style.display='none';if(window.scrollY>50&&navCta)navCta.style.display='inline-block'}});
+
+// Refraction effect
+document.querySelectorAll('.glass-bisel,.liquid-glass,.liquid-glass-strong').forEach(el=>{el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();const x=((e.clientX-r.left)/r.width*100).toFixed(1);const y=((e.clientY-r.top)/r.height*100).toFixed(1);const rl=el.querySelector('.refract-layer');if(rl){rl.style.setProperty('--rx',x+'%');rl.style.setProperty('--ry',y+'%');el.classList.add('refract-active')}const cx=r.left+r.width/2,cy=r.top+r.height/2;const angle=(Math.atan2(e.clientY-cy,e.clientX-cx)*180/Math.PI+90+360)%360;el.style.setProperty('--angle',angle+'deg');el.style.setProperty('--gx',x+'%');el.style.setProperty('--gy',y+'%')});el.addEventListener('mouseleave',()=>{const rl=el.querySelector('.refract-layer');if(rl){rl.style.removeProperty('--rx');rl.style.removeProperty('--ry');el.classList.remove('refract-active')}el.style.removeProperty('--angle');el.style.removeProperty('--gx');el.style.removeProperty('--gy')})});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{anchor.addEventListener('click',function(e){const target=document.querySelector(this.getAttribute('href'));if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'})}})});
+
+// Hero blobs — formas orgánicas verdes/teal detrás de la cuadrícula
+(function(){
+  const bc=document.getElementById('hero-blobs');
+  if(!bc)return;
+  const bx=bc.getContext('2d');
+  function resizeBC(){bc.width=bc.offsetWidth;bc.height=bc.offsetHeight}
+  resizeBC();
+  window.addEventListener('resize',resizeBC);
+
+  // Definición de blobs: posición relativa al canvas del hero, color, radio, velocidad orbital
+  const blobs=[
+    {xp:0.72,yp:0.38,r:240,vx:0.00018,vy:0.00012,color:'rgba(18,210,124,',base:0.14,amp:0.05},
+    {xp:0.62,yp:0.55,r:190,vx:-0.00014,vy:0.00016,color:'rgba(6,182,212,',base:0.10,amp:0.04},
+    {xp:0.80,yp:0.60,r:160,vx:0.00020,vy:-0.00010,color:'rgba(51,138,123,',base:0.12,amp:0.04},
+    {xp:0.58,yp:0.35,r:140,vx:-0.00016,vy:-0.00014,color:'rgba(34,197,94,',base:0.10,amp:0.04},
+  ];
+
+  // Ángulos orbitales independientes para cada blob
+  const angles=blobs.map(()=>Math.random()*Math.PI*2);
+  // Radio de la órbita (en fracción del canvas)
+  const orbitR=[0.06,0.05,0.07,0.04];
+
+  let t=0;
+  function drawBlobs(){
+    bx.clearRect(0,0,bc.width,bc.height);
+    t+=0.004;
+    blobs.forEach((b,i)=>{
+      angles[i]+=b.vx*60; // velocidad orbital
+      const cx=(b.xp+Math.cos(angles[i]+i)*orbitR[i])*bc.width;
+      const cy=(b.yp+Math.sin(angles[i]*0.7+i)*orbitR[i]*0.8)*bc.height;
+      const pulsR=b.r*(1+Math.sin(t+i*1.3)*0.08);
+      const alpha=b.base+Math.sin(t*0.8+i*0.9)*b.amp;
+      const g=bx.createRadialGradient(cx,cy,0,cx,cy,pulsR);
+      g.addColorStop(0,b.color+(alpha)+')');
+      g.addColorStop(0.5,b.color+(alpha*0.5)+')');
+      g.addColorStop(1,b.color+'0)');
+      bx.beginPath();
+      bx.arc(cx,cy,pulsR,0,Math.PI*2);
+      bx.fillStyle=g;
+      bx.fill();
+    });
+    requestAnimationFrame(drawBlobs);
+  }
+  drawBlobs();
+})();
+</script>
+</body>
+</html>

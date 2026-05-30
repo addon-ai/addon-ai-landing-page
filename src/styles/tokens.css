@@ -1,0 +1,19 @@
+:root {
+  --bg: #050a14;
+  --text: #e2e8f0;
+  --text-secondary: #b4c4d8;
+  --text-muted: #8099b4;
+  --cyan: #06b6d4;
+  --emerald: #22c55e;
+  --blue: #3b82f6;
+  --violet: #a855f7;
+  --canvas-opacity: 0.35;
+}
+
+[data-theme='light'] {
+  --bg: #f0f4f8;
+  --text: #1e293b;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --canvas-opacity: 0.2;
+}
