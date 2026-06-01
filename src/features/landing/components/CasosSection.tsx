@@ -21,7 +21,7 @@ export function CasosSection() {
     <section id="casos" className={styles.section}>
       <div className={shared.wrap}>
         <div className={styles.header}>
-          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${styles.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''}`}>
+          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${styles.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''}`}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" strokeWidth="2" strokeLinecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
             <span style={{ color: 'var(--cyan)' }}>Casos de Éxito</span>
           </div>
