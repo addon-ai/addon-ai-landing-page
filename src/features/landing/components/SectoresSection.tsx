@@ -10,7 +10,6 @@ const SECTORS = [
     arch: 'Microservicios con API gateways y bases de datos segregadas.',
     result: 'Detección de fraude en tiempo real y auditoría automatizada.',
     color: 'var(--cyan)',
-    gradient: 'linear-gradient(135deg, rgba(6,182,212,0.08), rgba(5,10,20,0.95))',
     iconGrad: 'linear-gradient(135deg, var(--cyan), var(--blue))',
     tagBg: 'rgba(6,182,212,0.9)',
     align: 'left' as const,
@@ -22,7 +21,6 @@ const SECTORS = [
     arch: 'Plataforma HIPAA/GDPR-ready, lakehouse de datos médicos.',
     result: 'Diagnóstico asistido por IA y optimización de recursos.',
     color: 'var(--emerald)',
-    gradient: 'linear-gradient(135deg, rgba(34,197,94,0.08), rgba(5,10,20,0.95))',
     iconGrad: 'linear-gradient(135deg, var(--emerald), var(--cyan))',
     tagBg: 'rgba(34,197,94,0.9)',
     align: 'right' as const,
@@ -34,7 +32,6 @@ const SECTORS = [
     arch: 'Orientada a eventos (event-driven) y serverless.',
     result: 'Predicción de demanda y personalización masiva.',
     color: 'var(--blue)',
-    gradient: 'linear-gradient(135deg, rgba(59,130,246,0.08), rgba(5,10,20,0.95))',
     iconGrad: 'linear-gradient(135deg, var(--blue), var(--violet))',
     tagBg: 'rgba(59,130,246,0.9)',
     align: 'left' as const,
@@ -50,9 +47,9 @@ export function SectoresSection() {
     <section id="sectores" className={styles.section}>
       <div className={shared.wrap}>
         <div className={styles.header}>
-          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" strokeWidth="2" strokeLinecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
-            <span style={{ color: 'var(--cyan)' }}>Soluciones por Sector</span>
+          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" strokeWidth="2" strokeLinecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
+            <span style={{ color: 'var(--emerald)' }}>Soluciones por Sector</span>
           </div>
           <h2 ref={titleRef as React.RefObject<HTMLHeadingElement>} className={`${shared.reveal} ${titleVisible ? styles.revealed : ''} ${styles.title}`}>Verticales de <span className={shared.gradientText}>industria</span></h2>
         </div>
@@ -70,7 +67,7 @@ export function SectoresSection() {
                     <span className={styles.tagBadgeLeft} style={{ background: s.tagBg }}>{s.tag}</span>
                   </div>
                 )}
-                <div className={styles.panelContent} style={{ background: s.gradient }}>
+                <div className={styles.panelContent}>
                   <div className={styles.panelIconWrap} style={{ background: s.iconGrad, boxShadow: `0 12px 32px ${shadowColor}` }}>
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round">
                       {s.name === 'Finanzas' ? <><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></> : s.name === 'Salud' ? <><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></> : <><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></>}
