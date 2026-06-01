@@ -51,6 +51,14 @@ export function HeroSection() {
               </Button>
             </div>
 
+            <div className={styles.heroVisualResponsive}>
+              <img
+                src="/logos/logo-horizontal-full-primary.svg"
+                alt="Addon.ai"
+                className={styles.heroLogo}
+              />
+            </div>
+
             <div
               ref={statsRef as React.RefObject<HTMLDivElement>}
               className={`${shared.reveal} ${statsVisible ? styles.revealed : ''} ${styles.statsRow}`}
@@ -69,14 +77,6 @@ export function HeroSection() {
                 <div ref={counter3} className={styles.statValue}>{d3}</div>
                 <div className={styles.statLabel}>Uptime garantizado</div>
               </div>
-            </div>
-
-            <div className={styles.heroVisualResponsive}>
-              <img
-                src="/logos/logo-horizontal-full-primary.svg"
-                alt="Addon.ai"
-                className={styles.heroLogo}
-              />
             </div>
           </div>
 

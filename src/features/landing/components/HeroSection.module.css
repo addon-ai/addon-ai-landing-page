@@ -48,7 +48,7 @@
   margin-bottom: 48px;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   gap: 16px;
 }
@@ -184,7 +184,7 @@
 
 /* ── Responsive breakpoints ────────────────────────────────────────────────── */
 
-/* Large tablet / small desktop: stack CTA buttons vertically and centered */
+/* Large tablet / small desktop: single column, logo below CTA, stats smaller */
 @media (max-width: 1100px) {
   .heroCta {
     flex-direction: column;
@@ -193,34 +193,13 @@
   .subtitle {
     max-width: none;
   }
-}
-
-/* Tablet/medium: stats + logo side by side */
-@media (max-width: 770px) {
-  .section {
-    padding: 6rem 0;
-  }
-  .wrapInner {
-    padding-top: 48px;
-    padding-bottom: 48px;
-  }
   .heroGrid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
     gap: 48px;
   }
-  .heroTitle {
-    font-size: clamp(2rem, 5vw, 2.8rem);
-  }
-  .subtitle {
-    max-width: none;
-  }
-
-  /* Hide desktop visual (badges only make sense at large) */
   .heroVisual {
     display: none !important;
   }
-
-  /* Show responsive logo next to stats */
   .heroVisualResponsive {
     display: flex;
     align-items: center;
@@ -229,8 +208,29 @@
   .heroVisualResponsive .heroLogo {
     max-width: min(470px, 45vw);
   }
+  .statValue {
+    font-size: 1.5rem;
+  }
+  .statDivider {
+    height: 32px;
+  }
+}
 
-  /* Stats row becomes a flex row, with logo at the right */
+/* Tablet/medium */
+@media (max-width: 770px) {
+  .section {
+    padding: 6rem 0;
+  }
+  .wrapInner {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .heroTitle {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+  }
+  .subtitle {
+    max-width: none;
+  }
   .statsRow {
     flex-wrap: wrap;
     gap: 24px;
