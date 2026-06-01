@@ -22,7 +22,7 @@ export function PlanesSection() {
             { phase: 'Fase 2', name: 'PLG Híbrido', price: '$500 – $30k', desc: 'Herramientas Self-Service y Consultoría de Escalabilidad.', features: ['Herramientas Self-Service', 'Consultoría de escalabilidad'], popular: true },
             { phase: 'Fase 3', name: 'Managed Partner', price: '$5k – $50k/mes', desc: 'SRE team extension, co-gestión y SLA contractual.', features: ['SRE team extension', 'Co-gestión', 'SLA contractual'], popular: false },
           ].map((plan, i) => (
-            <div key={plan.name} className={`${shared.glassBisel} ${shared.cardHover} ${shared.reveal} ${badgeVisible ? styles.revealed : ''} ${styles.planCard}`} data-glass="bisel" style={plan.popular ? { border: '1px solid rgba(6,182,212,0.3)' } : {}}>
+            <div key={plan.name} className={`${shared.glassBisel} ${shared.cardHover} ${shared.liquidCard} ${shared.reveal} ${badgeVisible ? styles.revealed : ''} ${styles.planCard}`} data-glass="bisel" style={plan.popular ? { border: '1px solid rgba(6,182,212,0.3)' } : {}}>
               <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
               {plan.popular && <div className={shared.popularBadge}>Popular</div>}
               <div className={styles.planPhase}>{plan.phase}</div>

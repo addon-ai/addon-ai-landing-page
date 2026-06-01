@@ -44,7 +44,6 @@
 
 .title {
   font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 700;
   color: #FFFFFF;
   margin-bottom: 16px;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
@@ -94,6 +93,17 @@
   border-radius: 999px;
   position: relative;
   transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme='light'] .card {
+  background: rgba(10, 18, 32, 0.58) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .section {
+    background-attachment: scroll;
+  }
 }
 
 .revealed {

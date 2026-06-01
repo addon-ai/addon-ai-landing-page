@@ -41,7 +41,7 @@ export function Navbar() {
               onClick={toggle}
               aria-label="Toggle theme"
             >
-              {mode === 'dark' ? '\u263E' : '\u2600'}
+              {mode === 'dark' ? '\u2600' : '\u263E'}
             </button>
 
             {/* Mobile menu toggle */}

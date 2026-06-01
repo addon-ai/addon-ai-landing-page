@@ -49,6 +49,11 @@
   50% { transform: translateY(-15px); }
 }
 
+.float-logo {
+  animation: float 6s ease-in-out infinite;
+  margin-top: -2rem;
+}
+
 @keyframes sectorsDrift {
   0% {
     transform: translate3d(0, 0, 0) rotate(0deg) scale(1);

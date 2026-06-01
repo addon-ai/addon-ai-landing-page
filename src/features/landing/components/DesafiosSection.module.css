@@ -28,6 +28,16 @@
   background: linear-gradient(180deg, rgba(5, 10, 20, 0.72) 0%, rgba(5, 10, 20, 0.58) 50%, rgba(5, 10, 20, 0.78) 100%);
 }
 
+[data-theme='light'] .desafiosOverlay {
+  background: linear-gradient(180deg, rgba(5, 10, 20, 0.68) 0%, rgba(5, 10, 20, 0.55) 50%, rgba(5, 10, 20, 0.75) 100%);
+}
+
+@supports (-webkit-touch-callout: none) {
+  .desafiosBg {
+    background-attachment: scroll;
+  }
+}
+
 .content {
   position: relative;
   z-index: 1;
@@ -50,7 +60,6 @@
 
 .title {
   font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 700;
   color: #fff;
   margin-bottom: 16px;
 }
@@ -87,6 +96,23 @@
   font-size: 14px;
   color: #dde5ef;
   line-height: 1.6;
+}
+
+[data-theme='light'] .badge {
+  background: linear-gradient(135deg, rgba(14, 124, 107, 0.32) 0%, rgba(34, 197, 94, 0.28) 100%) !important;
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(14, 124, 107, 0.35) !important;
+  box-shadow: 0 4px 18px rgba(14, 124, 107, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.40);
+}
+
+[data-theme='light'] .badge span {
+  color: #4cc783 !important;
+  font-weight: 600;
+}
+
+[data-theme='light'] .badge svg {
+  stroke: #4cc783 !important;
 }
 
 .revealed {

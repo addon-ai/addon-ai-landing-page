@@ -55,6 +55,15 @@
   justify-content: center;
 }
 
+@media (max-width: 640px) {
+  .navCenter {
+    padding-right: 24px;
+  }
+  .themeBtn {
+    margin-left: 12px;
+  }
+}
+
 @media (max-width: 768px) {
   .desktopNav {
     display: none !important;
@@ -112,6 +121,10 @@
   justify-content: center;
   transition: background 0.2s, border-color 0.2s, transform 0.2s;
   flex-shrink: 0;
+}
+
+.themeBtn {
+  margin-left: 24px;
 }
 
 .themeBtn:hover {

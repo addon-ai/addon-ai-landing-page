@@ -327,6 +327,40 @@
   align-items: center;
 }
 
+/* ── Float logo animation (hero) ─────────────────────────────────────────── */
+
+.floatLogo {
+  animation: float 6s ease-in-out infinite;
+  margin-top: -2rem;
+}
+
+/* ── Gradient text weight override — bold only gradient spans inside headings ── */
+
+:global(h1) .gradientText,
+:global(h2) .gradientText,
+:global(h3) .gradientText,
+:global(h4) .gradientText,
+:global(h5) .gradientText,
+:global(h6) .gradientText,
+:global(h1) .gradientTextAlt,
+:global(h2) .gradientTextAlt,
+:global(h3) .gradientTextAlt,
+:global(h4) .gradientTextAlt,
+:global(h5) .gradientTextAlt,
+:global(h6) .gradientTextAlt {
+  font-weight: 800 !important;
+}
+
+/* ── Liquid card morph animation ─────────────────────────────────────────── */
+
+.liquidCard {
+  animation: liquidMorph 8s ease-in-out infinite;
+}
+
+.liquidCard:nth-child(2) { animation-delay: -2s; }
+.liquidCard:nth-child(3) { animation-delay: -4s; }
+.liquidCard:nth-child(4) { animation-delay: -6s; }
+
 /* ── Popular badge ──────────────────────────────────────────────────────── */
 
 .popularBadge {
