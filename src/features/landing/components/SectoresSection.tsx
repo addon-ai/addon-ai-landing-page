@@ -76,7 +76,7 @@ export function SectoresSection() {
                   <h3 className={styles.sectorName}>{s.name}</h3>
                   <div style={{ marginBottom: 24 }}>
                     <span className={styles.subtitle} style={{ color: 'var(--cyan)' }}>Arquitectura</span>
-                    <p className={styles.text} style={{ color: '#dde5ef' }}>{s.arch}</p>
+                    <p className={styles.text}>{s.arch}</p>
                   </div>
                   <div style={{ marginBottom: 24 }}>
                     <span className={styles.subtitle} style={{ color: 'var(--emerald)' }}>Resultado</span>

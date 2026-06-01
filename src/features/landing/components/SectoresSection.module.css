@@ -142,6 +142,10 @@
   background: #2D2926;
 }
 
+.panelContent .text {
+  color: #dde5ef;
+}
+
 .panelIconWrap {
   width: 72px;
   height: 72px;
@@ -188,6 +192,19 @@
 
 [data-theme='light'] .badge svg {
   stroke: #0E7C6B !important;
+}
+
+[data-theme='light'] .panelContent {
+  background: #ffffff;
+  color: var(--text);
+}
+
+[data-theme='light'] .panelContent .text {
+  color: var(--text-secondary);
+}
+
+[data-theme='light'] .sectorName {
+  color: var(--text);
 }
 
 .revealed {
