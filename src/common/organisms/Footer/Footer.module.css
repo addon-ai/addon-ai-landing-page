@@ -37,21 +37,30 @@
 .footerLogo {
   margin-bottom: 20px;
   display: inline-flex;
-  align-items: center;
+  align-items: start;
   height: auto;
+  gap: 2rem;
+}
+
+.textAndSocials {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 20px;
 }
 
 /* ── Logo variants (dark/light) ──────────────────────────────────────────── */
 
+
 .logoDark {
   display: block;
-  height: 56px;
+  height: 12rem;
   width: auto;
 }
 
 .logoLight {
   display: none;
-  height: 56px;
+  height: 12rem;
   width: auto;
 }
 
@@ -122,6 +131,6 @@
 
 @media (max-width: 640px) {
   .footerLogo img {
-    height: 48px !important;
+    height: 7rem !important;
   }
 }

@@ -48,8 +48,8 @@ export function SectoresSection() {
       <div className={shared.wrap}>
         <div className={styles.header}>
           <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" strokeWidth="2" strokeLinecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
-            <span style={{ color: 'var(--emerald)' }}>Soluciones por Sector</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0E7C6B " strokeWidth="2" strokeLinecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
+            <span className={`${styles.badgeText}`}>Soluciones por Sector</span>
           </div>
           <h2 ref={titleRef as React.RefObject<HTMLHeadingElement>} className={`${shared.reveal} ${titleVisible ? styles.revealed : ''} ${styles.title}`}>Verticales de <span className={shared.gradientText}>industria</span></h2>
         </div>

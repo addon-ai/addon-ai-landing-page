@@ -6,19 +6,21 @@ export function Footer() {
     <footer className={styles.footer}>
       <div className={shared.wrap}>
         <div className={styles.footerGrid}>
-          <div>
+          
             <div className={styles.footerLogo}>
               <img
-                src="/logos/logo-icon-dark-compact.svg"
+                src="/public/logos/logo-vertical-green-tagline.svg"
                 alt="Addon.ai"
                 className={styles.logoDark}
               />
               <img
-                src="/logos/logo-icon-primary.svg"
+                src="/public/logos/logo-vertical-primary.svg"
                 alt="Addon.ai"
                 className={styles.logoLight}
               />
-            </div>
+              <div className={styles.textAndSocials}>
+
+
             <p className={styles.description}>
               Arquitectura de software empresarial combinada con IA aplicada para optimizar procesos desde la raíz.
             </p>
@@ -36,7 +38,9 @@ export function Footer() {
                 </svg>
               </a>
             </div>
-          </div>
+          
+            </div>
+              </div>
 
           <div>
             <h4 className={styles.columnTitle}>Servicios</h4>

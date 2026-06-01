@@ -186,12 +186,24 @@
 
 /* Large tablet / small desktop: single column, logo below CTA, stats smaller */
 @media (max-width: 1100px) {
+
+  .section {
+  padding: 5rem 0;
+}
+
   .heroCta {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
   }
+
+  .heroTitle {
+    text-align: center;
+  }
+
   .subtitle {
     max-width: none;
+    text-align: center;
   }
   .heroGrid {
     grid-template-columns: 1fr;
@@ -206,7 +218,8 @@
     justify-content: center;
   }
   .heroVisualResponsive .heroLogo {
-    max-width: min(470px, 45vw);
+    max-width: min(470px, 65vw);
+    margin: 3rem auto 0;
   }
   .statValue {
     font-size: 1.5rem;
@@ -214,56 +227,13 @@
   .statDivider {
     height: 32px;
   }
-}
 
-/* Tablet/medium */
-@media (max-width: 770px) {
-  .section {
-    padding: 6rem 0;
-  }
-  .wrapInner {
-    padding-top: 48px;
-    padding-bottom: 48px;
-  }
-  .heroTitle {
-    font-size: clamp(2rem, 5vw, 2.8rem);
-  }
-  .subtitle {
-    max-width: none;
-  }
   .statsRow {
-    flex-wrap: wrap;
-    gap: 24px;
+    justify-content: center;
+    margin-top: 4rem;
   }
 }
 
-/* Small tablet: stack stats vertically */
-@media (max-width: 640px) {
-  .section {
-    padding: 4rem 0;
-  }
-  .wrapInner {
-    padding-top: 32px;
-    padding-bottom: 32px;
-  }
-  .statsRow {
-    flex-direction: column !important;
-    gap: 16px !important;
-    align-items: flex-start !important;
-  }
-  .statDivider {
-    display: none !important;
-  }
-  .heroVisualResponsive {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  .heroVisualResponsive .heroLogo {
-    max-width: min(320px, 80vw);
-  }
-}
-
-/* Mobile: hide responsive logo */
 @media (max-width: 540px) {
   .section {
     padding: 3rem 0;
@@ -279,3 +249,4 @@
   opacity: 1;
   transform: translateY(0);
 }
+
