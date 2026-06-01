@@ -184,6 +184,17 @@
 
 /* ── Responsive breakpoints ────────────────────────────────────────────────── */
 
+/* Large tablet / small desktop: stack CTA buttons vertically and centered */
+@media (max-width: 1100px) {
+  .heroCta {
+    flex-direction: column;
+    align-items: center;
+  }
+  .subtitle {
+    max-width: none;
+  }
+}
+
 /* Tablet/medium: stats + logo side by side */
 @media (max-width: 770px) {
   .section {
@@ -252,13 +263,10 @@
   }
 }
 
-/* Mobile: hide responsive logo, wrap CTAs */
+/* Mobile: hide responsive logo */
 @media (max-width: 540px) {
   .section {
     padding: 3rem 0;
-  }
-  .heroCta {
-    flex-wrap: wrap;
   }
   .heroVisualResponsive {
     display: none;
