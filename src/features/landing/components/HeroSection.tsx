@@ -70,6 +70,14 @@ export function HeroSection() {
                 <div className={styles.statLabel}>Uptime garantizado</div>
               </div>
             </div>
+
+            <div className={styles.heroVisualResponsive}>
+              <img
+                src="/logos/logo-horizontal-full-primary.svg"
+                alt="Addon.ai"
+                className={styles.heroLogo}
+              />
+            </div>
           </div>
 
           <div

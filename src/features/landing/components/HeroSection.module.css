@@ -22,8 +22,8 @@
 
 .heroGrid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 64px;
+  grid-template-columns: minmax(0, 1fr) minmax(470px, 1.4fr);
+  gap: 48px;
   align-items: center;
 }
 
@@ -53,12 +53,6 @@
   gap: 16px;
 }
 
-@media (max-width: 540px) {
-  .heroCta {
-    flex-wrap: wrap;
-  }
-}
-
 /* ── Stats row ────────────────────────────────────────────────────────────── */
 
 .statsRow {
@@ -85,18 +79,7 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-@media (max-width: 768px) {
-  .statsRow {
-    flex-direction: column !important;
-    gap: 16px !important;
-    align-items: flex-start !important;
-  }
-  .statDivider {
-    display: none !important;
-  }
-}
-
-/* ── Hero visual area ────────────────────────────────────────────────────── */
+/* ── Hero visual area (desktop) ──────────────────────────────────────────── */
 
 .heroVisual {
   position: relative;
@@ -133,13 +116,10 @@
   filter: drop-shadow(0 1px 8px rgba(18, 210, 124, 0.12));
 }
 
-@media (max-width: 768px) {
-  .heroGrid {
-    grid-template-columns: 1fr !important;
-  }
-  .heroVisual {
-    display: none !important;
-  }
+/* ── Responsive logo (visible next to stats at ≤770px) ───────────────────── */
+
+.heroVisualResponsive {
+  display: none; /* hidden by default, shown at ≤770px */
 }
 
 /* ── Floating badges ──────────────────────────────────────────────────────── */
@@ -200,6 +180,89 @@
 .badgeValueCyan {
   composes: badgeValue;
   color: var(--cyan);
+}
+
+/* ── Responsive breakpoints ────────────────────────────────────────────────── */
+
+/* Tablet/medium: stats + logo side by side */
+@media (max-width: 770px) {
+  .section {
+    padding: 6rem 0;
+  }
+  .wrapInner {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .heroGrid {
+    grid-template-columns: 1fr !important;
+    gap: 48px;
+  }
+  .heroTitle {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+  }
+  .subtitle {
+    max-width: none;
+  }
+
+  /* Hide desktop visual (badges only make sense at large) */
+  .heroVisual {
+    display: none !important;
+  }
+
+  /* Show responsive logo next to stats */
+  .heroVisualResponsive {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .heroVisualResponsive .heroLogo {
+    max-width: min(470px, 45vw);
+  }
+
+  /* Stats row becomes a flex row, with logo at the right */
+  .statsRow {
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+}
+
+/* Small tablet: stack stats vertically */
+@media (max-width: 640px) {
+  .section {
+    padding: 4rem 0;
+  }
+  .wrapInner {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+  .statsRow {
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: flex-start !important;
+  }
+  .statDivider {
+    display: none !important;
+  }
+  .heroVisualResponsive {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .heroVisualResponsive .heroLogo {
+    max-width: min(320px, 80vw);
+  }
+}
+
+/* Mobile: hide responsive logo, wrap CTAs */
+@media (max-width: 540px) {
+  .section {
+    padding: 3rem 0;
+  }
+  .heroCta {
+    flex-wrap: wrap;
+  }
+  .heroVisualResponsive {
+    display: none;
+  }
 }
 
 /* ── Reveal animation active state ────────────────────────────────────────── */
