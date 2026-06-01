@@ -1,6 +1,8 @@
 import { useThemeStore } from '@/features/landing/store/useThemeStore'
 import { useMenuStore } from '@/features/landing/store/useMenuStore'
 import { Button } from '@/common/atoms/Button'
+import shared from '@/styles/shared.module.css'
+import styles from './Navbar.module.css'
 
 const NAV_LINKS = [
   { href: '#desafios', label: 'Desafíos' },
@@ -17,46 +19,25 @@ export function Navbar() {
   const { open } = useMenuStore()
 
   return (
-    <nav className="nav-glass">
-      <div
-        className="wrap"
-        style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flex: 1,
-            gap: 32,
-            paddingRight: 40,
-          }}
-        >
+    <nav className={styles.navGlass}>
+      <div className={`${shared.wrap} ${styles.navInner}`}>
+        <div className={styles.navCenter}>
           {/* Desktop nav */}
-          <div
-            className="desktop-nav"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 20,
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-            }}
-          >
+          <div className={styles.desktopNav}>
             {NAV_LINKS.map((link) => (
-              <a key={link.href} href={link.href} className="nav-link">
+              <a key={link.href} href={link.href} className={styles.navLink}>
                 {link.label}
               </a>
             ))}
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div className={styles.navActions}>
             <Button href="#contacto" variant="primary" style={{ display: 'none' }} id="navCta">
               Solicita tu diagnóstico
             </Button>
 
             <button
-              className="theme-btn"
+              className={styles.themeBtn}
               onClick={toggle}
               aria-label="Toggle theme"
             >
@@ -66,21 +47,8 @@ export function Navbar() {
             {/* Mobile menu toggle */}
             <button
               id="menuToggle"
+              className={styles.mobileToggle}
               onClick={open}
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 12,
-                border: '1px solid rgba(255,255,255,0.1)',
-                background: 'rgba(255,255,255,0.05)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                cursor: 'pointer',
-                display: 'none',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--text)',
-              }}
               aria-label="Menu"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">

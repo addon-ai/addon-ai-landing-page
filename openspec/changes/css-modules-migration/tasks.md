@@ -49,19 +49,19 @@ Chain strategy: pending
 
 ## Phase 1: Atoms
 
-- [ ] 1.1 Create `src/common/atoms/Button.module.css` — extract `.btn-primary`, `.btn-secondary` with full states (hover, active, disabled) + media queries (~80 lines)
-- [ ] 1.2 Update `Button.tsx` — import `styles`, replace `className="btn-primary"` with `styles.btnPrimary`, preserve `className` prop composability
-- [ ] 1.3 Create `src/common/atoms/Badge.module.css` — extract `.badge` with `display: inline-flex`, import shared for `liquidGlassSubtle`
-- [ ] 1.4 Update `Badge.tsx` — import shared + styles, remove inline `style={{ display: 'inline-flex' }}`
+- [x] 1.1 Create `src/common/atoms/Button.module.css` — extract `.btn-primary`, `.btn-secondary` with full states (hover, active, disabled) + media queries (~80 lines)
+- [x] 1.2 Update `Button.tsx` — import `styles`, replace `className="btn-primary"` with `styles.btnPrimary`, preserve `className` prop composability
+- [x] 1.3 Create `src/common/atoms/Badge.module.css` — extract `.badge` with `display: inline-flex`, import shared for `liquidGlassSubtle`
+- [x] 1.4 Update `Badge.tsx` — import shared + styles, remove inline `style={{ display: 'inline-flex' }}`
 
 ## Phase 2: Organisms
 
-- [ ] 2.1 Create `src/common/organisms/Navbar.module.css` — extract `.navGlass`, `.desktopNav`, `.navLink`, `.themeBtn`, `.mobileToggle` with all states + media queries
-- [ ] 2.2 Update `Navbar.tsx` — extract inline toggle button styles to `.mobileToggle`, replace className refs
-- [ ] 2.3 Create `src/common/organisms/MobileMenu.module.css` — extract `.menuOverlay`, `.menuPanel` (compose shared liquidGlassStrong), `.closeBtn`
-- [ ] 2.4 Update `MobileMenu.tsx` — extract close button inline styles, import shared + styles
-- [ ] 2.5 Create `src/common/organisms/Footer.module.css` — extract `.footerGrid`, `.footerLogo`, `.logoLight`, `.logoDark`, `.socialIcon`
-- [ ] 2.6 Update `Footer.tsx` — replace social icon inline styles with `.socialIcon`, import shared for liquidGlassSubtle
+- [x] 2.1 Create `src/common/organisms/Navbar/Navbar.module.css` — extract `.navGlass`, `.desktopNav`, `.navLink`, `.themeBtn`, `.mobileToggle` with all states + media queries
+- [x] 2.2 Update `Navbar.tsx` — extract inline toggle button styles to `.mobileToggle`, replace className refs
+- [x] 2.3 Create `src/common/organisms/MobileMenu/MobileMenu.module.css` — extract `.overlay`, `.menuContent` (compose shared liquidGlassStrong), `.closeBtn`, `.menuLink`
+- [x] 2.4 Update `MobileMenu.tsx` — extract close button inline styles, import shared + styles
+- [x] 2.5 Create `src/common/organisms/Footer/Footer.module.css` — extract `.footerGrid`, `.footerLogo`, `.logoLight`, `.logoDark`, `.socialIcon`
+- [x] 2.6 Update `Footer.tsx` — replace social icon inline styles with `.socialIcon`, import shared for liquidGlassSubtle
 
 ## Phase 3: Simple Sections
 

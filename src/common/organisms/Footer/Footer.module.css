@@ -1,0 +1,121 @@
+/* ==========================================================================
+   Footer.module.css — Extracted from global.css .logo-* + inline styles
+   Part of the CSS Modules migration (PR #3).
+   ========================================================================== */
+
+/* ── Footer wrapper ─────────────────────────────────────────────────────── */
+
+.footer {
+  padding: 64px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ── Grid layout (4 → 2 → 1 columns) ───────────────────────────────────── */
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 1024px) {
+  .footerGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .footerGrid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+}
+
+/* ── Logo wrap ──────────────────────────────────────────────────────────── */
+
+.footerLogo {
+  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  height: auto;
+}
+
+/* ── Logo variants (dark/light) ──────────────────────────────────────────── */
+
+.logoDark {
+  display: block;
+  height: 56px;
+  width: auto;
+}
+
+.logoLight {
+  display: none;
+  height: 56px;
+  width: auto;
+}
+
+[data-theme='light'] .logoDark {
+  display: none;
+}
+
+[data-theme='light'] .logoLight {
+  display: block;
+}
+
+/* ── Description text ───────────────────────────────────────────────────── */
+
+.description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* ── Social icon buttons ────────────────────────────────────────────────── */
+
+.socialIcon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--text-secondary);
+}
+
+/* ── Column title ───────────────────────────────────────────────────────── */
+
+.columnTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── Column link ────────────────────────────────────────────────────────── */
+
+.columnLink {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+/* ── Bottom bar (copyright) ─────────────────────────────────────────────── */
+
+.bottomBar {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.copyright {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}

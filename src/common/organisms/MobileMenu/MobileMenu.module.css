@@ -1,0 +1,72 @@
+/* ==========================================================================
+   MobileMenu.module.css — Extracted from global.css inline styles
+   Part of the CSS Modules migration (PR #3).
+   ========================================================================== */
+
+/* ── Overlay (full-screen backdrop) ─────────────────────────────────────── */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 55;
+  display: none;
+}
+
+.overlayOpen {
+  display: block;
+}
+
+/* ── Menu panel (slide-in from right) ───────────────────────────────────── */
+
+.menuContent {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  z-index: 60;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  padding: 80px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: 0;
+}
+
+.menuOpen {
+  transform: translateX(0);
+}
+
+/* ── Close button ───────────────────────────────────────────────────────── */
+
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+
+[data-theme='light'] .closeBtn {
+  border: 1px solid rgba(22, 58, 101, 0.18);
+  background: rgba(22, 58, 101, 0.04);
+  color: #163a65;
+}
+
+/* ── Nav links inside menu ──────────────────────────────────────────────── */
+
+.menuLink {
+  font-size: 18px;
+  color: var(--text-secondary);
+  text-decoration: none;
+}

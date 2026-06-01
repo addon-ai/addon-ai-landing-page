@@ -1,5 +1,7 @@
 import { useMenuStore } from '@/features/landing/store/useMenuStore'
 import { useCallback } from 'react'
+import shared from '@/styles/shared.module.css'
+import styles from './MobileMenu.module.css'
 
 interface MobileMenuProps {
   onNavClick?: () => void
@@ -26,53 +28,17 @@ export function MobileMenu({ onNavClick }: MobileMenuProps) {
   return (
     <>
       <div
-        className={`menu-overlay ${isOpen ? 'open' : ''}`}
+        className={`${styles.overlay} ${isOpen ? styles.overlayOpen : ''}`}
         onClick={handleClose}
-        style={{
-          position: 'fixed',
-          inset: 0,
-          background: 'rgba(0,0,0,0.5)',
-          zIndex: 55,
-          display: isOpen ? 'block' : 'none',
-        }}
       />
 
       <div
-        className={`liquid-glass-strong ${isOpen ? 'open' : ''}`}
+        className={`${shared.liquidGlassStrong} ${styles.menuContent} ${isOpen ? styles.menuOpen : ''}`}
         id="mobileMenu"
-        style={{
-          position: 'fixed',
-          top: 0,
-          right: 0,
-          width: 300,
-          height: '100vh',
-          zIndex: 60,
-          transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
-          transition: 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
-          padding: '80px 32px 32px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 24,
-          borderRadius: 0,
-        }}
       >
         <button
+          className={styles.closeBtn}
           onClick={handleClose}
-          style={{
-            position: 'absolute',
-            top: 16,
-            right: 16,
-            width: 40,
-            height: 40,
-            borderRadius: 12,
-            border: '1px solid rgba(255,255,255,0.1)',
-            background: 'rgba(255,255,255,0.05)',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--text)',
-          }}
           aria-label="Close"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -86,7 +52,7 @@ export function MobileMenu({ onNavClick }: MobileMenuProps) {
             key={link.href}
             href={link.href}
             onClick={handleClose}
-            style={{ fontSize: 18, color: 'var(--text-secondary)', textDecoration: 'none' }}
+            className={styles.menuLink}
           >
             {link.label}
           </a>

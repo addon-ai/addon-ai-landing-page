@@ -1,0 +1,161 @@
+/* ==========================================================================
+   Navbar.module.css — Extracted from global.css .nav-glass + inline styles
+   Part of the CSS Modules migration (PR #3).
+   ========================================================================== */
+
+/* ── Nav glass (fixed header) ───────────────────────────────────────────── */
+
+.navGlass {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 64px;
+  background: rgba(5, 10, 20, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.3s;
+}
+
+[data-theme='light'] .navGlass {
+  background: #ffffff !important;
+  border-bottom: 1px solid rgba(22, 58, 101, 0.12);
+  box-shadow: none;
+}
+
+/* ── Inner wrapper (wrap + flex) ────────────────────────────────────────── */
+
+.navInner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Center section (links + actions) ───────────────────────────────────── */
+
+.navCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 32px;
+  padding-right: 40px;
+}
+
+/* ── Desktop nav links ──────────────────────────────────────────────────── */
+
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .desktopNav {
+    display: none !important;
+  }
+}
+
+/* ── Nav link anchor ────────────────────────────────────────────────────── */
+
+.navLink {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+  opacity: 0.75;
+}
+
+.navLink:hover {
+  color: var(--text);
+  opacity: 1;
+}
+
+[data-theme='light'] .navLink {
+  color: #163a65 !important;
+  opacity: 1;
+}
+
+[data-theme='light'] .navLink:hover {
+  color: #338a7b !important;
+}
+
+/* ── Actions group (Button + theme btn + mobile toggle) ─────────────────── */
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ── Theme toggle ───────────────────────────────────────────────────────── */
+
+.themeBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+
+.themeBtn:hover {
+  transform: scale(1.08);
+  border-color: rgba(6, 182, 212, 0.4);
+}
+
+[data-theme='light'] .themeBtn {
+  border: 1px solid rgba(22, 58, 101, 0.18);
+  background: rgba(22, 58, 101, 0.04);
+  color: #163a65;
+}
+
+[data-theme='light'] .themeBtn:hover {
+  border-color: #338a7b;
+  color: #338a7b;
+  background: rgba(51, 138, 123, 0.06);
+}
+
+/* ── Mobile toggle (hamburger) ──────────────────────────────────────────── */
+
+.mobileToggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .mobileToggle {
+    display: flex;
+  }
+}
+
+[data-theme='light'] .mobileToggle {
+  border: 1px solid rgba(22, 58, 101, 0.18);
+  background: rgba(22, 58, 101, 0.04);
+  color: #163a65;
+}
