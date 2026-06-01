@@ -128,28 +128,9 @@
 
 .heroLogo {
   width: 100%;
-  min-width: 470px;
   max-width: min(541px, 90vw);
   height: auto;
   filter: drop-shadow(0 1px 8px rgba(18, 210, 124, 0.12));
-}
-
-@media (max-width: 1140px) {
-  .section {
-    padding: 6rem 0;
-  }
-  .heroGrid {
-    grid-template-columns: 1fr !important;
-    gap: 48px;
-  }
-  .heroVisual {
-    min-height: auto;
-    overflow: visible;
-  }
-  .heroLogo {
-    min-width: 0;
-    max-width: min(400px, 70vw);
-  }
 }
 
 @media (max-width: 768px) {
