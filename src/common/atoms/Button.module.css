@@ -1,0 +1,109 @@
+/* ==========================================================================
+   Button.module.css — Extracted from global.css .btn-primary / .btn-secondary
+   Part of the CSS Modules migration (PR #2).
+   ========================================================================== */
+
+/* ── Shared button base ──────────────────────────────────────────────────── */
+
+.base {
+  position: relative;
+  border-radius: 999px;
+  cursor: pointer;
+  letter-spacing: -0.15px;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+}
+
+/* ── Primary variant ────────────────────────────────────────────────────── */
+
+.primary {
+  background: linear-gradient(135deg, #0891b2, #059669);
+  border: none;
+  padding: 13px 32px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--cyan), var(--emerald));
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: inherit;
+}
+
+.primary:hover::before {
+  opacity: 1;
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(6, 182, 212, 0.3), 0 5px 15px rgba(16, 185, 129, 0.2);
+}
+
+.primary span {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Secondary variant ──────────────────────────────────────────────────── */
+
+.secondary {
+  border: 1px solid rgba(6, 182, 212, 0.4);
+  background: rgba(6, 182, 212, 0.05);
+  padding: 13px 30px;
+  font-weight: 500;
+  color: var(--cyan);
+}
+
+.secondary:hover {
+  border-color: rgba(6, 182, 212, 0.8);
+  background: rgba(6, 182, 212, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(6, 182, 212, 0.15);
+}
+
+/* ── Size variants ──────────────────────────────────────────────────────── */
+
+.sm {
+  padding: 10px 18px;
+  font-size: 13px;
+}
+
+.lg {
+  padding: 16px 38px;
+  font-size: 16px;
+}
+
+/* ── Light theme overrides ──────────────────────────────────────────────── */
+
+[data-theme='light'] .primary:hover {
+  box-shadow: 0 4px 14px rgba(8, 145, 178, 0.10), 0 2px 6px rgba(5, 150, 105, 0.08);
+}
+
+[data-theme='light'] .secondary {
+  color: #0891b2;
+  border-color: rgba(8, 145, 178, 0.5);
+  background: rgba(8, 145, 178, 0.05);
+}
+
+[data-theme='light'] .secondary:hover {
+  border-color: rgba(8, 145, 178, 0.8);
+  background: rgba(8, 145, 178, 0.1);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .primary,
+  .secondary {
+    padding: 12px 22px;
+    font-size: 14px;
+  }
+}

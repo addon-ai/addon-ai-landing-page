@@ -1,4 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import styles from './Button.module.css'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
   variant?: 'primary' | 'secondary'
@@ -8,7 +9,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement | HT
 }
 
 export function Button({ variant = 'primary', size = 'md', href, children, className = '', ...rest }: ButtonProps) {
-  const cls = `btn-${variant} ${className}`.trim()
+  const sizeClass = size !== 'md' ? styles[size] : ''
+  const cls = [styles.base, styles[variant], sizeClass, className].filter(Boolean).join(' ').trim()
 
   if (href) {
     return (

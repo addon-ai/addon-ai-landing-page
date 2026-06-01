@@ -1,0 +1,35 @@
+/* ==========================================================================
+   Badge.module.css — Extracted from global.css .badge
+   Part of the CSS Modules migration (PR #2).
+   ========================================================================== */
+
+/* ── Badge base ──────────────────────────────────────────────────────────── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.badge span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+/* ── Dot indicator ──────────────────────────────────────────────────────── */
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(6, 182, 212, 0.9);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.9);
+  animation: blink 2s ease infinite;
+}
