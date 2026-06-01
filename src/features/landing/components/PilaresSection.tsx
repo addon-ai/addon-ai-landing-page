@@ -33,8 +33,8 @@ const PILLARS = [
     title: 'Agentes inteligentes',
     desc: 'Agentes conversacionales, detección de fraude y diagnóstico asistido por IA.',
     chips: ['NLP', 'LLMs'],
-    color: '#66e8ff',
-    bgColor: 'rgba(113,231,255,0.3)',
+    color: '#ff66c4',
+    bgColor: 'rgba(255, 113, 217, 0.3)',
     img: '/img/pexels-googledeepmind-18069816.jpg',
     align: 'left' as const,
     gradient: 'linear-gradient(90deg, rgba(5,10,20,0.92) 0%, rgba(5,10,20,0.6) 40%, transparent 70%)',
@@ -98,7 +98,7 @@ export function PilaresSection() {
 
                   <div className={isRight ? styles.chipWrapRight : styles.chipWrap}>
                     {p.chips.map((chip) => (
-                      <span key={chip} className={shared.aiChip}>
+                      <span key={chip} className={shared.aiChip} style={{ background: p.bgColor, color: p.color }}>
                         {chip}
                       </span>
                     ))}
