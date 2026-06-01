@@ -6,7 +6,7 @@
 /* ── Section ──────────────────────────────────────────────────────────────── */
 
 .section {
-  padding-top: 64px;
+  padding: 9rem 0;
   position: relative;
   overflow: hidden;
 }
@@ -121,11 +121,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .heroLogo {
-  height: 160px;
-  width: auto;
+  width: 100%;
+  max-width: min(541px, 90vw);
+  height: auto;
   filter: drop-shadow(0 1px 8px rgba(18, 210, 124, 0.12));
 }
 
