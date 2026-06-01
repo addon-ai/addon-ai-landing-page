@@ -126,6 +126,7 @@
 
 .heroLogo {
   width: 100%;
+  min-width: 470px;
   max-width: min(541px, 90vw);
   height: auto;
   filter: drop-shadow(0 1px 8px rgba(18, 210, 124, 0.12));
