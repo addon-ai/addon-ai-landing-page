@@ -88,6 +88,10 @@ export function HeroSection() {
 
             {/* Efficiency badge */}
             <div className={`${shared.liquidGlass} ${shared.cardHover} ${styles.floatBadge} ${styles.floatBadgeTop}`} data-glass="liquid">
+              <div className={shared.refractLayer} />
+              <div className={shared.glowAurora} />
+              <div className={shared.glowCore} />
+              <div className={shared.glowRim} />
               <div className={styles.badgeIconEmerald}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" strokeWidth="2" strokeLinecap="round">
                   <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
@@ -102,6 +106,10 @@ export function HeroSection() {
 
             {/* Uptime badge */}
             <div className={`${shared.liquidGlass} ${shared.cardHover} ${styles.floatBadge} ${styles.floatBadgeBottom}`} data-glass="liquid">
+              <div className={shared.refractLayer} />
+              <div className={shared.glowAurora} />
+              <div className={shared.glowCore} />
+              <div className={shared.glowRim} />
               <div className={styles.badgeIconCyan}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" strokeWidth="2" strokeLinecap="round">
                   <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />

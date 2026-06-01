@@ -250,6 +250,28 @@
   background: radial-gradient(300px circle at var(--gx, 50%) var(--gy, 50%), rgba(6, 182, 212, 0.10) 0%, rgba(34, 197, 94, 0.05) 25%, transparent 60%);
 }
 
+/* ── Hover state — make glow + refract layers visible ──────────────────── */
+/* Target via data-glass attribute for robust CSS Modules cross-class matching */
+.glassBisel:hover .refractLayer,
+.liquidGlass:hover .refractLayer,
+.liquidGlassStrong:hover .refractLayer,
+.glassBisel:hover .glowAurora,
+.liquidGlass:hover .glowAurora,
+.liquidGlassStrong:hover .glowAurora,
+.glassBisel:hover .glowCore,
+.liquidGlass:hover .glowCore,
+.liquidGlassStrong:hover .glowCore,
+.glassBisel:hover .glowRim,
+.liquidGlass:hover .glowRim,
+.liquidGlassStrong:hover .glowRim {
+  opacity: 1;
+}
+
+/* Light mode: reduce glow intensity */
+[data-theme='light'] .glowAurora { opacity: 0 !important; }
+[data-theme='light'] .glowCore,
+[data-theme='light'] .glowRim { opacity: 0.45; }
+
 /* ── Responsive grid columns ────────────────────────────────────────────── */
 
 .cols2 {
