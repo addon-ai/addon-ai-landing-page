@@ -65,35 +65,35 @@ Chain strategy: pending
 
 ## Phase 3: Simple Sections
 
-- [ ] 3.1 Create `src/features/landing/components/VentajaSection.module.css` — extract section classes, compose shared classes (wrap, reveal, glassBisel, glow*, gradientTextAlt)
-- [ ] 3.2 Update `VentajaSection.tsx` — import shared + styles, replace className refs
-- [ ] 3.3 Create `src/features/landing/components/QuickWinsSection.module.css` — extract, compose shared
-- [ ] 3.4 Update `QuickWinsSection.tsx` — import shared + styles, replace className refs
-- [ ] 3.5 Create `src/features/landing/components/CasosSection.module.css` — extract, compose shared + aiChip classes
-- [ ] 3.6 Update `CasosSection.tsx` — import shared + styles, replace className refs
-- [ ] 3.7 Create `src/features/landing/components/ModeloSection.module.css` — extract, compose shared cols*, cardHover
-- [ ] 3.8 Update `ModeloSection.tsx` — import shared + styles, replace className refs
+- [x] 3.1 Create `src/features/landing/components/VentajaSection.module.css` — extract section classes, compose shared classes (wrap, reveal, glassBisel, glow*, gradientTextAlt)
+- [x] 3.2 Update `VentajaSection.tsx` — import shared + styles, replace className refs
+- [x] 3.3 Create `src/features/landing/components/QuickWinsSection.module.css` — extract, compose shared
+- [x] 3.4 Update `QuickWinsSection.tsx` — import shared + styles, replace className refs
+- [x] 3.5 Create `src/features/landing/components/CasosSection.module.css` — extract, compose shared + aiChip classes
+- [x] 3.6 Update `CasosSection.tsx` — import shared + styles, replace className refs
+- [x] 3.7 Create `src/features/landing/components/ModeloSection.module.css` — extract, compose shared cols*, cardHover
+- [x] 3.8 Update `ModeloSection.tsx` — import shared + styles, replace className refs
 
 ## Phase 4: Complex Sections
 
-- [ ] 4.1 Create `src/features/landing/components/HeroSection.module.css` — `.heroGrid`, `.heroTitle`, `.heroVisual`, `.heroCta`, `.statsRow`, `.statDivider`, `.floatLogo*` + compose shared
-- [ ] 4.2 Update `HeroSection.tsx` — import shared + styles, replace className refs
-- [ ] 4.3 Create `src/features/landing/components/DesafiosSection.module.css` — extract section bg patterns + compose shared
-- [ ] 4.4 Update `DesafiosSection.tsx` — import shared + styles, replace className refs
-- [ ] 4.5 Create `src/features/landing/components/PilaresSection.module.css` — `.pilaresSection`, `.aiChip*` + compose shared
-- [ ] 4.6 Update `PilaresSection.tsx` — import shared + styles, replace className refs
-- [ ] 4.7 Create `src/features/landing/components/ServiciosSection.module.css` — compose shared + section classes
-- [ ] 4.8 Update `ServiciosSection.tsx` — import shared + styles, replace className refs
-- [ ] 4.9 Create `src/features/landing/components/SectoresSection.module.css` — `.sectorPanel`, `.sectorImgOverlay*` + compose shared
-- [ ] 4.10 Update `SectoresSection.tsx` — import shared + styles, replace className refs
-- [ ] 4.11 Create `src/features/landing/components/ComparativaSection.module.css` — `.compareTable`, `.highlight` + compose shared
-- [ ] 4.12 Update `ComparativaSection.tsx` — import shared + styles, replace className refs
-- [ ] 4.13 Create `src/features/landing/components/PlanesSection.module.css` — `.popularBadge`, `.progressTrack`, `.progressFill` + compose shared
-- [ ] 4.14 Update `PlanesSection.tsx` — import shared + styles, replace className refs
-- [ ] 4.15 Create `src/features/landing/components/CompromisoSection.module.css` — compose shared + section classes
-- [ ] 4.16 Update `CompromisoSection.tsx` — import shared + styles, replace className refs
-- [ ] 4.17 Create `src/features/landing/components/ContactoSection.module.css` — `.contactForm`, `.cfGrid`, `.cfField`, `.cfInput*`, `.contactInfo*` + compose shared
-- [ ] 4.18 Update `ContactoSection.tsx` — import shared + styles, replace className refs
+- [x] 4.1 Create `src/features/landing/components/HeroSection.module.css` — `.heroGrid`, `.heroTitle`, `.heroVisual`, `.heroCta`, `.statsRow`, `.statDivider`, `.floatLogo*` + compose shared
+- [x] 4.2 Update `HeroSection.tsx` — import shared + styles, replace className refs, CTA buttons → Button component
+- [x] 4.3 Create `src/features/landing/components/DesafiosSection.module.css` — section bg patterns + compose shared
+- [x] 4.4 Update `DesafiosSection.tsx` — import shared + styles, replace className refs
+- [x] 4.5 Create `src/features/landing/components/PilaresSection.module.css` — `.pilaresSection`, layout classes + compose shared
+- [x] 4.6 Update `PilaresSection.tsx` — import shared + styles, replace className refs
+- [x] 4.7 Create `src/features/landing/components/ServiciosSection.module.css` — compose shared + section classes
+- [x] 4.8 Update `ServiciosSection.tsx` — import shared + styles, replace className refs
+- [x] 4.9 Create `src/features/landing/components/SectoresSection.module.css` — `.sectorPanel`, img layouts + compose shared
+- [x] 4.10 Update `SectoresSection.tsx` — import shared + styles, replace className refs
+- [x] 4.11 Create `src/features/landing/components/ComparativaSection.module.css` — `.compareTable`, `.highlight` + compose shared
+- [x] 4.12 Update `ComparativaSection.tsx` — import shared + styles, replace className refs
+- [x] 4.13 Create `src/features/landing/components/PlanesSection.module.css` — plan card layout + compose shared
+- [x] 4.14 Update `PlanesSection.tsx` — import shared + styles, replace className refs
+- [x] 4.15 Create `src/features/landing/components/CompromisoSection.module.css` — compose shared + progress bar classes
+- [x] 4.16 Update `CompromisoSection.tsx` — import shared + styles, replace className refs
+- [x] 4.17 Create `src/features/landing/components/ContactoSection.module.css` — `.contactForm`, `.cfGrid`, `.cfField`, `.cfInput*`, `.contactInfo*` + compose shared
+- [x] 4.18 Update `ContactoSection.tsx` — import shared + styles, replace className refs, form submit → Button component
 
 ## Phase 5: LandingPage Refactor + Cleanup
 

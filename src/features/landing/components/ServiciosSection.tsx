@@ -1,4 +1,6 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import shared from '@/styles/shared.module.css'
+import styles from './ServiciosSection.module.css'
 
 const SERVICES = [
   { title: 'Consultoría Estratégica', desc: 'Diagnóstico y hoja de ruta', tag: 'Discovery', icon: '🔍', color: 'var(--cyan)', bg: 'rgba(6,182,212,0.12)' },
@@ -20,25 +22,25 @@ export function ServiciosSection() {
   const { ref: gridRef, isVisible: gridVisible } = useScrollReveal()
 
   return (
-    <section id="servicios" style={{ padding: '112px 0' }}>
-      <div className="wrap">
-        <div className="text-center" style={{ marginBottom: 64 }}>
-          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`reveal badge liquid-glass-subtle ${badgeVisible ? 'active' : ''}`} style={{ marginBottom: 24, display: 'inline-flex' }}>
+    <section id="servicios" className={styles.section}>
+      <div className={shared.wrap}>
+        <div className={styles.header}>
+          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" strokeWidth="2" strokeLinecap="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
             <span style={{ color: 'var(--cyan)' }}>Paquetes de Servicios</span>
           </div>
-          <h2 ref={titleRef as React.RefObject<HTMLHeadingElement>} className={`reveal ${titleVisible ? 'active' : ''}`} style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 700, color: 'var(--text)', marginBottom: 16 }}>Soluciones a <span className="gradient-text">medida</span></h2>
+          <h2 ref={titleRef as React.RefObject<HTMLHeadingElement>} className={`${shared.reveal} ${titleVisible ? styles.revealed : ''} ${styles.title}`}>Soluciones a <span className={shared.gradientText}>medida</span></h2>
         </div>
-        <div ref={gridRef as React.RefObject<HTMLDivElement>} className={`cols-4 reveal ${gridVisible ? 'active' : ''}`} style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 20 }}>
+        <div ref={gridRef as React.RefObject<HTMLDivElement>} className={`${shared.cols4} ${shared.reveal} ${gridVisible ? styles.revealed : ''}`}>
           {SERVICES.map((s) => (
-            <div key={s.title} className="glass-bisel card-hover liquid-card" style={{ padding: '32px 24px', textAlign: 'center' }}>
-              <div className="refract-layer" /><div className="glow-aurora" /><div className="glow-core" /><div className="glow-rim" />
-              <div style={{ width: 56, height: 56, borderRadius: 16, background: s.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
+            <div key={s.title} className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`}>
+              <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
+              <div className={styles.iconWrap} style={{ background: s.bg }}>
                 {SVC_ICONS[s.icon]}
               </div>
-              <h3 style={{ fontSize: 15, fontWeight: 600, color: 'var(--text)', marginBottom: 8 }}>{s.title}</h3>
-              <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5 }}>{s.desc}</p>
-              <div className="liquid-glass-subtle" style={{ display: 'inline-block', padding: '4px 12px', fontSize: 11, color: s.color, marginTop: 12 }}>{s.tag}</div>
+              <h3 className={styles.cardTitle}>{s.title}</h3>
+              <p className={styles.cardDesc}>{s.desc}</p>
+              <div className={`${shared.liquidGlassSubtle} ${styles.tag}`} style={{ color: s.color }}>{s.tag}</div>
             </div>
           ))}
         </div>

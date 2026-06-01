@@ -1,5 +1,7 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
 import { useThemeStore } from '../store/useThemeStore'
+import shared from '@/styles/shared.module.css'
+import styles from './DesafiosSection.module.css'
 
 const CHALLENGES = [
   {
@@ -59,90 +61,61 @@ export function DesafiosSection() {
   const { ref: gridRef, isVisible: gridVisible } = useScrollReveal()
 
   return (
-    <section id="desafios" style={{ padding: '140px 0', position: 'relative', overflow: 'hidden' }}>
+    <section id="desafios" className={styles.section}>
       <div
-        className="desafios-bg"
+        className={styles.desafiosBg}
         style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: 'none',
           backgroundImage: mode === 'light' ? "url('/img/desafíos del mercado-light.jpg')" : "url('/img/pexels-rostislav-5307735.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed',
         }}
       />
-      <div
-        className="desafios-overlay"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: 'none',
-          background: 'linear-gradient(180deg, rgba(5,10,20,0.72) 0%, rgba(5,10,20,0.58) 50%, rgba(5,10,20,0.78) 100%)',
-        }}
-      />
+      <div className={styles.desafiosOverlay} />
 
-      <div className="wrap" style={{ position: 'relative' }}>
-        <div className="text-center" style={{ marginBottom: 64 }}>
+      <div className={`${shared.wrap} ${styles.content}`}>
+        <div className={styles.header}>
           <div
             ref={badgeRef as React.RefObject<HTMLDivElement>}
-            className={`reveal badge liquid-glass-subtle ${badgeVisible ? 'active' : ''}`}
-            style={{ marginBottom: 24, display: 'inline-flex', background: 'rgba(239,68,68,0.2)' }}
+            className={`${shared.reveal} ${shared.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round">
               <circle cx="12" cy="12" r="10" />
               <line x1="12" y1="8" x2="12" y2="12" />
               <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
-            <span style={{ color: '#ef4444' }}>Desafíos del Mercado</span>
+            <span className={styles.badgeText}>Desafíos del Mercado</span>
           </div>
 
           <h2
             ref={titleRef as React.RefObject<HTMLHeadingElement>}
-            className={`reveal ${titleVisible ? 'active' : ''}`}
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 700, color: '#fff', marginBottom: 16 }}
+            className={`${shared.reveal} ${titleVisible ? styles.revealed : ''} ${styles.title}`}
           >
             ¿Por qué las empresas no logran{' '}
-            <span className="gradient-text">escalar su tecnología</span>?
+            <span className={shared.gradientText}>escalar su tecnología</span>?
           </h2>
         </div>
 
         <div
           ref={gridRef as React.RefObject<HTMLDivElement>}
-          className={`cols-2 reveal ${gridVisible ? 'active' : ''}`}
-          style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}
+          className={`${shared.cols2} ${shared.reveal} ${gridVisible ? styles.revealed : ''}`}
         >
           {CHALLENGES.map((c) => (
             <div
               key={c.title}
-              className="glass-bisel card-hover"
-              style={{ padding: 36, background: 'rgba(255,255,255,0.03)' }}
+              className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`}
             >
-              <div className="refract-layer" />
-              <div className="glow-aurora" />
-              <div className="glow-core" />
-              <div className="glow-rim" />
+              <div className={shared.refractLayer} />
+              <div className={shared.glowAurora} />
+              <div className={shared.glowCore} />
+              <div className={shared.glowRim} />
 
               <div
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: 16,
-                  background: `${c.color}33`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: 24,
-                }}
+                className={styles.iconWrap}
+                style={{ background: `${c.color}33` }}
               >
                 {c.icon}
               </div>
 
-              <h3 style={{ fontSize: 18, fontWeight: 600, color: '#fff', marginBottom: 10 }}>{c.title}</h3>
-              <p style={{ fontSize: 14, color: '#dde5ef', lineHeight: 1.6 }}>{c.desc}</p>
+              <h3 className={styles.cardTitle}>{c.title}</h3>
+              <p className={styles.cardDesc}>{c.desc}</p>
             </div>
           ))}
         </div>

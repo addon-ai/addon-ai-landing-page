@@ -1,0 +1,149 @@
+/* ==========================================================================
+   SectoresSection.module.css — Extracted from inline styles + global.css
+   Part of the CSS Modules migration (PR #5a).
+   ========================================================================== */
+
+.section {
+  padding: 140px 0;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(135deg, #C7F4EC 0%, #9EE6F5 35%, #7DD3FC 65%, #A7F3D0 100%);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 72px;
+}
+
+.badge {
+  margin-bottom: 24px;
+  display: inline-flex;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(34, 197, 94, 0.15));
+}
+
+.title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: #0F2A4A;
+  margin-bottom: 16px;
+  text-shadow: 0 1px 14px rgba(255, 255, 255, 0.45);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.panel {
+  display: grid;
+  overflow: hidden;
+  border-radius: 32px;
+}
+
+.panelLeftImage {
+  composes: panel;
+  grid-template-columns: 1.3fr 1fr;
+}
+
+.panelRightImage {
+  composes: panel;
+  grid-template-columns: 1fr 1.3fr;
+}
+
+.imgWrap {
+  min-height: 380px;
+  align-self: stretch;
+  overflow: hidden;
+  position: relative;
+}
+
+.imgFill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.imgOverlayLeft {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(5, 10, 20, 0.9) 0%, transparent 50%);
+}
+
+.imgOverlayRight {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(270deg, rgba(5, 10, 20, 0.9) 0%, transparent 50%);
+}
+
+.tagBadge {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.tagBadgeLeft {
+  composes: tagBadge;
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+}
+
+.tagBadgeRight {
+  composes: tagBadge;
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+}
+
+.panelContent {
+  padding: 48px;
+  color: #fff;
+}
+
+.panelIconWrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.sectorName {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.subtitle {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.text {
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.textValue {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}

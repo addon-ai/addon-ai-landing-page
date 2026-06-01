@@ -1,4 +1,6 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import shared from '@/styles/shared.module.css'
+import styles from './PilaresSection.module.css'
 
 const PILLARS = [
   {
@@ -45,13 +47,12 @@ export function PilaresSection() {
   const { ref: containerRef, isVisible: containerVisible } = useScrollReveal({ threshold: 0.05 })
 
   return (
-    <section id="pilares" className="pilares-section" style={{ padding: '140px 0', position: 'relative', isolation: 'isolate', overflow: 'hidden', background: '#0f172a' }}>
-      <div className="wrap">
-        <div className="text-center" style={{ marginBottom: 72 }}>
+    <section id="pilares" className={styles.section}>
+      <div className={shared.wrap}>
+        <div className={styles.header}>
           <div
             ref={badgeRef as React.RefObject<HTMLDivElement>}
-            className={`reveal badge liquid-glass-subtle ${badgeVisible ? 'active' : ''}`}
-            style={{ marginBottom: 24, display: 'inline-flex', background: 'linear-gradient(135deg, rgba(168,85,247,0.25), rgba(59,130,246,0.2))' }}
+            className={`${shared.reveal} ${shared.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" strokeWidth="2" strokeLinecap="round">
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
@@ -61,99 +62,43 @@ export function PilaresSection() {
 
           <h2
             ref={titleRef as React.RefObject<HTMLHeadingElement>}
-            className={`reveal ${titleVisible ? 'active' : ''}`}
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 700, color: 'var(--text)', marginBottom: 16 }}
+            className={`${shared.reveal} ${titleVisible ? styles.revealed : ''} ${styles.title}`}
           >
-            Tres pilares, una <span className="gradient-text">visión integral</span>
+            Tres pilares, una <span className={shared.gradientText}>visión integral</span>
           </h2>
         </div>
 
         <div
           ref={containerRef as React.RefObject<HTMLDivElement>}
-          className={`reveal ${containerVisible ? 'active' : ''}`}
-          style={{ display: 'flex', flexDirection: 'column', gap: 40 }}
+          className={`${shared.reveal} ${containerVisible ? styles.revealed : ''} ${styles.container}`}
         >
           {PILLARS.map((p) => {
             const isRight = p.align === 'right'
 
             return (
-              <div
-                key={p.num}
-                style={{ position: 'relative', overflow: 'hidden', borderRadius: 32, height: 400 }}
-              >
-                <img
-                  src={p.img}
-                  alt={p.tag}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s' }}
-                />
-                <div
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: p.gradient,
-                  }}
-                />
+              <div key={p.num} className={styles.pilarCard}>
+                <img src={p.img} alt={p.tag} className={styles.pilarImage} />
+                <div className={styles.pilarOverlay} style={{ background: p.gradient }} />
 
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '50%',
-                    [isRight ? 'right' : 'left']: 60,
-                    transform: 'translateY(-50%)',
-                    maxWidth: 480,
-                    textAlign: isRight ? 'right' as const : 'left' as const,
-                  }}
-                >
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 16,
-                      marginBottom: 20,
-                      flexDirection: isRight ? 'row-reverse' as const : 'row' as const,
-                    }}
-                  >
+                <div className={isRight ? styles.contentRight : styles.contentLeft}>
+                  <div className={isRight ? styles.tagRowRight : styles.tagRow}>
                     <span
-                      style={{
-                        fontSize: 14,
-                        fontWeight: 700,
-                        color: p.color,
-                        background: p.bgColor,
-                        padding: '8px 16px',
-                        borderRadius: 8,
-                      }}
+                      className={styles.numBadge}
+                      style={{ color: p.color, background: p.bgColor }}
                     >
                       {p.num}
                     </span>
-                    <span
-                      style={{
-                        fontSize: 11,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.15em',
-                        color: p.color,
-                      }}
-                    >
+                    <span className={styles.tagText} style={{ color: p.color }}>
                       {p.tag}
                     </span>
                   </div>
 
-                  <h3 style={{ fontSize: 36, fontWeight: 700, color: '#fff', marginBottom: 16, lineHeight: 1.2 }}>
-                    {p.title}
-                  </h3>
+                  <h3 className={styles.pilarTitle}>{p.title}</h3>
+                  <p className={styles.pilarDesc}>{p.desc}</p>
 
-                  <p style={{ fontSize: 16, color: '#dde5ef', lineHeight: 1.7, marginBottom: 24 }}>
-                    {p.desc}
-                  </p>
-
-                  <div
-                    style={{
-                      display: 'flex',
-                      gap: 12,
-                      justifyContent: isRight ? 'flex-end' : 'flex-start',
-                    }}
-                  >
+                  <div className={isRight ? styles.chipWrapRight : styles.chipWrap}>
                     {p.chips.map((chip) => (
-                      <span key={chip} className="ai-chip">
+                      <span key={chip} className={shared.aiChip}>
                         {chip}
                       </span>
                     ))}

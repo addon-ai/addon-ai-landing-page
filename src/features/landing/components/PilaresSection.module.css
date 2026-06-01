@@ -1,0 +1,132 @@
+/* ==========================================================================
+   PilaresSection.module.css — Extracted from inline styles + global.css
+   Part of the CSS Modules migration (PR #5a).
+   ========================================================================== */
+
+.section {
+  padding: 140px 0;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 72px;
+}
+
+.badge {
+  margin-bottom: 24px;
+  display: inline-flex;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(59, 130, 246, 0.2));
+}
+
+.title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.pilarCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 32px;
+  height: 400px;
+}
+
+.pilarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s;
+}
+
+.pilarCard:hover .pilarImage {
+  transform: scale(1.05);
+}
+
+.pilarOverlay {
+  position: absolute;
+  inset: 0;
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 480px;
+}
+
+.contentLeft {
+  composes: content;
+  left: 60px;
+}
+
+.contentRight {
+  composes: content;
+  right: 60px;
+  text-align: right;
+}
+
+.tagRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.tagRowRight {
+  composes: tagRow;
+  flex-direction: row-reverse;
+}
+
+.numBadge {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.tagText {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.pilarTitle {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.pilarDesc {
+  font-size: 16px;
+  color: #dde5ef;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.chipWrap {
+  display: flex;
+  gap: 12px;
+}
+
+.chipWrapRight {
+  composes: chipWrap;
+  justify-content: flex-end;
+}
+
+.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}

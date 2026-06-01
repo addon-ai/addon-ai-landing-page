@@ -1,0 +1,95 @@
+/* ==========================================================================
+   DesafiosSection.module.css — Extracted from inline styles + global.css
+   Part of the CSS Modules migration (PR #5a).
+   ========================================================================== */
+
+.section {
+  padding: 140px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.desafiosBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.desafiosOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(5, 10, 20, 0.72) 0%, rgba(5, 10, 20, 0.58) 50%, rgba(5, 10, 20, 0.78) 100%);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.badge {
+  margin-bottom: 24px;
+  display: inline-flex;
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.badgeText {
+  color: #ef4444;
+}
+
+.title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.card {
+  padding: 36px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.iconWrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.cardDesc {
+  font-size: 14px;
+  color: #dde5ef;
+  line-height: 1.6;
+}
+
+.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}

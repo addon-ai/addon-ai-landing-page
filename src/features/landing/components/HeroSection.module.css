@@ -1,0 +1,206 @@
+/* ==========================================================================
+   HeroSection.module.css — Extracted from inline styles + global.css
+   Part of the CSS Modules migration (PR #5a).
+   ========================================================================== */
+
+/* ── Section ──────────────────────────────────────────────────────────────── */
+
+.section {
+  padding-top: 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+.wrapInner {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Hero grid ────────────────────────────────────────────────────────────── */
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin-bottom: 24px;
+  font-family: 'Plus Jakarta Sans', -apple-system, 'Helvetica Neue', sans-serif;
+  font-weight: 200;
+}
+
+.subtitle {
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  max-width: 520px;
+}
+
+.heroCta {
+  margin-bottom: 48px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 16px;
+}
+
+@media (max-width: 540px) {
+  .heroCta {
+    flex-wrap: wrap;
+  }
+}
+
+/* ── Stats row ────────────────────────────────────────────────────────────── */
+
+.statsRow {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.statLabel {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.statDivider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .statsRow {
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: flex-start !important;
+  }
+  .statDivider {
+    display: none !important;
+  }
+}
+
+/* ── Hero visual area ────────────────────────────────────────────────────── */
+
+.heroVisual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+}
+
+.heroVisualInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floatLogo {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroLogo {
+  height: 160px;
+  width: auto;
+  filter: drop-shadow(0 1px 8px rgba(18, 210, 124, 0.12));
+}
+
+@media (max-width: 768px) {
+  .heroGrid {
+    grid-template-columns: 1fr !important;
+  }
+  .heroVisual {
+    display: none !important;
+  }
+}
+
+/* ── Floating badges ──────────────────────────────────────────────────────── */
+
+.floatBadge {
+  position: absolute;
+  border-radius: 20px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.floatBadgeTop {
+  top: 10px;
+  right: 10px;
+}
+
+.floatBadgeBottom {
+  bottom: 10px;
+  left: 10px;
+}
+
+.badgeIconWrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badgeIconEmerald {
+  composes: badgeIconWrap;
+  background: rgba(34, 197, 94, 0.2);
+}
+
+.badgeIconCyan {
+  composes: badgeIconWrap;
+  background: rgba(6, 182, 212, 0.2);
+}
+
+.badgeLabel {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.badgeValue {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.badgeValueEmerald {
+  composes: badgeValue;
+  color: var(--emerald);
+}
+
+.badgeValueCyan {
+  composes: badgeValue;
+  color: var(--cyan);
+}
+
+/* ── Reveal animation active state ────────────────────────────────────────── */
+
+.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
