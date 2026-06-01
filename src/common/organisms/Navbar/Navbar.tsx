@@ -19,7 +19,7 @@ export function Navbar() {
   const { open } = useMenuStore()
 
   return (
-    <nav className={styles.navGlass}>
+    <nav className={styles.navGlass} data-nav="glass">
       <div className={`${shared.wrap} ${styles.navInner}`}>
         <div className={styles.navCenter}>
           {/* Desktop nav */}

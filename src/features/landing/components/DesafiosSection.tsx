@@ -100,7 +100,7 @@ export function DesafiosSection() {
           {CHALLENGES.map((c) => (
             <div
               key={c.title}
-              className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`}
+              className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`} data-glass="bisel"
             >
               <div className={shared.refractLayer} />
               <div className={shared.glowAurora} />

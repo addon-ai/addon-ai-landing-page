@@ -16,6 +16,7 @@ Este documento define la arquitectura, principios y convenciones que rigen todo 
 | Enrutador | TanStack Router (o React Router v6) |
 | Tests unitarios | Vitest + Testing Library |
 | Tests E2E | Playwright |
+| Estilos | CSS Modules (`.module.css`) |
 | Calidad / CI | Husky + lint-staged + ESLint + Prettier |
 
 ---
@@ -54,7 +55,9 @@ src/
 │   │   │   └── queries.ts      # queryKey factories + queryFn
 │   │   ├── components/         # Componentes exclusivos de esta feature
 │   │   │   ├── OrderList.tsx
-│   │   │   └── OrderCard.tsx
+│   │   │   ├── OrderList.module.css
+│   │   │   ├── OrderCard.tsx
+│   │   │   └── OrderCard.module.css
 │   │   ├── hooks/              # Hooks de lógica local de la feature
 │   │   ├── store/              # Slice de Zustand/RTK solo si hay estado UI local
 │   │   ├── pages/              # Páginas/rutas de la feature
@@ -75,6 +78,9 @@ src/
 │
 ├── common/                     # Atomic Design acotado a componentes compartidos
 │   ├── atoms/                  # Botones, Inputs, Labels, Icons, Badges
+│   │   └── Button/
+│   │       ├── Button.tsx
+│   │       └── Button.module.css
 │   ├── molecules/              # SearchBar, FormField, Card, DropdownMenu
 │   ├── organisms/              # Navbar, Sidebar, DataTable, Modal
 │   ├── templates/              # Layouts de página (MainLayout, AuthLayout)
@@ -89,9 +95,9 @@ src/
 ├── router/                     # Configuración centralizada de rutas
 │   └── index.ts
 │
-├── styles/                     # Tokens de diseño, variables globales, reset
-│   ├── tokens.css
-│   └── global.css
+├── styles/                     # Tokens de diseño y reset base — NO estilos de componente
+│   ├── tokens.css              # Variables CSS (colores, espaciado, tipografía, radios)
+│   └── reset.css               # Normalización mínima del navegador
 │
 ├── App.tsx
 ├── main.tsx
@@ -432,6 +438,158 @@ export const useOrderUIStore = create<OrderUIState>((set) => ({
 
 ---
 
+## Estilos: CSS Modules
+
+El proyecto usa **CSS Modules** como única estrategia de estilos por componente. No se permite escribir estilos globales de componente en `styles/global.css` ni clases utilitarias ad-hoc.
+
+### Reglas fundamentales
+
+- Cada componente (en `common/` o en `features/`) tiene su propio archivo `.module.css` colocado **junto** al `.tsx`.
+- Los módulos CSS se importan con el alias `styles` y se aplican como `styles.nombreDeClase`.
+- Los nombres de clase usan `camelCase` dentro del módulo.
+- Nunca se usan selectores de tag (`div`, `span`) como selectores principales; siempre clases.
+- Las composiciones entre clases del mismo módulo usan `composes`.
+- Las variables de diseño (colores, espaciado, tipografía, radios) se definen en `styles/tokens.css` como custom properties de `:root` e importadas **una sola vez** en `main.tsx`.
+- `styles/reset.css` también se importa solo en `main.tsx`.
+
+### Estructura de archivo por componente
+
+```
+common/atoms/Button/
+├── Button.tsx
+├── Button.module.css
+└── index.ts          ← re-exporta Button y ButtonProps
+```
+
+```
+features/orders/components/
+├── OrderCard.tsx
+├── OrderCard.module.css
+├── OrderList.tsx
+└── OrderList.module.css
+```
+
+### `styles/tokens.css` — única fuente de tokens
+
+```css
+/* src/styles/tokens.css */
+:root {
+  /* Colores */
+  --color-primary:        #2563eb;
+  --color-on-primary:     #ffffff;
+  --color-surface:        #f8fafc;
+  --color-border:         #e2e8f0;
+  --color-danger:         #dc2626;
+  --color-on-danger:      #ffffff;
+
+  /* Espaciado (escala de 4 px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+
+  /* Tipografía */
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+
+  /* Radios */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+```
+
+```tsx
+// src/main.tsx
+import './styles/reset.css';
+import './styles/tokens.css';
+// ← estas son las únicas importaciones de CSS globales permitidas
+```
+
+### Ejemplo completo — componente de feature
+
+```tsx
+// features/orders/components/OrderCard.tsx
+import styles from './OrderCard.module.css';
+import type { Order } from '@/domain/models/Order';
+
+interface OrderCardProps {
+  order: Order;
+  isSelected?: boolean;
+}
+
+export function OrderCard({ order, isSelected = false }: OrderCardProps) {
+  return (
+    <article className={[styles.card, isSelected ? styles.selected : ''].filter(Boolean).join(' ')}>
+      <h3 className={styles.reference}>{order.reference}</h3>
+      <span className={styles.total}>{order.total.format()}</span>
+    </article>
+  );
+}
+```
+
+```css
+/* features/orders/components/OrderCard.module.css */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  transition: box-shadow 0.15s ease;
+}
+
+.card:hover {
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+}
+
+.selected {
+  composes: card;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.reference {
+  font-size: var(--text-md);
+  font-weight: 600;
+}
+
+.total {
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+}
+```
+
+### Composición de clases — patrón recomendado
+
+Preferir `composes` de CSS nativo sobre concatenación manual de strings cuando se extiende una clase base dentro del mismo módulo.
+
+```css
+/* ✅ Correcto: composes en el mismo archivo */
+.buttonBase { padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); }
+.primary    { composes: buttonBase; background: var(--color-primary); }
+
+/* ✅ Aceptable: composes desde tokens si se necesita reutilizar en otro módulo */
+.card { composes: surfaceBase from '@/styles/shared.module.css'; }
+
+/* ❌ Prohibido: clases de componente globales fuera de un .module.css */
+/* global.css */
+.orderCard { ... }  /* ← no permitido */
+```
+
+### Lo que NO se permite
+
+- Importar un `.module.css` de otro componente para reutilizar sus clases.
+- Escribir estilos de componente en `styles/tokens.css` o `styles/reset.css`.
+- Usar `style={{ ... }}` inline para valores estáticos (solo para valores dinámicos calculados en runtime).
+- Agregar clases con nombres genéricos que colisionen entre módulos (`styles.wrapper`, `styles.container` sin contexto son aceptables ya que el módulo los encapsula, pero evitar abuso).
+
+---
+
 ## Atomic Design (Acotado a `common/`)
 
 Atomic Design aplica únicamente dentro de `common/` para componentes reutilizables transversales. Los componentes específicos de una feature viven dentro de esa feature, sin clasificación atómica.
@@ -448,22 +606,52 @@ Reglas:
 - Cada componente de `common/` es agnóstico al dominio; no conoce entidades como `Order` o `User`.
 - Si un componente se usa solo en una feature, no va en `common/`.
 - Cada componente exporta su interfaz de props explícita.
+- Cada componente tiene su propio archivo `.module.css` colocado junto a él.
 
 ```tsx
 // common/atoms/Button/Button.tsx
+import styles from './Button.module.css';
+
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: 'primary' | 'secondary' | 'ghost' | 'danger';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
 }
 
-export function Button({ variant, size = 'md', isLoading, children, ...rest }: ButtonProps) {
+export function Button({ variant, size = 'md', isLoading, children, className, ...rest }: ButtonProps) {
   return (
-    <button className={cn(styles.base, styles[variant], styles[size])} disabled={isLoading || rest.disabled} {...rest}>
+    <button
+      className={[styles.base, styles[variant], styles[size], className].filter(Boolean).join(' ')}
+      disabled={isLoading || rest.disabled}
+      {...rest}
+    >
       {isLoading ? <Spinner size="sm" /> : children}
     </button>
   );
 }
+```
+
+```css
+/* common/atoms/Button/Button.module.css */
+/* Las variables vienen de styles/tokens.css, importado una sola vez en main.tsx */
+.base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.primary  { background: var(--color-primary); color: var(--color-on-primary); }
+.secondary { background: var(--color-surface); border: 1px solid var(--color-border); }
+.ghost    { background: transparent; }
+.danger   { background: var(--color-danger); color: var(--color-on-danger); }
+
+.sm { padding: var(--space-1) var(--space-2); font-size: var(--text-sm); }
+.md { padding: var(--space-2) var(--space-4); font-size: var(--text-md); }
+.lg { padding: var(--space-3) var(--space-6); font-size: var(--text-lg); }
 ```
 
 ---
@@ -580,7 +768,7 @@ npx lint-staged
 {
   "lint-staged": {
     "*.{ts,tsx}": ["eslint --fix", "prettier --write"],
-    "*.{css,json,md}": ["prettier --write"]
+    "*.{css,module.css,json,md}": ["prettier --write"]
   }
 }
 ```
@@ -604,6 +792,8 @@ steps:
 | Elemento | Convención | Ejemplo |
 |---|---|---|
 | Componentes | `PascalCase`, archivo = nombre | `OrderCard.tsx` |
+| Módulos CSS | Mismo nombre que el componente + `.module.css` | `OrderCard.module.css` |
+| Clases CSS | `camelCase` dentro del módulo | `.cardHeader`, `.isSelected` |
 | Hooks | `camelCase` con prefijo `use` | `useOrders.ts` |
 | Interfaces/Types | `PascalCase`, sin prefijo `I` | `OrderRepository`, `ButtonProps` |
 | Stores | `camelCase` con prefijo `use...Store` | `useOrderUIStore.ts` |
@@ -636,7 +826,9 @@ import { OrderCard } from '@/features/orders/components/OrderCard';
 - Componentes funcionales siempre. No usar clases.
 - `React.FC` está prohibido; declarar props como argumento tipado.
 - Un componente por archivo.
-- Colocar estilos, tests y tipos junto al componente cuando son exclusivos.
+- Colocar el `.module.css`, tests y tipos junto al componente cuando son exclusivos.
+- Los estilos de un componente viven únicamente en su `.module.css`; nunca en archivos de estilos globales.
+- Para valores de estilo dinámicos calculados en runtime usar `style={{ ... }}` inline; para todo lo estático, CSS Modules.
 
 ### Manejo de Errores
 
@@ -680,3 +872,4 @@ export class InsufficientStockError extends DomainError {
 8. Las features no importan internals de otra feature; solo barrels públicos.
 9. La composición de dependencias ocurre en `providers/container.ts`.
 10. El CI pasa type-check, lint, tests unitarios y E2E sin errores ni warnings.
+11. Los estilos de componente se escriben en CSS Modules (`.module.css`). No existen clases de componente en archivos CSS globales. `styles/tokens.css` y `styles/reset.css` son los únicos archivos CSS globales permitidos y se importan exclusivamente en `main.tsx`.

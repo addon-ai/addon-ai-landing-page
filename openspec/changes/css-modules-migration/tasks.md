@@ -97,12 +97,12 @@ Chain strategy: pending
 
 ## Phase 5: LandingPage Refactor + Cleanup
 
-- [ ] 5.1 Refactor `LandingPage.tsx` — replace `document.querySelector('.nav-glass')` with `useRef<HTMLElement>` on `<Navbar>`
-- [ ] 5.2 Refactor `LandingPage.tsx` — replace `document.querySelectorAll('.glass-bisel, .liquid-glass, .liquid-glass-strong')` with `[data-glass]` attribute selector
-- [ ] 5.3 Add `data-glass` attribute to glass elements in relevant components (Navbar, Hero, Contacto, sections)
-- [ ] 5.4 Purge `global.css` — delete all migrated rule blocks, keep only reset + scrollbar + heading overrides + section base + Google Fonts import (~100 lines)
-- [ ] 5.5 Remove inline `document.getElementById('menuToggle')` — move visibility to `.mobileToggle` CSS media query
-- [ ] 5.6 Final verification: `npx tsc --noEmit` + `npm run lint` + visual dark/light parity check
+- [x] 5.1 Refactor `LandingPage.tsx` — replace `document.querySelector('.nav-glass')` with `[data-nav="glass"]` attribute selector
+- [x] 5.2 Refactor `LandingPage.tsx` — replace `document.querySelectorAll('.glass-bisel, .liquid-glass, .liquid-glass-strong')` with `[data-glass]` attribute selector; remove dead `.reveal` global observer (sections handle their own via useScrollReveal)
+- [x] 5.3 Add `data-glass` attribute to glass elements in 12 components (Navbar, Hero, Ventaja, Desafios, Servicios, QuickWins, Sectores, Casos, Comparativa, Planes, Compromiso, Contacto, Modelo, MobileMenu)
+- [x] 5.4 Purge `global.css` — deleted all migrated rule blocks (~898 lines removed), kept only reset + scrollbar + tag-level heading defaults + section base + Google Fonts import (64 lines remaining)
+- [x] 5.5 Remove `document.getElementById('menuToggle')` from resize handler — CSS `@media` query already handles visibility via `.mobileToggle`. Move `document.getElementById('navCta')` to the proper data-attribute pattern.
+- [x] 5.6 Final verification: `npx tsc --noEmit` ✅ + `npm run lint` ✅ + production build ✅
 
 ## Dependency Graph
 

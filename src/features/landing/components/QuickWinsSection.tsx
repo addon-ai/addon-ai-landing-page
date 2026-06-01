@@ -20,7 +20,7 @@ export function QuickWinsSection() {
           <h2 ref={titleRef as React.RefObject<HTMLHeadingElement>} className={`${shared.reveal} ${titleVisible ? styles.revealed : ''} ${styles.title}`}>Resultados <span className={shared.gradientTextAlt}>semanales</span></h2>
         </div>
         <div ref={gridRef as React.RefObject<HTMLDivElement>} className={`${shared.cols2} ${shared.reveal} ${gridVisible ? styles.revealed : ''}`} style={{ gap: 20 }}>
-          <div className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`}>
+          <div className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`} data-glass="bisel">
             <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
             <div className={styles.cardContent}>
               <div className={`${styles.iconCircle} ${styles.iconEmerald}`}>
@@ -33,7 +33,7 @@ export function QuickWinsSection() {
             </div>
             <p className={styles.cardDesc}>Identificación de 3 a 5 mejoras críticas de salud y deuda técnica.</p>
           </div>
-          <div className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`}>
+          <div className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`} data-glass="bisel">
             <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
             <div className={styles.cardContent}>
               <div className={`${styles.iconCircle} ${styles.iconCyan}`}>

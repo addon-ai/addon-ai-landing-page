@@ -16,7 +16,7 @@ export function ComparativaSection() {
           <h2 className={`${shared.reveal} ${shared.revealed} ${styles.title}`}>Addon AI vs. <span className={shared.gradientText}>Big Four</span></h2>
         </div>
 
-        <div ref={cardRef as React.RefObject<HTMLDivElement>} className={`${shared.glassBisel} ${shared.reveal} ${cardVisible ? styles.revealed : ''} ${styles.card}`}>
+        <div ref={cardRef as React.RefObject<HTMLDivElement>} className={`${shared.glassBisel} ${shared.reveal} ${cardVisible ? styles.revealed : ''} ${styles.card}`} data-glass="bisel">
           <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
           <table className={styles.table}>
             <thead>

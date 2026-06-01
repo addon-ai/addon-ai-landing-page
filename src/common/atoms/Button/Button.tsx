@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import styles from './Button.module.css'
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary'
   size?: 'sm' | 'md' | 'lg'
   href?: string
@@ -14,7 +14,7 @@ export function Button({ variant = 'primary', size = 'md', href, children, class
 
   if (href) {
     return (
-      <a href={href} className={cls}>
+      <a href={href} className={cls} {...(rest as Record<string, unknown>)}>
         <span>{children}</span>
       </a>
     )

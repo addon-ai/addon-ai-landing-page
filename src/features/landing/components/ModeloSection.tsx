@@ -29,7 +29,7 @@ export function ModeloSection() {
         </div>
         <div ref={gridRef as React.RefObject<HTMLDivElement>} className={`${shared.cols4} ${shared.reveal} ${gridVisible ? styles.revealed : ''}`}>
           {STEPS.map((s) => (
-            <div key={s.num} className={`${shared.glassBisel} ${shared.cardHover} ${styles.card} liquid-card`}>
+            <div key={s.num} className={`${shared.glassBisel} ${shared.cardHover} ${styles.card} liquid-card`} data-glass="bisel">
               <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
               <div className={styles.stepNumber} style={{ color: s.color }}>{s.num}</div>
               <div className={styles.stepIconWrap} style={{ background: s.bg }}>{s.icon}</div>

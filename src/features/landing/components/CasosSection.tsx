@@ -29,7 +29,7 @@ export function CasosSection() {
         </div>
         <div ref={gridRef as React.RefObject<HTMLDivElement>} className={`${shared.cols2} ${shared.reveal} ${gridVisible ? styles.revealed : ''}`} style={{ gap: 20 }}>
           {CASOS.map((c) => (
-            <div key={c.title} className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`}>
+            <div key={c.title} className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`} data-glass="bisel">
               <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
               <div className={styles.cardContent}>
                 <div className={styles.casoIcon} style={{ background: c.bg }}>{c.icon}</div>

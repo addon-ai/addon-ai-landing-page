@@ -1,5 +1,6 @@
 import { useMenuStore } from '@/features/landing/store/useMenuStore'
 import { useCallback } from 'react'
+import { Button } from '@/common/atoms/Button'
 import shared from '@/styles/shared.module.css'
 import styles from './MobileMenu.module.css'
 
@@ -35,6 +36,7 @@ export function MobileMenu({ onNavClick }: MobileMenuProps) {
       <div
         className={`${shared.liquidGlassStrong} ${styles.menuContent} ${isOpen ? styles.menuOpen : ''}`}
         id="mobileMenu"
+        data-glass="liquid-strong"
       >
         <button
           className={styles.closeBtn}
@@ -59,14 +61,14 @@ export function MobileMenu({ onNavClick }: MobileMenuProps) {
         ))}
 
         <div style={{ paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-          <a
+          <Button
             href="#contacto"
-            className="btn-primary"
+            variant="primary"
             onClick={handleClose}
-            style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}
+            style={{ display: 'block', textAlign: 'center', textDecoration: 'none', width: '100%' }}
           >
-            <span>Solicita tu diagnóstico gratuito</span>
-          </a>
+            Solicita tu diagnóstico gratuito
+          </Button>
         </div>
       </div>
     </>

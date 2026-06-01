@@ -33,7 +33,7 @@ export function ServiciosSection() {
         </div>
         <div ref={gridRef as React.RefObject<HTMLDivElement>} className={`${shared.cols4} ${shared.reveal} ${gridVisible ? styles.revealed : ''}`}>
           {SERVICES.map((s) => (
-            <div key={s.title} className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`}>
+            <div key={s.title} className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`} data-glass="bisel">
               <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
               <div className={styles.iconWrap} style={{ background: s.bg }}>
                 {SVC_ICONS[s.icon]}

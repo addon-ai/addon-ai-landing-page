@@ -36,7 +36,7 @@ export function ContactoSection() {
   return (
     <section id="contacto" className={styles.section}>
       <div className={shared.wrap}>
-        <div ref={glassRef as React.RefObject<HTMLDivElement>} className={`${shared.glassBisel} ${shared.reveal} ${glassVisible ? styles.revealed : ''} ${styles.glassCard}`}>
+        <div ref={glassRef as React.RefObject<HTMLDivElement>} className={`${shared.glassBisel} ${shared.reveal} ${glassVisible ? styles.revealed : ''} ${styles.glassCard}`} data-glass="bisel">
           <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
           <div className={styles.iconWrap}>
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" strokeWidth="2" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>

@@ -62,7 +62,7 @@ export function SectoresSection() {
             const isImageLeft = i % 2 === 0
             const shadowColor = s.color === 'var(--cyan)' ? 'rgba(6,182,212,0.35)' : s.color === 'var(--emerald)' ? 'rgba(34,197,94,0.35)' : 'rgba(59,130,246,0.35)'
             return (
-              <div key={s.name} className={`${shared.glassBisel} ${isImageLeft ? styles.panelLeftImage : styles.panelRightImage}`}>
+              <div key={s.name} className={`${shared.glassBisel} ${isImageLeft ? styles.panelLeftImage : styles.panelRightImage}`} data-glass="bisel">
                 {isImageLeft && (
                   <div className={styles.imgWrap}>
                     <img src={s.img} alt={s.name} className={styles.imgFill} />

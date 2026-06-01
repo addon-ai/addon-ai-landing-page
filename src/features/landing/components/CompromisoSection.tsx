@@ -16,7 +16,7 @@ export function CompromisoSection() {
           </div>
           <h2 className={`${shared.reveal} ${shared.revealed} ${styles.title}`}>Impacto en <span className={shared.gradientTextAlt}>ODS</span></h2>
         </div>
-        <div ref={cardRef as React.RefObject<HTMLDivElement>} className={`${shared.glassBisel} ${shared.reveal} ${cardVisible ? styles.revealed : ''} ${styles.card}`}>
+        <div ref={cardRef as React.RefObject<HTMLDivElement>} className={`${shared.glassBisel} ${shared.reveal} ${cardVisible ? styles.revealed : ''} ${styles.card}`} data-glass="bisel">
           <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
           {[
             { label: 'Eficiencia (ODS 9)', value: '+30%', width: '78%', gradient: 'linear-gradient(90deg, rgba(6,182,212,0.95), rgba(59,130,246,1))' },

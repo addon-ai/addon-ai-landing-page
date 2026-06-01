@@ -10,7 +10,7 @@ export function VentajaSection() {
   return (
     <section className={styles.section}>
       <div className={shared.wrap}>
-        <div className={`${shared.glassBisel} ${styles.card}`}>
+        <div className={`${shared.glassBisel} ${styles.card}`} data-glass="bisel">
           <div className={shared.refractLayer} />
           <div className={shared.glowAurora} />
           <div className={shared.glowCore} />
