@@ -1,3 +1,5 @@
+import shared from '@/styles/shared.module.css'
+import styles from './QuickWinsSection.module.css'
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
 
 export function QuickWinsSection() {
@@ -6,41 +8,43 @@ export function QuickWinsSection() {
   const { ref: gridRef, isVisible: gridVisible } = useScrollReveal()
 
   return (
-    <section style={{ padding: '112px 0' }}>
-      <div className="wrap">
-        <div className="text-center" style={{ marginBottom: 64 }}>
-          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`reveal badge liquid-glass-subtle ${badgeVisible ? 'active' : ''}`} style={{ marginBottom: 24, display: 'inline-flex' }}>
+    <section className={styles.section}>
+      <div className={shared.wrap}>
+        <div className={styles.header}>
+          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${styles.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''}`}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" strokeWidth="2" strokeLinecap="round">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
             </svg>
             <span style={{ color: 'var(--emerald)' }}>Quick Wins</span>
           </div>
-          <h2 ref={titleRef as React.RefObject<HTMLHeadingElement>} className={`reveal ${titleVisible ? 'active' : ''}`} style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 700, color: 'var(--text)', marginBottom: 16 }}>Resultados <span className="gradient-text-alt">semanales</span></h2>
+          <h2 ref={titleRef as React.RefObject<HTMLHeadingElement>} className={`${shared.reveal} ${titleVisible ? styles.revealed : ''} ${styles.title}`}>Resultados <span className={shared.gradientTextAlt}>semanales</span></h2>
         </div>
-        <div ref={gridRef as React.RefObject<HTMLDivElement>} className={`cols-2 reveal ${gridVisible ? 'active' : ''}`} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-          <div className="glass-bisel card-hover" style={{ padding: 32 }}>
-            <div className="refract-layer" /><div className="glow-aurora" /><div className="glow-core" /><div className="glow-rim" />
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16 }}>
-              <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg,var(--emerald),var(--cyan))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div ref={gridRef as React.RefObject<HTMLDivElement>} className={`${shared.cols2} ${shared.reveal} ${gridVisible ? styles.revealed : ''}`} style={{ gap: 20 }}>
+          <div className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`}>
+            <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
+            <div className={styles.cardContent}>
+              <div className={`${styles.iconCircle} ${styles.iconEmerald}`}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
               </div>
               <div>
-                <div style={{ fontSize: 12.5, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Inmediato</div>
-                <div style={{ fontSize: 16, fontWeight: 600, color: 'var(--text)' }}>Diagnóstico de negocio</div>
+                <div className={styles.cardLabel}>Inmediato</div>
+                <div className={styles.cardTitle}>Diagnóstico de negocio</div>
               </div>
             </div>
-            <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>Identificación de 3 a 5 mejoras críticas de salud y deuda técnica.</p>
+            <p className={styles.cardDesc}>Identificación de 3 a 5 mejoras críticas de salud y deuda técnica.</p>
           </div>
-          <div className="glass-bisel card-hover" style={{ padding: 32 }}>
-            <div className="refract-layer" /><div className="glow-aurora" /><div className="glow-core" /><div className="glow-rim" />
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16 }}>
-              <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg,var(--cyan),var(--blue))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, fontWeight: 700, color: '#fff' }}>2</div>
+          <div className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`}>
+            <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
+            <div className={styles.cardContent}>
+              <div className={`${styles.iconCircle} ${styles.iconCyan}`}>
+                <span className={styles.iconCircleNum}>2</span>
+              </div>
               <div>
-                <div style={{ fontSize: 12.5, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Semanas</div>
-                <div style={{ fontSize: 16, fontWeight: 600, color: 'var(--text)' }}>Propuesta tecnológica</div>
+                <div className={styles.cardLabel}>Semanas</div>
+                <div className={styles.cardTitle}>Propuesta tecnológica</div>
               </div>
             </div>
-            <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>Diagnóstico técnico y plan de acción de 90 días.</p>
+            <p className={styles.cardDesc}>Diagnóstico técnico y plan de acción de 90 días.</p>
           </div>
         </div>
       </div>

@@ -1,0 +1,83 @@
+/* ==========================================================================
+   QuickWinsSection.module.css — Extracted from global.css + inline styles
+   Part of the CSS Modules migration (PR #4).
+   ========================================================================== */
+
+.section {
+  padding: 112px 0;
+}
+
+.header {
+  margin-bottom: 64px;
+  text-align: center;
+}
+
+.badge {
+  margin-bottom: 24px;
+  display: inline-flex;
+}
+
+.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.card {
+  padding: 32px;
+}
+
+.cardContent {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.iconCircle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconEmerald {
+  background: linear-gradient(135deg, var(--emerald), var(--cyan));
+}
+
+.iconCyan {
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+}
+
+.iconCircleNum {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.cardLabel {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.cardDesc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}

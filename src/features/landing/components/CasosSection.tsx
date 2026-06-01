@@ -1,3 +1,5 @@
+import shared from '@/styles/shared.module.css'
+import styles from './CasosSection.module.css'
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
 
 const CASOS = [
@@ -16,24 +18,24 @@ export function CasosSection() {
   const { ref: gridRef, isVisible: gridVisible } = useScrollReveal()
 
   return (
-    <section id="casos" style={{ padding: '112px 0' }}>
-      <div className="wrap">
-        <div className="text-center" style={{ marginBottom: 64 }}>
-          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`reveal badge liquid-glass-subtle ${badgeVisible ? 'active' : ''}`} style={{ marginBottom: 24, display: 'inline-flex' }}>
+    <section id="casos" className={styles.section}>
+      <div className={shared.wrap}>
+        <div className={styles.header}>
+          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${styles.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''}`}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" strokeWidth="2" strokeLinecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
             <span style={{ color: 'var(--cyan)' }}>Casos de Éxito</span>
           </div>
-          <h2 className={`reveal ${badgeVisible ? 'active' : ''}`} style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 700, color: 'var(--text)', marginBottom: 16 }}>Resultados que <span className="gradient-text">hablan solos</span></h2>
+          <h2 className={`${shared.reveal} ${badgeVisible ? styles.revealed : ''} ${styles.title}`}>Resultados que <span className={shared.gradientText}>hablan solos</span></h2>
         </div>
-        <div ref={gridRef as React.RefObject<HTMLDivElement>} className={`cols-2 reveal ${gridVisible ? 'active' : ''}`} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+        <div ref={gridRef as React.RefObject<HTMLDivElement>} className={`${shared.cols2} ${shared.reveal} ${gridVisible ? styles.revealed : ''}`} style={{ gap: 20 }}>
           {CASOS.map((c) => (
-            <div key={c.title} className="glass-bisel card-hover" style={{ padding: 28 }}>
-              <div className="refract-layer" /><div className="glow-aurora" /><div className="glow-core" /><div className="glow-rim" />
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-                <div style={{ width: 40, height: 40, borderRadius: 12, background: c.bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{c.icon}</div>
-                <h3 style={{ fontSize: 16, fontWeight: 600, color: 'var(--text)' }}>{c.title}</h3>
+            <div key={c.title} className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`}>
+              <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
+              <div className={styles.cardContent}>
+                <div className={styles.casoIcon} style={{ background: c.bg }}>{c.icon}</div>
+                <h3 className={styles.cardTitle}>{c.title}</h3>
               </div>
-              <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5 }}>{c.desc}</p>
+              <p className={styles.cardDesc}>{c.desc}</p>
             </div>
           ))}
         </div>
