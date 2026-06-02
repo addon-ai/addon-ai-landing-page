@@ -88,7 +88,6 @@
   justify-content: center;
   min-height: 500px;
   min-width: 0;
-  overflow: hidden;
 }
 
 .heroVisualInner {
@@ -127,7 +126,7 @@
 .floatBadge {
   position: absolute;
   border-radius: 20px;
-  padding: 14px 18px;
+  padding: 16px 21px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -147,6 +146,7 @@
   width: 32px;
   height: 32px;
   border-radius: 10px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
