@@ -1,5 +1,6 @@
 import { useThemeStore } from '@/features/landing/store/useThemeStore'
 import { useMenuStore } from '@/features/landing/store/useMenuStore'
+import { useSmoothScroll } from '@/common/hooks/useSmoothScroll'
 import { Button } from '@/common/atoms/Button'
 import shared from '@/styles/shared.module.css'
 import styles from './Navbar.module.css'
@@ -17,6 +18,12 @@ const NAV_LINKS = [
 export function Navbar() {
   const { mode, toggle } = useThemeStore()
   const { open } = useMenuStore()
+  const { scrollToSection } = useSmoothScroll()
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    scrollToSection(href)
+  }
 
   return (
     <nav className={styles.navGlass} data-nav="glass">
@@ -25,7 +32,12 @@ export function Navbar() {
           {/* Desktop nav */}
           <div className={styles.desktopNav}>
             {NAV_LINKS.map((link) => (
-              <a key={link.href} href={link.href} className={styles.navLink}>
+              <a
+                key={link.href}
+                href={link.href}
+                className={styles.navLink}
+                onClick={(e) => handleNavClick(e, link.href)}
+              >
                 {link.label}
               </a>
             ))}

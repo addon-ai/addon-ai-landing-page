@@ -1,5 +1,6 @@
 import { useMenuStore } from '@/features/landing/store/useMenuStore'
 import { useCallback } from 'react'
+import { useSmoothScroll } from '@/common/hooks/useSmoothScroll'
 import { Button } from '@/common/atoms/Button'
 import shared from '@/styles/shared.module.css'
 import styles from './MobileMenu.module.css'
@@ -20,6 +21,14 @@ const NAV_LINKS = [
 
 export function MobileMenu({ onNavClick }: MobileMenuProps) {
   const { isOpen, close } = useMenuStore()
+  const { scrollToSection } = useSmoothScroll()
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    close()
+    onNavClick?.()
+    scrollToSection(href)
+  }
 
   const handleClose = useCallback(() => {
     close()
@@ -53,7 +62,7 @@ export function MobileMenu({ onNavClick }: MobileMenuProps) {
           <a
             key={link.href}
             href={link.href}
-            onClick={handleClose}
+            onClick={(e) => handleNavClick(e, link.href)}
             className={styles.menuLink}
           >
             {link.label}
