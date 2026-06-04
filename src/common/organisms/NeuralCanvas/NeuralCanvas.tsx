@@ -146,7 +146,7 @@ export function NeuralCanvas() {
       ctx!.save()
       const toRemove: number[] = []
       for (let i = 0; i < graphEdges.length; i++) {
-        const e = graphEdges[i]
+        const e = graphEdges[i]!
         const color = e.isDark ? '0,212,255' : '0,100,200'
 
         if (e.phase === 'draw') {
@@ -194,7 +194,10 @@ export function NeuralCanvas() {
           ctx!.fill()
         }
       }
-      for (let i = toRemove.length - 1; i >= 0; i--) graphEdges.splice(toRemove[i], 1)
+      for (let i = toRemove.length - 1; i >= 0; i--) {
+        const idx = toRemove[i]!
+        graphEdges.splice(idx, 1)
+      }
       ctx!.restore()
     }
 
@@ -243,15 +246,17 @@ export function NeuralCanvas() {
 
       // Draw connections
       for (let i = 0; i < nodes.length; i++) {
+        const ni = nodes[i]!
         for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x
-          const dy = nodes[i].y - nodes[j].y
+          const nj = nodes[j]!
+          const dx = ni.x - nj.x
+          const dy = ni.y - nj.y
           const dist = Math.hypot(dx, dy)
           if (dist < CONNECTION_DIST) {
             const alpha = (1 - dist / CONNECTION_DIST) * 0.15
             ctx!.beginPath()
-            ctx!.moveTo(nodes[i].x, nodes[i].y)
-            ctx!.lineTo(nodes[j].x, nodes[j].y)
+            ctx!.moveTo(ni.x, ni.y)
+            ctx!.lineTo(nj.x, nj.y)
             ctx!.strokeStyle = `rgba(${connectionColor},${alpha})`
             ctx!.lineWidth = 0.5
             ctx!.stroke()

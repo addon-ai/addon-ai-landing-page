@@ -1,4 +1,5 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import type { JSX } from 'react'
 import shared from '@/styles/shared.module.css'
 import styles from './ServiciosSection.module.css'
 

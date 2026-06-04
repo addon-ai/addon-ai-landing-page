@@ -25,7 +25,7 @@ export function HeroSection() {
 
     const handlers: { el: HTMLElement; enter: () => void; leave: () => void }[] = []
 
-    badges.forEach((el) => {
+        badges.forEach((el: HTMLElement) => {
       // ── State machine: idle → entering → entered → (queued leave) → leaving → (queued enter) → idle ──
       type AnimState = 'idle' | 'entering' | 'entered' | 'leaving'
       let animState: AnimState = 'idle'
@@ -49,7 +49,7 @@ export function HeroSection() {
         // Restore original paths
         const svg = el.querySelector('svg')
         if (svg) {
-          svg.querySelectorAll('polyline, polygon, path').forEach((p) => {
+          svg.querySelectorAll<SVGElement>('polyline, polygon, path').forEach((p) => {
             p.style.opacity = ''
             p.style.strokeDasharray = ''
             p.style.strokeDashoffset = ''
@@ -172,7 +172,7 @@ export function HeroSection() {
         iconWrap.appendChild(glowSvg)
 
         // --- 3. Dim original paths → "lighter tone" base ---
-        const origPaths = svg.querySelectorAll('polyline, polygon, path')
+        const origPaths = svg.querySelectorAll<SVGElement>('polyline, polygon, path')
         origPaths.forEach((p) => {
           p.style.opacity = '0.35'
         })

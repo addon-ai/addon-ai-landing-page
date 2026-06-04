@@ -11,7 +11,7 @@ interface BlobDef {
   amp: number
 }
 
-const ORBIT_R = [0.06, 0.05, 0.07, 0.04]
+const ORBIT_R: number[] = [0.06, 0.05, 0.07, 0.04]
 
 export function HeroBlobs() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -34,34 +34,38 @@ export function HeroBlobs() {
     let animationId: number
 
     function resize() {
-      canvas!.width = canvas!.offsetWidth
-      canvas!.height = canvas!.offsetHeight
+      const c = canvas!
+      c.width = c.offsetWidth
+      c.height = c.offsetHeight
     }
 
     resize()
     window.addEventListener('resize', resize)
 
     function draw() {
-      ctx!.clearRect(0, 0, canvas!.width, canvas!.height)
+      const c = canvas!
+      const cx2d = ctx!
+      cx2d.clearRect(0, 0, c.width, c.height)
       t += 0.004
 
       blobs.forEach((b, i) => {
-        angles[i] += b.vx * 60
+        angles[i] = (angles[i] ?? 0) + b.vx * 60
 
-        const cx = (b.xp + Math.cos(angles[i] + i) * ORBIT_R[i]) * canvas!.width
-        const cy = (b.yp + Math.sin(angles[i] * 0.7 + i) * ORBIT_R[i] * 0.8) * canvas!.height
+        const orbitR = ORBIT_R[i] ?? 0.06
+        const cx = (b.xp + Math.cos(angles[i] + i) * orbitR) * c.width
+        const cy = (b.yp + Math.sin(angles[i] * 0.7 + i) * orbitR * 0.8) * c.height
         const pulsR = b.r * (1 + Math.sin(t + i * 1.3) * 0.08)
         const alpha = b.base + Math.sin(t * 0.8 + i * 0.9) * b.amp
 
-        const g = ctx!.createRadialGradient(cx, cy, 0, cx, cy, pulsR)
+        const g = cx2d.createRadialGradient(cx, cy, 0, cx, cy, pulsR)
         g.addColorStop(0, b.color + alpha + ')')
         g.addColorStop(0.5, b.color + (alpha * 0.5) + ')')
         g.addColorStop(1, b.color + '0)')
 
-        ctx!.beginPath()
-        ctx!.arc(cx, cy, pulsR, 0, Math.PI * 2)
-        ctx!.fillStyle = g
-        ctx!.fill()
+        cx2d.beginPath()
+        cx2d.arc(cx, cy, pulsR, 0, Math.PI * 2)
+        cx2d.fillStyle = g
+        cx2d.fill()
       })
 
       animationId = requestAnimationFrame(draw)
