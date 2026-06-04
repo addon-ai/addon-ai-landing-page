@@ -9,12 +9,12 @@ export function Footer() {
           
             <div className={styles.footerLogo}>
               <img
-                src="/public/logos/logo-vertical-green-tagline.svg"
+                src="/logos/logo-vertical-green-tagline.svg"
                 alt="Addon.ai"
                 className={styles.logoDark}
               />
               <img
-                src="/public/logos/logo-vertical-primary.svg"
+                src="/logos/logo-vertical-primary.svg"
                 alt="Addon.ai"
                 className={styles.logoLight}
               />
