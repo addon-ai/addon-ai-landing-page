@@ -1,5 +1,6 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
 import type { JSX } from 'react'
+import { ServiceCard } from '@/common/molecules/ServiceCard'
 import shared from '@/styles/shared.module.css'
 import styles from './ServiciosSection.module.css'
 
@@ -34,15 +35,20 @@ export function ServiciosSection() {
         </div>
         <div ref={gridRef as React.RefObject<HTMLDivElement>} className={`${shared.cols4} ${shared.reveal} ${gridVisible ? styles.revealed : ''}`}>
           {SERVICES.map((s) => (
-            <div key={s.title} className={`${shared.glassBisel} ${shared.cardHover} ${shared.liquidCard} ${styles.card}`} data-glass="bisel">
-              <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
-              <div className={styles.iconWrap} style={{ background: s.bg }}>
-                {SVC_ICONS[s.icon]}
-              </div>
-              <h3 className={styles.cardTitle}>{s.title}</h3>
-              <p className={styles.cardDesc}>{s.desc}</p>
-              <div className={`${shared.liquidGlassSubtle} ${styles.tag}`} style={{ color: s.color }}>{s.tag}</div>
-            </div>
+            <ServiceCard
+              key={s.title}
+              icon={SVC_ICONS[s.icon]}
+              title={s.title}
+              desc={s.desc}
+              tag={s.tag}
+              color={s.color}
+              iconBg={s.bg}
+              cardClassName={styles.card}
+              iconWrapClassName={styles.iconWrap}
+              titleClassName={styles.cardTitle}
+              descClassName={styles.cardDesc}
+              tagClassName={styles.tag}
+            />
           ))}
         </div>
       </div>

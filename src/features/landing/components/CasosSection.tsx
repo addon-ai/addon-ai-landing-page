@@ -1,6 +1,7 @@
 import shared from '@/styles/shared.module.css'
 import styles from './CasosSection.module.css'
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import { CaseCard } from '@/common/molecules/CaseCard'
 
 const CASOS = [
   { title: 'Comprobación Inteligente', desc: 'Validación de documentos/vehículos con Computer Vision.', color: 'var(--cyan)', bg: 'rgba(6,182,212,0.15)',
@@ -29,14 +30,18 @@ export function CasosSection() {
         </div>
         <div ref={gridRef as React.RefObject<HTMLDivElement>} className={`${shared.cols2} ${shared.reveal} ${gridVisible ? styles.revealed : ''}`} style={{ gap: 20 }}>
           {CASOS.map((c) => (
-            <div key={c.title} className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`} data-glass="bisel">
-              <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />
-              <div className={styles.cardContent}>
-                <div className={styles.casoIcon} style={{ background: c.bg }}>{c.icon}</div>
-                <h3 className={styles.cardTitle}>{c.title}</h3>
-              </div>
-              <p className={styles.cardDesc}>{c.desc}</p>
-            </div>
+            <CaseCard
+              key={c.title}
+              icon={c.icon}
+              title={c.title}
+              desc={c.desc}
+              iconBg={c.bg}
+              cardClassName={styles.card}
+              contentClassName={styles.cardContent}
+              iconClassName={styles.casoIcon}
+              titleClassName={styles.cardTitle}
+              descClassName={styles.cardDesc}
+            />
           ))}
         </div>
       </div>

@@ -157,6 +157,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 28px;
+  flex-shrink: 0;
 }
 
 .sectorName {
@@ -164,6 +165,20 @@
   font-weight: 700;
   margin-bottom: 20px;
   color: #fff;
+}
+
+/* Desktop: header keeps the original vertical stack (icon on top, then the
+   text block). The icon's own margin-bottom handles the spacing. */
+.panelHeader {
+  display: block;
+}
+
+.panelHeaderText .subtitle {
+  margin-bottom: 0;
+}
+
+.archText {
+  margin-bottom: 24px;
 }
 
 .subtitle {
@@ -213,4 +228,58 @@
 .revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ── Responsive: stack image on top, content below (≤768px) ─────────────────
+   Both panel variants collapse to a single column. The DOM order differs per
+   row (right-image rows render content first), so we force the image to come
+   first with `order: -1` to guarantee "image on top, info below" everywhere. */
+
+@media (max-width: 768px) {
+  .panelLeftImage,
+  .panelRightImage {
+    grid-template-columns: 1fr;
+  }
+
+  .imgWrap {
+    order: -1;
+    min-height: 240px;
+  }
+
+  /* The diagonal gradients are tuned for a side-by-side layout; switch to a
+     bottom-up overlay so the tag badge stays legible over the stacked image. */
+  .imgOverlayLeft,
+  .imgOverlayRight {
+    background: linear-gradient(0deg, rgba(5, 10, 20, 0.9) 0%, transparent 60%);
+  }
+
+  .tagBadgeLeft,
+  .tagBadgeRight {
+    left: 20px;
+    right: auto;
+    bottom: 20px;
+  }
+
+  .panelContent {
+    padding: 32px 24px;
+  }
+
+  /* Compact header: icon sits beside the name + Arquitectura subtitle,
+     removing the dead vertical space of the stacked layout. */
+  .panelHeader {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .panelIconWrap {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 0;
+  }
+
+  .panelHeaderText .sectorName {
+    margin-bottom: 4px;
+  }
 }

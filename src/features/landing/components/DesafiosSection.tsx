@@ -1,5 +1,6 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
 import { useThemeStore } from '../store/useThemeStore'
+import { ChallengeCard } from '@/common/molecules/ChallengeCard'
 import shared from '@/styles/shared.module.css'
 import styles from './DesafiosSection.module.css'
 
@@ -98,25 +99,17 @@ export function DesafiosSection() {
           className={`${shared.cols2} ${shared.reveal} ${gridVisible ? styles.revealed : ''}`}
         >
           {CHALLENGES.map((c) => (
-            <div
+            <ChallengeCard
               key={c.title}
-              className={`${shared.glassBisel} ${shared.cardHover} ${styles.card}`} data-glass="bisel"
-            >
-              <div className={shared.refractLayer} />
-              <div className={shared.glowAurora} />
-              <div className={shared.glowCore} />
-              <div className={shared.glowRim} />
-
-              <div
-                className={styles.iconWrap}
-                style={{ background: `${c.color}33` }}
-              >
-                {c.icon}
-              </div>
-
-              <h3 className={styles.cardTitle}>{c.title}</h3>
-              <p className={styles.cardDesc}>{c.desc}</p>
-            </div>
+              icon={c.icon}
+              title={c.title}
+              desc={c.desc}
+              iconBg={`${c.color}33`}
+              cardClassName={styles.card}
+              iconWrapClassName={styles.iconWrap}
+              titleClassName={styles.cardTitle}
+              descClassName={styles.cardDesc}
+            />
           ))}
         </div>
       </div>

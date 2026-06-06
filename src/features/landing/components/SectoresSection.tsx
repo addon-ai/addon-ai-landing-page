@@ -68,17 +68,19 @@ export function SectoresSection() {
                   </div>
                 )}
                 <div className={styles.panelContent}>
-                  <div className={styles.panelIconWrap} style={{ background: s.iconGrad, boxShadow: `0 12px 32px ${shadowColor}` }}>
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round">
-                      {s.name === 'Finanzas' ? <><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></> : s.name === 'Salud' ? <><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></> : <><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></>}
-                    </svg>
+                  <div className={styles.panelHeader}>
+                    <div className={styles.panelIconWrap} style={{ background: s.iconGrad, boxShadow: `0 12px 32px ${shadowColor}` }}>
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round">
+                        {s.name === 'Finanzas' ? <><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></> : s.name === 'Salud' ? <><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></> : <><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></>}
+                      </svg>
+                    </div>
+                    <div className={styles.panelHeaderText}>
+                      <h3 className={styles.sectorName}>{s.name}</h3>
+                      <span className={styles.subtitle} style={{ color: 'var(--cyan)' }}>Arquitectura</span>
+                    </div>
                   </div>
-                  <h3 className={styles.sectorName}>{s.name}</h3>
-                  <div style={{ marginBottom: 24 }}>
-                    <span className={styles.subtitle} style={{ color: 'var(--cyan)' }}>Arquitectura</span>
-                    <p className={styles.text}>{s.arch}</p>
-                  </div>
-                  <div style={{ marginBottom: 24 }}>
+                  <p className={`${styles.text} ${styles.archText}`}>{s.arch}</p>
+                  <div>
                     <span className={styles.subtitle} style={{ color: 'var(--emerald)' }}>Resultado</span>
                     <p className={styles.textValue} style={{ color: 'var(--emerald)' }}>{s.result}</p>
                   </div>
