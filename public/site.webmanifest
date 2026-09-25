@@ -1,0 +1,17 @@
+{
+  "name": "Addon.ai Enterprise",
+  "short_name": "Addon.ai",
+  "description": "Software empresarial, ingeniería de datos e inteligencia artificial aplicada para optimizar procesos desde la raíz.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050a14",
+  "theme_color": "#050a14",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import { HeroBlobs } from '@/common/organisms/HeroBlobs'
 import shared from '@/styles/shared.module.css'
 import styles from './CompromisoSection.module.css'
 
@@ -6,13 +7,14 @@ export function CompromisoSection() {
   const { ref: cardRef, isVisible: cardVisible } = useScrollReveal()
 
   return (
-    <section className={styles.section} style={{ backgroundImage: 'url(/img/pexels-marek-piwnicki-3907296-7430463.jpg)' }}>
-      <div className={styles.overlay} />
+    <section className={styles.section}>
+      <HeroBlobs />
+
       <div className={`${shared.wrap} ${styles.wrapContent}`}>
         <div className={styles.header}>
-          <div className={`${shared.reveal} ${shared.revealed} ${shared.badge} ${shared.liquidGlassSubtle} ${styles.badge}`}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5EEAD4" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            <span className={styles.badgeText}>Compromiso e Impacto</span>
+          <div className={`${shared.reveal} ${shared.revealed} ${shared.badge} ${shared.badgeGlassGradient} ${styles.badge}`}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <span style={{ color: '#ffffff' }}>Compromiso e Impacto</span>
           </div>
           <h2 className={`${shared.reveal} ${shared.revealed} ${styles.title}`}>Impacto en <span className={shared.gradientTextAlt}>ODS</span></h2>
         </div>

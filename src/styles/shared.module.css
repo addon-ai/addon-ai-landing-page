@@ -7,9 +7,10 @@
 /* ── Layout ─────────────────────────────────────────────────────────────── */
 
 .wrap {
+  width: min(100%, 1200px);
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 clamp(20px, 4vw, 32px);
 }
 
 @media (max-width: 640px) {
@@ -23,7 +24,8 @@
 .reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .revealed {
@@ -276,19 +278,19 @@
 
 .cols2 {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 32px;
 }
 
 .cols3 {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
 }
 
 .cols4 {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -319,6 +321,9 @@
   font-size: 11.5px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
 }
 
 .badge span {
@@ -326,6 +331,28 @@
   font-size: 11.5px;
   font-weight: 500;
   letter-spacing: 0.06em;
+}
+
+/* ── Badge de sección unificado: gradiente liquid glass (cyan → blue → emerald),
+   mismo gradiente del texto "visión integral"; idéntico en light y dark ── */
+.badgeGlassGradient {
+  background: linear-gradient(135deg, var(--cyan), var(--blue), var(--emerald));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+[data-theme='light'] .badgeGlassGradient {
+  background: linear-gradient(135deg, var(--cyan), var(--blue), var(--emerald));
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 6px 22px rgba(6, 182, 212, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.badgeGlassGradient svg {
+  stroke: #ffffff;
+}
+
+.badgeGlassGradient span {
+  color: #ffffff;
 }
 
 .dot {
@@ -347,6 +374,9 @@
   font-size: 13px;
   display: inline-flex;
   align-items: center;
+  max-width: 100%;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
 }
 
 /* ── Float logo animation (hero) ─────────────────────────────────────────── */
@@ -408,4 +438,71 @@
   z-index: 10;
   box-shadow: 0 8px 20px rgba(6, 182, 212, 0.35), 0 2px 6px rgba(16, 185, 129, 0.25);
   font-family: 'Plus Jakarta Sans', sans-serif;
+  max-width: calc(100% - 24px);
+  white-space: normal;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.decorativeCanvas {
+  pointer-events: none;
+}
+
+@media (hover: none), (max-width: 768px) {
+  .cardHover:hover {
+    transform: none;
+  }
+
+  .glassBisel,
+  .liquidGlass,
+  .liquidGlassStrong,
+  .liquidGlassSubtle {
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+  }
+
+  .refractLayer,
+  .glowAurora,
+  .glowCore,
+  .glowRim {
+    display: none;
+  }
+
+  .liquidGlass::before,
+  .liquidGlassStrong::before {
+    display: none;
+  }
+
+  .decorativeCanvas {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .cardHover,
+  .liquidCard,
+  .floatLogo,
+  .dot,
+  .liquidGlass::before,
+  .liquidGlassStrong::before {
+    animation: none;
+    transition: none;
+  }
+
+  .cardHover:hover {
+    transform: none;
+  }
+
+  .decorativeCanvas {
+    display: none;
+  }
+
+  .glassBisel,
+  .liquidGlass,
+  .liquidGlassStrong,
+  .liquidGlassSubtle {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }

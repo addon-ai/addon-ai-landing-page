@@ -1,6 +1,7 @@
 import shared from '@/styles/shared.module.css'
 import styles from './CasosSection.module.css'
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import { HeroBlobs } from '@/common/organisms/HeroBlobs'
 import { CaseCard } from '@/common/molecules/CaseCard'
 
 const CASOS = [
@@ -20,6 +21,8 @@ export function CasosSection() {
 
   return (
     <section id="casos" className={styles.section}>
+      <HeroBlobs />
+
       <div className={shared.wrap}>
         <div className={styles.header}>
           <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${styles.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''}`}>

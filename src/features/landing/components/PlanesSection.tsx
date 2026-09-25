@@ -1,4 +1,5 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import { HeroBlobs } from '@/common/organisms/HeroBlobs'
 import shared from '@/styles/shared.module.css'
 import { env } from '@/infrastructure/config/env'
 import styles from './PlanesSection.module.css'
@@ -8,6 +9,8 @@ export function PlanesSection() {
 
   return (
     <section id="planes" className={styles.section}>
+      <HeroBlobs />
+
       <div className={shared.wrap}>
         <div className={styles.header}>
           <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}>

@@ -7,6 +7,8 @@
   padding: 112px 0;
 }
 
+.section > * { position: relative; z-index: 1; }
+
 .header {
   text-align: left;
   margin-bottom: 64px;
@@ -83,4 +85,34 @@
 .revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+.card {
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+}
+
+.table {
+  min-width: 560px;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: clamp(64px, 10vw, 80px) 0;
+  }
+
+  .header {
+    margin-bottom: clamp(40px, 8vw, 56px);
+  }
+
+  .card {
+    padding: 20px 16px;
+  }
+
+  .table th,
+  .table td {
+    padding: 12px 14px;
+  }
 }

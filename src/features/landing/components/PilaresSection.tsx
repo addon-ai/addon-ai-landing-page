@@ -1,4 +1,5 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import { HeroBlobs } from '@/common/organisms/HeroBlobs'
 import shared from '@/styles/shared.module.css'
 import styles from './PilaresSection.module.css'
 
@@ -13,7 +14,6 @@ const PILLARS = [
     bgColor: 'rgba(6,182,212,0.2)',
     img: '/img/pexels-googledeepmind-25626428.jpg',
     align: 'left' as const,
-    gradient: 'linear-gradient(90deg, rgba(5,10,20,0.92) 0%, rgba(5,10,20,0.6) 40%, transparent 70%)',
   },
   {
     num: '02',
@@ -25,7 +25,6 @@ const PILLARS = [
     bgColor: 'rgba(34,197,94,0.2)',
     img: '/img/binario.jpg',
     align: 'right' as const,
-    gradient: 'linear-gradient(270deg, rgba(5,10,20,0.92) 0%, rgba(5,10,20,0.6) 40%, transparent 70%)',
   },
   {
     num: '03',
@@ -37,7 +36,6 @@ const PILLARS = [
     bgColor: 'rgba(255, 113, 217, 0.3)',
     img: '/img/pexels-googledeepmind-18069816.jpg',
     align: 'left' as const,
-    gradient: 'linear-gradient(90deg, rgba(5,10,20,0.92) 0%, rgba(5,10,20,0.6) 40%, transparent 70%)',
   },
 ]
 
@@ -48,18 +46,18 @@ export function PilaresSection() {
 
   return (
     <section id="pilares" className={styles.section}>
-      <img src="/img/pexels-rostislav-5307735.jpg" alt="" aria-hidden="true" className={styles.pilarBg} />
-      <div className={styles.pilarBgOverlay} />
+      <HeroBlobs />
+
       <div className={shared.wrap}>
         <div className={styles.header}>
           <div
             ref={badgeRef as React.RefObject<HTMLDivElement>}
-            className={`${shared.reveal} ${shared.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}
+            className={`${shared.reveal} ${shared.badge} ${shared.badgeGlassGradient} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" strokeWidth="2" strokeLinecap="round">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round">
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
             </svg>
-            <span style={{ color: 'var(--violet)' }}>Pilares de Especialización</span>
+            <span style={{ color: '#ffffff' }}>Pilares de Especialización</span>
           </div>
 
           <h2
@@ -80,7 +78,7 @@ export function PilaresSection() {
             return (
               <div key={p.num} className={styles.pilarCard}>
                 <img src={p.img} alt={p.tag} className={styles.pilarImage} />
-                <div className={styles.pilarOverlay} style={{ background: p.gradient }} />
+                <div className={isRight ? `${styles.pilarOverlay} ${styles.overlayRight}` : `${styles.pilarOverlay} ${styles.overlayLeft}`} />
 
                 <div className={isRight ? styles.contentRight : styles.contentLeft}>
                   <div className={isRight ? styles.tagRowRight : styles.tagRow}>

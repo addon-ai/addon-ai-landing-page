@@ -7,6 +7,8 @@
   padding: 112px 0;
 }
 
+.section > * { position: relative; z-index: 1; }
+
 .header {
   text-align: left;
   margin-bottom: 64px;
@@ -25,7 +27,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
   max-width: 1000px;
   margin: 0 auto;
@@ -84,4 +86,37 @@
 .revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+.grid > *,
+.planCard > * {
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: clamp(64px, 10vw, 80px) 0;
+  }
+
+  .header {
+    margin-bottom: clamp(40px, 8vw, 56px);
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .planCard {
+    padding: clamp(28px, 5vw, 36px) clamp(22px, 4vw, 28px);
+  }
+
+  .planName,
+  .planDesc {
+    overflow-wrap: anywhere;
+  }
+
+  .featureItem {
+    align-items: flex-start;
+  }
 }

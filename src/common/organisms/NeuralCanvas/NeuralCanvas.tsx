@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useThemeStore } from '@/features/landing/store/useThemeStore'
+import shared from '@/styles/shared.module.css'
 
 interface Node {
   x: number
@@ -318,6 +319,7 @@ export function NeuralCanvas() {
   return (
     <canvas
       ref={canvasRef}
+      className={shared.decorativeCanvas}
       id="neural-grid"
       style={{
         position: 'fixed',

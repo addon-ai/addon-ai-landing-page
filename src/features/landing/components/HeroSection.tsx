@@ -100,7 +100,6 @@ export function HeroSection() {
 
         const isEmerald = el.querySelector('.badgeValueEmerald') !== null
         const neonColor = isEmerald ? '#4ade80' : '#22d3ee'
-        const neonGlow = isEmerald ? '#86efac' : '#67e8f9'
 
         // --- 1. Position reference for absolute overlay ---
         iconWrap.style.position = 'relative'

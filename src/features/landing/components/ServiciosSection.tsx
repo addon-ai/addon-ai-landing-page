@@ -1,4 +1,5 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import { HeroBlobs } from '@/common/organisms/HeroBlobs'
 import type { JSX } from 'react'
 import { ServiceCard } from '@/common/molecules/ServiceCard'
 import shared from '@/styles/shared.module.css'
@@ -25,11 +26,13 @@ export function ServiciosSection() {
 
   return (
     <section id="servicios" className={styles.section}>
+      <HeroBlobs />
+
       <div className={shared.wrap}>
         <div className={styles.header}>
-          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" strokeWidth="2" strokeLinecap="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
-            <span style={{ color: 'var(--cyan)' }}>Paquetes de Servicios</span>
+          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${shared.badgeGlassGradient} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
+            <span style={{ color: '#ffffff' }}>Paquetes de Servicios</span>
           </div>
           <h2 ref={titleRef as React.RefObject<HTMLHeadingElement>} className={`${shared.reveal} ${titleVisible ? styles.revealed : ''} ${styles.title}`}>Soluciones a <span className={shared.gradientText}>medida</span></h2>
         </div>

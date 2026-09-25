@@ -6,6 +6,7 @@ import shared from '@/styles/shared.module.css'
 import styles from './MobileMenu.module.css'
 
 interface MobileMenuProps {
+  showCasosSection: boolean
   onNavClick?: () => void
 }
 
@@ -19,7 +20,7 @@ const NAV_LINKS = [
   { href: '#modelo', label: 'Modelo' },
 ] as const
 
-export function MobileMenu({ onNavClick }: MobileMenuProps) {
+export function MobileMenu({ showCasosSection, onNavClick }: MobileMenuProps) {
   const { isOpen, close } = useMenuStore()
   const { scrollToSection } = useSmoothScroll()
 
@@ -29,6 +30,10 @@ export function MobileMenu({ onNavClick }: MobileMenuProps) {
     onNavClick?.()
     scrollToSection(href)
   }
+
+  const visibleNavLinks = showCasosSection
+    ? NAV_LINKS
+    : NAV_LINKS.filter((link) => link.href !== '#casos')
 
   const handleClose = useCallback(() => {
     close()
@@ -58,7 +63,7 @@ export function MobileMenu({ onNavClick }: MobileMenuProps) {
           </svg>
         </button>
 
-        {NAV_LINKS.map((link) => (
+        {visibleNavLinks.map((link) => (
           <a
             key={link.href}
             href={link.href}

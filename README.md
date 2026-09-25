@@ -36,7 +36,7 @@ src/
 - Pilares de Especialización (Software, Data, AI)
 - Quick Wins
 - Paquetes de Servicios
-- Soluciones por Sector (Finanzas, Salud, Logística)
+- Soluciones por Sector (Finanzas, Calidad, Logística)
 - Casos de Éxito
 - Comparativa Addon AI vs Big Four
 - Planes (Surgical Strike, PLG Híbrido, Managed Partner)

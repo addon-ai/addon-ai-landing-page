@@ -1,6 +1,7 @@
 import shared from '@/styles/shared.module.css'
 import styles from './ModeloSection.module.css'
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import { HeroBlobs } from '@/common/organisms/HeroBlobs'
 
 const STEPS = [
   { num: '01', title: 'Discovery', desc: 'Talleres de requerimientos y NFRs.', color: 'var(--cyan)', bg: 'rgba(6,182,212,0.12)',
@@ -19,11 +20,13 @@ export function ModeloSection() {
 
   return (
     <section id="modelo" className={styles.section}>
+      <HeroBlobs />
+
       <div className={shared.wrap}>
         <div className={styles.header}>
-          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${styles.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''}`}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" strokeWidth="2" strokeLinecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            <span style={{ color: 'var(--cyan)' }}>Modelo de Trabajo</span>
+          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${styles.badge} ${shared.badgeGlassGradient} ${badgeVisible ? styles.revealed : ''}`}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span style={{ color: '#ffffff' }}>Modelo de Trabajo</span>
           </div>
           <h2 className={`${shared.reveal} ${badgeVisible ? styles.revealed : ''} ${styles.title}`}>De la idea al <span className={shared.gradientText}>impacto</span></h2>
         </div>

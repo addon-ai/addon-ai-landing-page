@@ -1,6 +1,7 @@
 import shared from '@/styles/shared.module.css'
 import styles from './QuickWinsSection.module.css'
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import { HeroBlobs } from '@/common/organisms/HeroBlobs'
 
 export function QuickWinsSection() {
   const { ref: badgeRef, isVisible: badgeVisible } = useScrollReveal()
@@ -9,6 +10,8 @@ export function QuickWinsSection() {
 
   return (
     <section className={styles.section}>
+      <HeroBlobs />
+
       <div className={shared.wrap}>
         <div className={styles.header}>
           <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${styles.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''}`}>

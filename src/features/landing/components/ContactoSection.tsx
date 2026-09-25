@@ -1,4 +1,5 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import { HeroBlobs } from '@/common/organisms/HeroBlobs'
 import { Button } from '@/common/atoms/Button'
 import { useState } from 'react'
 import shared from '@/styles/shared.module.css'
@@ -63,6 +64,8 @@ export function ContactoSection() {
 
   return (
     <section id="contacto" className={styles.section}>
+      <HeroBlobs />
+
       <div className={shared.wrap}>
         <div ref={glassRef as React.RefObject<HTMLDivElement>} className={`${shared.glassBisel} ${shared.reveal} ${glassVisible ? styles.revealed : ''} ${styles.glassCard}`} data-glass="bisel">
           <div className={shared.refractLayer} /><div className={shared.glowAurora} /><div className={shared.glowCore} /><div className={shared.glowRim} />

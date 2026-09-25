@@ -1,4 +1,5 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import { HeroBlobs } from '@/common/organisms/HeroBlobs'
 import shared from '@/styles/shared.module.css'
 import styles from './SectoresSection.module.css'
 
@@ -8,18 +9,18 @@ const SECTORS = [
     tag: 'SERVICIOS FINANCIEROS',
     img: '/img/trading.jpg',
     arch: 'Microservicios con API gateways y bases de datos segregadas.',
-    result: 'Detección de fraude en tiempo real y auditoría automatizada.',
+    result: 'Diseño de modelos fintech para tu negocio, basados en wallets tecnológicas.',
     color: 'var(--cyan)',
     iconGrad: 'linear-gradient(135deg, var(--emerald), var(--cyan))',
     tagBg: 'rgba(6,182,212,0.9)',
     align: 'left' as const,
   },
   {
-    name: 'Salud',
-    tag: 'SALUD & FARMA',
+    name: 'Calidad',
+    tag: 'CALIDAD & CUMPLIMIENTO',
     img: '/img/pexels-merlin-11308974.jpg',
-    arch: 'Plataforma HIPAA/GDPR-ready, lakehouse de datos médicos.',
-    result: 'Diagnóstico asistido por IA y optimización de recursos.',
+    arch: 'Integración con sistemas de gestión existentes y trazabilidad normativa.',
+    result: 'Plataformas de gestión de calidad basadas en agentes de IA.',
     color: 'var(--emerald)',
     iconGrad: 'linear-gradient(135deg, var(--cyan), var(--blue))',
     tagBg: 'rgba(34,197,94,0.9)',
@@ -30,7 +31,7 @@ const SECTORS = [
     tag: 'LOGÍSTICA & SUPPLY CHAIN',
     img: '/img/ecomerce.jpg',
     arch: 'Orientada a eventos (event-driven) y serverless.',
-    result: 'Predicción de demanda y personalización masiva.',
+    result: 'Plataforma tecnológica integrada WMS, OMS y TMS, orientada a resultados operativos.',
     color: 'var(--blue)',
     iconGrad: 'linear-gradient(135deg, var(--blue), var(--violet))',
     tagBg: 'rgba(59,130,246,0.9)',
@@ -45,13 +46,13 @@ export function SectoresSection() {
 
   return (
     <section id="sectores" className={styles.section}>
-      <div className={styles.sectoresBg} style={{ backgroundImage: "url('/img/pexels-gstudio-8640331.jpg')" }} />
-      <div className={styles.sectoresOverlay} />
+      <HeroBlobs />
+
       <div className={`${shared.wrap} ${styles.content}`}>
         <div className={styles.header}>
-          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0E7C6B " strokeWidth="2" strokeLinecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
-            <span className={`${styles.badgeText}`}>Soluciones por Sector</span>
+          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${shared.badgeGlassGradient} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
+            <span style={{ color: '#ffffff' }}>Soluciones por Sector</span>
           </div>
           <h2 ref={titleRef as React.RefObject<HTMLHeadingElement>} className={`${shared.reveal} ${titleVisible ? styles.revealed : ''} ${styles.title}`}>Verticales de <span className={shared.gradientText}>industria</span></h2>
         </div>
@@ -73,7 +74,7 @@ export function SectoresSection() {
                   <div className={styles.panelHeader}>
                     <div className={styles.panelIconWrap} style={{ background: s.iconGrad, boxShadow: `0 12px 32px ${shadowColor}` }}>
                       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round">
-                        {s.name === 'Finanzas' ? <><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></> : s.name === 'Salud' ? <><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></> : <><path d="M1 3h15v13H1z" /><path d="M16 8h4l3 3v5h-7V8z" /><circle cx="5.5" cy="18.5" r="2.5" /><circle cx="18.5" cy="18.5" r="2.5" /></>}
+                        {s.name === 'Finanzas' ? <><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></> : s.name === 'Calidad' ? <><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></> : <><path d="M1 3h15v13H1z" /><path d="M16 8h4l3 3v5h-7V8z" /><circle cx="5.5" cy="18.5" r="2.5" /><circle cx="18.5" cy="18.5" r="2.5" /></>}
                       </svg>
                     </div>
                     <div className={styles.panelHeaderText}>

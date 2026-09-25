@@ -7,16 +7,22 @@
 
 .base {
   position: relative;
+  box-sizing: border-box;
+  min-height: 44px;
+  max-width: 100%;
   border-radius: 999px;
   cursor: pointer;
   letter-spacing: -0.15px;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   overflow: hidden;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: 'DM Sans', sans-serif;
   font-size: 15px;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
 }
 
 /* ── Primary variant ────────────────────────────────────────────────────── */
@@ -107,5 +113,19 @@
   .secondary {
     padding: 12px 22px;
     font-size: 14px;
+  }
+}
+
+@media (hover: none) {
+  .primary:hover,
+  .secondary:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .base,
+  .primary::before {
+    transition: none;
   }
 }

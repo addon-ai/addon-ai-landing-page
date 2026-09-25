@@ -29,6 +29,7 @@
 
 .navInner {
   height: 100%;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,6 +42,7 @@
   align-items: center;
   justify-content: center;
   flex: 1;
+  min-width: 0;
   gap: 32px;
   padding-right: 40px;
 }
@@ -57,10 +59,14 @@
 
 @media (max-width: 640px) {
   .navCenter {
-    padding-right: 24px;
+    padding-right: 12px;
+    gap: 16px;
+  }
+  .navActions {
+    gap: 8px;
   }
   .themeBtn {
-    margin-left: 12px;
+    margin-left: 0;
   }
 }
 
@@ -106,8 +112,8 @@
 /* ── Theme toggle ───────────────────────────────────────────────────────── */
 
 .themeBtn {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.05);
@@ -147,8 +153,8 @@
 /* ── Mobile toggle (hamburger) ──────────────────────────────────────────── */
 
 .mobileToggle {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.05);
@@ -171,4 +177,32 @@
   border: 1px solid rgba(22, 58, 101, 0.18);
   background: rgba(22, 58, 101, 0.04);
   color: #163a65;
+}
+
+@media (hover: none), (max-width: 768px) {
+  .themeBtn:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .navGlass {
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navGlass,
+  .themeBtn,
+  .mobileToggle {
+    transition: none;
+  }
+
+  .navGlass,
+  .themeBtn,
+  .mobileToggle {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }

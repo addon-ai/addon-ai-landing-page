@@ -56,7 +56,7 @@ export function Footer() {
           <div>
             <h4 className={styles.columnTitle}>Sectores</h4>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              {['Finanzas', 'Salud', 'Logística'].map((item) => (
+              {['Finanzas', 'Calidad', 'Logística'].map((item) => (
                 <li key={item} style={{ marginBottom: 10 }}>
                   <a href="#sectores" className={styles.columnLink}>{item}</a>
                 </li>
@@ -76,6 +76,10 @@ export function Footer() {
 
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>&copy; 2026 Addon.ai Enterprise. Todos los derechos reservados.</p>
+          <div className={styles.badgeWrap}>
+            <img src="/img/YSA-dark.png" alt="YSA" className={styles.badgeDark} />
+            <img src="/img/YSA-light.png" alt="YSA" className={styles.badgeLight} />
+          </div>
         </div>
       </div>
     </footer>

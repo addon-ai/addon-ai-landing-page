@@ -206,7 +206,7 @@
     text-align: center;
   }
   .heroGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 48px;
   }
   .heroVisual {
@@ -248,5 +248,43 @@
 .revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+.heroGrid > * {
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .wrapInner {
+    padding-top: 48px;
+    padding-bottom: 64px;
+  }
+
+  .heroCta {
+    gap: 12px;
+  }
+
+  .heroCta > * {
+    width: 100%;
+  }
+
+  .statsRow {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .statsRow > div:not(.statDivider) {
+    min-width: 0;
+    text-align: center;
+  }
+
+  .statDivider {
+    display: none;
+  }
+
+  .statLabel {
+    overflow-wrap: anywhere;
+  }
 }
 

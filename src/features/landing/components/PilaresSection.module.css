@@ -1,6 +1,7 @@
 /* ==========================================================================
    PilaresSection.module.css — Extracted from inline styles + global.css
    Part of the CSS Modules migration (PR #5a).
+   Desktop-first: 3-column grid. Stack (legacy layout) below 1024px.
    ========================================================================== */
 
 .section {
@@ -8,39 +9,9 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background: #0f172a;
 }
 
 .section > * { position: relative; z-index: 1; }
-
-/* ── Background image (same for light & dark) ────────────────────────────── */
-
-.pilarBg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  pointer-events: none;
-}
-
-.pilarBgOverlay {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(5, 10, 20, 0.92) 0%, rgba(5, 10, 20, 0.88) 50%, rgba(5, 10, 20, 0.95) 100%);
-}
-
-[data-theme='light'] .pilarBgOverlay {
-  background: linear-gradient(180deg, rgba(5, 10, 20, 0.9) 0%, rgba(5, 10, 20, 0.85) 50%, rgba(5, 10, 20, 0.94) 100%);
-}
-
-[data-theme='light'] .section {
-  background: #f0f4f8;
-}
 
 .header {
   text-align: left;
@@ -50,7 +21,6 @@
 .badge {
   margin-bottom: 24px;
   display: inline-flex;
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(59, 130, 246, 0.2));
 }
 
 .title {
@@ -59,24 +29,31 @@
   margin-bottom: 16px;
 }
 
+/* --- Rejilla desktop: las 3 tarjetas en el mismo ancho --- */
 .container {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
 }
 
 .pilarCard {
   position: relative;
   overflow: hidden;
   border-radius: 32px;
-  height: 400px;
+  height: 440px;
 }
 
 .pilarImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.6;
   transition: transform 0.8s;
+}
+
+[data-theme='light'] .pilarImage {
+  opacity: 0.75;
 }
 
 .pilarCard:hover .pilarImage {
@@ -88,22 +65,65 @@
   inset: 0;
 }
 
+/* Gradientes direccionales (antes inline por pilar) */
+.overlayLeft {
+  background: linear-gradient(90deg, rgba(5, 10, 20, 0.92) 0%, rgba(5, 10, 20, 0.6) 40%, transparent 70%);
+}
+
+.overlayRight {
+  background: linear-gradient(270deg, rgba(5, 10, 20, 0.92) 0%, rgba(5, 10, 20, 0.6) 40%, transparent 70%);
+}
+
+/* Dark mode: refuerza el oscurecido donde arranca la fila 01/02/03
+   (banda inferior donde se apoya el contenido de la tarjeta). */
+[data-theme='dark'] .overlayLeft {
+  background:
+    linear-gradient(180deg, rgba(5, 10, 20, 0.3) 0%, rgba(5, 10, 20, 0.55) 55%, rgba(5, 10, 20, 0.9) 100%),
+    linear-gradient(90deg, rgba(5, 10, 20, 0.92) 0%, rgba(5, 10, 20, 0.6) 40%, transparent 70%);
+}
+
+[data-theme='dark'] .overlayRight {
+  background:
+    linear-gradient(180deg, rgba(5, 10, 20, 0.3) 0%, rgba(5, 10, 20, 0.55) 55%, rgba(5, 10, 20, 0.9) 100%),
+    linear-gradient(270deg, rgba(5, 10, 20, 0.92) 0%, rgba(5, 10, 20, 0.6) 40%, transparent 70%);
+}
+
+/* Light mode: fondo claro (la imagen se ve sin oscurecerse) y texto en negro */
+[data-theme='light'] .overlayLeft {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.55) 55%, rgba(255, 255, 255, 0.95) 100%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.45) 45%, rgba(255, 255, 255, 0.1) 75%);
+}
+
+[data-theme='light'] .overlayRight {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.55) 55%, rgba(255, 255, 255, 0.95) 100%),
+    linear-gradient(270deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.45) 45%, rgba(255, 255, 255, 0.1) 75%);
+}
+
+/* Contenido anclado abajo-izquierda en tarjetas de rejilla */
 .content {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  max-width: 480px;
 }
 
 .contentLeft {
   composes: content;
-  left: 60px;
 }
 
 .contentRight {
   composes: content;
-  right: 60px;
-  text-align: right;
+}
+
+/* En desktop grid todas las tarjetas comparten posición (abajo) y
+   alineación (izquierda). */
+.contentLeft,
+.contentRight {
+  top: auto;
+  bottom: 30px;
+  left: 30px;
+  right: 30px;
+  max-width: none;
+  text-align: left;
 }
 
 .tagRow {
@@ -115,7 +135,7 @@
 
 .tagRowRight {
   composes: tagRow;
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 .numBadge {
@@ -132,18 +152,18 @@
 }
 
 .pilarTitle {
-  font-size: 36px;
-  font-weight: 700;
+  font-size: 26px;
+  font-weight: 800;
   color: #fff;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   line-height: 1.2;
 }
 
 .pilarDesc {
-  font-size: 16px;
+  font-size: 15px;
   color: #dde5ef;
   line-height: 1.7;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .chipWrap {
@@ -153,24 +173,130 @@
 
 .chipWrapRight {
   composes: chipWrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
-[data-theme='light'] .badge {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.85), rgba(59, 130, 246, 0.85)) !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.25);
+[data-theme='light'] .title {
+  color: var(--text);
 }
 
-[data-theme='light'] .badge span {
-  color: #FFFFFF !important;
-}
 
-[data-theme='light'] .badge svg {
-  stroke: #FFFFFF !important;
+
+
+/* --- Tablets y celulares: se mantiene el layout original apilado --- */
+@media (max-width: 1024px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .pilarCard {
+    height: 400px;
+  }
+
+  .content {
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: auto;
+    max-width: 480px;
+  }
+
+  .contentLeft {
+    left: 60px;
+    right: auto;
+  }
+
+  .contentRight {
+    right: 60px;
+    left: auto;
+    text-align: right;
+  }
+
+  .tagRowRight {
+    flex-direction: row-reverse;
+  }
+
+  .chipWrapRight {
+    justify-content: flex-end;
+  }
+
+  .pilarTitle {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+
+  .pilarDesc {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
 }
 
 .revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ── Light mode: letras en negro sobre fondo claro ───────────────────────── */
+
+[data-theme='light'] .pilarTitle {
+  color: var(--text);
+}
+
+[data-theme='light'] .pilarDesc {
+  color: var(--text-secondary);
+}
+
+[data-theme='light'] .tagText {
+  color: var(--text-secondary) !important;
+}
+
+.container > * {
+  min-width: 0;
+}
+
+.tagRow,
+.chipWrap {
+  flex-wrap: wrap;
+}
+
+.pilarDesc {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: clamp(64px, 10vw, 80px) 0;
+  }
+
+  .header {
+    margin-bottom: clamp(40px, 8vw, 56px);
+  }
+
+  .pilarCard {
+    height: clamp(360px, 90vw, 400px);
+  }
+
+  .contentLeft,
+  .contentRight {
+    left: 24px;
+    right: 24px;
+    max-width: none;
+    text-align: left;
+  }
+
+  .tagRowRight {
+    flex-direction: row;
+  }
+
+  .chipWrapRight {
+    justify-content: flex-start;
+  }
+
+  .pilarTitle {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+  }
+
+  .pilarDesc {
+    font-size: 15px;
+  }
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import shared from '@/styles/shared.module.css'
 
 interface BlobDef {
   xp: number
@@ -82,7 +83,7 @@ export function HeroBlobs() {
   return (
     <canvas
       ref={canvasRef}
-      id="hero-blobs"
+      className={shared.decorativeCanvas}
       style={{
         position: 'absolute',
         top: 0,

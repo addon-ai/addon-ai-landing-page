@@ -5,8 +5,9 @@
 
 .section {
   padding: 140px 0;
-  background: linear-gradient(180deg, rgba(34, 197, 94, 0.05) 0%, rgba(6, 182, 212, 0.08) 100%);
 }
+
+.section > * { position: relative; z-index: 1; }
 
 .card {
   padding: 64px;
@@ -47,4 +48,18 @@
   line-height: 1.7;
   max-width: 720px;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: clamp(64px, 10vw, 80px) 0;
+  }
+
+  .card {
+    padding: clamp(36px, 8vw, 48px) clamp(20px, 5vw, 24px);
+  }
+
+  .description {
+    overflow-wrap: anywhere;
+  }
 }

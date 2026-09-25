@@ -98,8 +98,8 @@ export default function LandingPage() {
   return (
     <>
       <NeuralCanvas />
-      <Navbar />
-      <MobileMenu />
+      <Navbar showCasosSection={env.featureFlags.showCasosSection} />
+      <MobileMenu showCasosSection={env.featureFlags.showCasosSection} />
       <main>
         <HeroSection />
         <DesafiosSection />

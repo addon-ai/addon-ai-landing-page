@@ -7,6 +7,8 @@
   padding: 112px 0;
 }
 
+.section > * { position: relative; z-index: 1; }
+
 .header {
   text-align: center;
   margin-bottom: 64px;
@@ -25,7 +27,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -67,4 +69,39 @@
 .revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+.grid > * {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: clamp(64px, 10vw, 80px) 0;
+  }
+
+  .header {
+    margin-bottom: clamp(40px, 8vw, 56px);
+  }
+
+  .card {
+    padding: clamp(24px, 5vw, 32px) clamp(18px, 3vw, 24px);
+  }
+
+  .cardTitle,
+  .cardDesc {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

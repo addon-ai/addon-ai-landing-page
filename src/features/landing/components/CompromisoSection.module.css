@@ -7,18 +7,6 @@
   padding: 112px 0;
   position: relative;
   isolation: isolate;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(5, 10, 20, 0.78) 0%, rgba(5, 10, 20, 0.68) 50%, rgba(5, 10, 20, 0.82) 100%);
-  z-index: 0;
-  pointer-events: none;
 }
 
 .wrapContent {
@@ -34,12 +22,6 @@
 .badge {
   margin-bottom: 24px;
   display: inline-flex;
-  background: rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.badgeText {
-  color: #5EEAD4;
 }
 
 .title {
@@ -95,18 +77,48 @@
   transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+[data-theme='light'] .title {
+  color: var(--text);
+  text-shadow: none;
+}
+
 [data-theme='light'] .card {
   background: rgba(10, 18, 32, 0.58) !important;
   border: 1px solid rgba(255, 255, 255, 0.16) !important;
 }
 
-@supports (-webkit-touch-callout: none) {
-  .section {
-    background-attachment: scroll;
-  }
-}
-
 .revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: clamp(64px, 10vw, 80px) 0;
+  }
+
+  .header {
+    margin-bottom: clamp(40px, 8vw, 56px);
+  }
+
+  .card {
+    padding: clamp(24px, 5vw, 40px);
+  }
+}
+
+.barHeader {
+  gap: 8px 16px;
+  flex-wrap: wrap;
+}
+
+.barLabel,
+.barValue {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressFill {
+    transition: none;
+  }
 }

@@ -1,6 +1,7 @@
 import shared from '@/styles/shared.module.css'
 import styles from './VentajaSection.module.css'
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import { HeroBlobs } from '@/common/organisms/HeroBlobs'
 
 export function VentajaSection() {
   const { ref: badgeRef, isVisible: badgeVisible } = useScrollReveal()
@@ -9,6 +10,8 @@ export function VentajaSection() {
 
   return (
     <section className={styles.section}>
+      <HeroBlobs />
+
       <div className={shared.wrap}>
         <div className={`${shared.glassBisel} ${styles.card}`} data-glass="bisel">
           <div className={shared.refractLayer} />

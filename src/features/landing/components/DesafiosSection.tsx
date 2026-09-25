@@ -1,4 +1,5 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
+import { HeroBlobs } from '@/common/organisms/HeroBlobs'
 import { ChallengeCard } from '@/common/molecules/ChallengeCard'
 import shared from '@/styles/shared.module.css'
 import styles from './DesafiosSection.module.css'
@@ -61,26 +62,20 @@ export function DesafiosSection() {
 
   return (
     <section id="desafios" className={styles.section}>
-      <div
-        className={styles.desafiosBg}
-        style={{
-          backgroundImage: "url('/img/pexels-rostislav-5307735.jpg')",
-        }}
-      />
-      <div className={styles.desafiosOverlay} />
+      <HeroBlobs />
 
       <div className={`${shared.wrap} ${styles.content}`}>
         <div className={styles.header}>
           <div
             ref={badgeRef as React.RefObject<HTMLDivElement>}
-            className={`${shared.reveal} ${shared.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}
+            className={`${shared.reveal} ${shared.badge} ${shared.badgeGlassGradient} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round">
               <circle cx="12" cy="12" r="10" />
               <line x1="12" y1="8" x2="12" y2="12" />
               <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
-            <span className={styles.badgeText}>Desafíos del Mercado</span>
+            <span style={{ color: '#ffffff' }}>Desafíos del Mercado</span>
           </div>
 
           <h2

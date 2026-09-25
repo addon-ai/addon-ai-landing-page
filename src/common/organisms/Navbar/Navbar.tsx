@@ -15,7 +15,11 @@ const NAV_LINKS = [
   { href: '#modelo', label: 'Modelo' },
 ] as const
 
-export function Navbar() {
+interface NavbarProps {
+  showCasosSection: boolean
+}
+
+export function Navbar({ showCasosSection }: NavbarProps) {
   const { mode, toggle } = useThemeStore()
   const { open } = useMenuStore()
   const { scrollToSection } = useSmoothScroll()
@@ -25,13 +29,17 @@ export function Navbar() {
     scrollToSection(href)
   }
 
+  const visibleNavLinks = showCasosSection
+    ? NAV_LINKS
+    : NAV_LINKS.filter((link) => link.href !== '#casos')
+
   return (
     <nav className={styles.navGlass} data-nav="glass">
       <div className={`${shared.wrap} ${styles.navInner}`}>
         <div className={styles.navCenter}>
           {/* Desktop nav */}
           <div className={styles.desktopNav}>
-            {NAV_LINKS.map((link) => (
+            {visibleNavLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}

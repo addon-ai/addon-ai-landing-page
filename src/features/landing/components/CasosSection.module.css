@@ -7,6 +7,8 @@
   padding: 112px 0;
 }
 
+.section > * { position: relative; z-index: 1; }
+
 .header {
   margin-bottom: 64px;
   text-align: left;
@@ -59,4 +61,28 @@
   font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.5;
+}
+
+.card > *,
+.cardContent {
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: clamp(64px, 10vw, 80px) 0;
+  }
+
+  .header {
+    margin-bottom: clamp(40px, 8vw, 56px);
+  }
+
+  .card {
+    padding: clamp(24px, 5vw, 28px);
+  }
+
+  .cardTitle,
+  .cardDesc {
+    overflow-wrap: anywhere;
+  }
 }
