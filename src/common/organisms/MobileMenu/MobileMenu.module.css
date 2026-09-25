@@ -108,45 +108,11 @@
   border-top-color: rgba(22, 58, 101, 0.14);
 }
 
-/* ── Tablet distribution ───────────────────────────────────────────────────
-   Mirrors the Navbar drawer condition: 541–768px (tablet portrait) and
-   1024–1800px (tablet en horizontal o en vertical con DPR bajo).
-   769–1023px is deliberately excluded — that
-   is phone landscape, which must keep the phone layout untouched. */
-
-@media (min-width: 541px) and (max-width: 768px), (min-width: 1024px) and (max-width: 1800px) {
-  .menuContent {
-    /* Base gap is up to 24px; with 7 links that pushed the last items and the
-       CTA toward the fold. Scaling with viewport height lets the nav breathe
-       on a tall tablet without crowding a short one. */
-    gap: clamp(14px, 3vh, 28px);
-    /* Horizontal reduction also buys room for the one-line CTA. */
-    padding: 72px clamp(20px, 5vw, 28px) 28px;
-  }
-
-  .menuLink {
-    font-size: 16px;
-    /* Pin the row height instead of inheriting 1.65 from global.css, so the
-       vertical rhythm is predictable. */
-    line-height: 1.45;
-  }
-
-  /* Nav anchored to the top edge, CTA anchored to the bottom edge. This is the
-     standard drawer composition: both groups hold an edge, so the space
-     between them reads as intentional instead of stranded. margin-top:auto
-     collapses to 0 when the content does not fit, where overflow-y:auto
-     takes over. */
-  .menuDivider {
-    margin-top: auto;
-  }
-
-  /* Tablet-only CTA fix. The Button has no .md rule at all, so the default
-     size inherits ~16px from the body: in the 244px column this drawer allows
-     the label wrapped to two lines and the pill read as fat. Stepping down
-     holds one line. min-height stays at the 44px from .base, so the tap
-     target is untouched. Phone keeps its original inherited sizing. */
-  .menuCta {
-    padding: 10px 12px;
-    font-size: 12px;
-  }
-}
+/* ── Tablets ──────────────────────────────────────────────────────────────
+   No tablet-specific rules on purpose: the drawer that opens on a tablet is
+   the same component the phone opens, so it must look identical. A previous
+   block overrode link size (16px), CTA size (12px) and stranded the CTA at the
+   bottom with margin-top:auto, which on a 1067px-tall screen left a dead gap
+   above it and a comically small button on a 12" panel. The Navbar decides WHO
+   gets the drawer; this file decides how it looks, and the answer is the same
+   for every size. */
