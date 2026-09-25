@@ -70,14 +70,23 @@
   }
 }
 
-/* Drawer regime. Two arms, kept in sync with the other blocks below:
-   1. up to 768px — unchanged (phone portrait, small tablet portrait)
-   2. 1024–1800px AND coarse pointer — touch tablets in either orientation
-      (a 2560×1600 Android tablet at DPR 1.5 reports ~1706px in portrait),
-      which previously fell back to the desktop nav
-   The pointer:coarse arm is what stops a 1100px desktop window from losing
-   its nav, and leaves phone landscape (769–1023px) exactly as it is today. */
-@media (max-width: 768px), (min-width: 1024px) and (max-width: 1800px) and (pointer: coarse) {
+/* Drawer regime. Three arms, kept in sync with the other blocks below:
+   1. up to 768px — phones portrait, small tablet portrait
+   2. 1024–1800px AND coarse pointer — touch tablets wide enough to report
+      1024+ CSS px (a 2560×1600 tablet at DPR 1.5 reports ~1706px in portrait)
+   3. 769–1023px AND coarse pointer AND at least 600px TALL — arm 2 used to
+      skip this range on the assumption it was only phone landscape. It is not:
+      a 2560×1600 tablet at DPR 2 reports 800×1280 CSS in portrait, so it fell
+      in the gap and got the desktop nav while being held like a phone. Height
+      is what separates the two, and it separates them cleanly — phone
+      landscape is ~390–480px tall, tablet portrait is 1000px+.
+
+   Without arm 3 a high-density tablet in portrait shows no nav at all, and
+   the pointer:coarse check alone is not enough because a tablet with a
+   trackpad reports pointer:fine. */
+@media (max-width: 768px),
+  (min-width: 1024px) and (max-width: 1800px) and (pointer: coarse),
+  (min-width: 769px) and (max-width: 1023px) and (pointer: coarse) and (min-height: 600px) {
   .desktopNav {
     display: none !important;
   }
@@ -176,7 +185,9 @@
 
 /* Same drawer condition as .desktopNav above — both must flip together or the
    page ends up with no nav and no toggle. */
-@media (max-width: 768px), (min-width: 1024px) and (max-width: 1800px) and (pointer: coarse) {
+@media (max-width: 768px),
+  (min-width: 1024px) and (max-width: 1800px) and (pointer: coarse),
+  (min-width: 769px) and (max-width: 1023px) and (pointer: coarse) and (min-height: 600px) {
   .mobileToggle {
     display: flex;
   }
@@ -194,7 +205,9 @@
   }
 }
 
-@media (max-width: 768px), (min-width: 1024px) and (max-width: 1800px) and (pointer: coarse) {
+@media (max-width: 768px),
+  (min-width: 1024px) and (max-width: 1800px) and (pointer: coarse),
+  (min-width: 769px) and (max-width: 1023px) and (pointer: coarse) and (min-height: 600px) {
   .navGlass {
     backdrop-filter: blur(12px) saturate(150%);
     -webkit-backdrop-filter: blur(12px) saturate(150%);
