@@ -216,22 +216,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /*
-     * The horizontal lockup wordmark is navy (#163a65) on a transparent
-     * background. Measured against the hero surface (--bg #050a14) it reaches
-     * only 1.72:1 contrast, so the wordmark disappears on dark. A light
-     * surface keeps this exact asset legible without recoloring the brand.
-     */
-    background: rgba(255, 255, 255, 0.94);
-    border: 1px solid rgba(22, 58, 101, 0.08);
-    border-radius: 20px;
-    padding: 1.25rem 1.5rem;
+    /* Same treatment as the desktop floating logo: no surface, no card.
+       The HeroBlobs canvas already renders the soft brand glow behind it. */
     margin: 0 auto 2.5rem;
-    width: fit-content;
-    max-width: 100%;
+    animation: float 6s ease-in-out infinite;
   }
   .heroVisualResponsive .heroLogo {
-    max-width: min(420px, 60vw);
+    max-width: min(480px, 72vw);
     margin: 0;
   }
   .statValue {
@@ -252,12 +243,10 @@
     padding: 3rem 0;
   }
   .heroVisualResponsive {
-    padding: 1rem 1.125rem;
-    border-radius: 16px;
     margin-bottom: 2rem;
   }
   .heroVisualResponsive .heroLogo {
-    max-width: min(420px, 64vw);
+    max-width: min(480px, 78vw);
   }
 }
 
@@ -303,6 +292,12 @@
 
   .statLabel {
     overflow-wrap: anywhere;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroVisualResponsive {
+    animation: none;
   }
 }
 
