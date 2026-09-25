@@ -78,6 +78,7 @@ export function MobileMenu({ showCasosSection, onNavClick }: MobileMenuProps) {
           <Button
             href="#contacto"
             variant="primary"
+            className={styles.menuCta}
             onClick={handleClose}
             style={{ display: 'block', textAlign: 'center', textDecoration: 'none', width: '100%' }}
           >

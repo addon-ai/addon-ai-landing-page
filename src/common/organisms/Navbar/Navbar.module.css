@@ -70,7 +70,14 @@
   }
 }
 
-@media (max-width: 768px) {
+/* Drawer regime. Two arms, kept in sync with the other blocks below:
+   1. up to 768px — unchanged (phone portrait, small tablet portrait)
+   2. 1024–1800px AND coarse pointer — touch tablets in either orientation
+      (a 2560×1600 Android tablet at DPR 1.5 reports ~1706px in portrait),
+      which previously fell back to the desktop nav
+   The pointer:coarse arm is what stops a 1100px desktop window from losing
+   its nav, and leaves phone landscape (769–1023px) exactly as it is today. */
+@media (max-width: 768px), (min-width: 1024px) and (max-width: 1800px) and (pointer: coarse) {
   .desktopNav {
     display: none !important;
   }
@@ -167,7 +174,9 @@
   color: var(--text);
 }
 
-@media (max-width: 768px) {
+/* Same drawer condition as .desktopNav above — both must flip together or the
+   page ends up with no nav and no toggle. */
+@media (max-width: 768px), (min-width: 1024px) and (max-width: 1800px) and (pointer: coarse) {
   .mobileToggle {
     display: flex;
   }
@@ -185,7 +194,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px), (min-width: 1024px) and (max-width: 1800px) and (pointer: coarse) {
   .navGlass {
     backdrop-filter: blur(12px) saturate(150%);
     -webkit-backdrop-filter: blur(12px) saturate(150%);

@@ -12,6 +12,13 @@ dist
 dist-ssr
 *.local
 
+# Environment — keep secrets out of git history.
+# `*.local` above only covers .env.local; a plain .env is also a valid Vite
+# filename and would otherwise be committed with the Web3Forms access key.
+.env
+.env.*
+!.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -143,6 +143,14 @@
   max-width: 100%;
 }
 
+/* Wraps both theme variants of the badge. display:block keeps it behaving
+   like the img did as a direct flex child of .badgeWrap; without it the
+   inline box adds a descender gap under the badge. */
+.badgeLink {
+  display: block;
+  line-height: 0;
+}
+
 .badgeDark,
 .badgeLight {
   display: block;

@@ -20,6 +20,10 @@ export function ContactoSection() {
     const email = data.get('email') as string
     const company = data.get('company') as string
     const message = data.get('message') as string
+    // Honeypot: the hidden checkbox below is what bots fill in. It has to be
+    // read from the form, otherwise it is always sent empty and Web3Forms can
+    // never flag a submission as spam.
+    const botcheck = data.get('botcheck') ? String(data.get('botcheck')) : ''
 
     if (!name || !email || !company || !message) {
       setStatus({ type: 'error', text: 'Por favor completa todos los campos correctamente.' })
@@ -46,7 +50,7 @@ export function ContactoSection() {
           email,
           company,
           message,
-          botcheck: '',
+          botcheck,
         }),
       })
       const result = (await res.json()) as { success?: boolean; message?: string }

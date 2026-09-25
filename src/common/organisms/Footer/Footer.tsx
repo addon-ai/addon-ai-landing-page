@@ -77,8 +77,23 @@ export function Footer() {
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>&copy; 2026 Addon.ai Enterprise. Todos los derechos reservados.</p>
           <div className={styles.badgeWrap}>
-            <img src="/img/YSA-dark.png" alt="YSA" className={styles.badgeDark} />
-            <img src="/img/YSA-light.png" alt="YSA" className={styles.badgeLight} />
+            <a
+              className={styles.badgeLink}
+              href="https://www.intracen.org/es/nuestra-labor/proyectos/colombia-youth-startup-academy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/img/YSA-dark.png"
+                alt="Colombia Youth Startup Academy"
+                className={styles.badgeDark}
+              />
+              <img
+                src="/img/YSA-light.png"
+                alt="Colombia Youth Startup Academy"
+                className={styles.badgeLight}
+              />
+            </a>
           </div>
         </div>
       </div>
