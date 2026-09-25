@@ -124,6 +124,11 @@
 
 .cfStatus {
   font-size: 13px;
+  /* The global reset zeroes margins on every element, so without this the
+     message renders flush against the submit button. */
+  margin-top: 14px;
+  line-height: 1.5;
+  text-wrap: pretty;
 }
 
 /* ── Contact info ─────────────────────────────────────────────────────────── */

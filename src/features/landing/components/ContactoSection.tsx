@@ -3,7 +3,7 @@ import { HeroBlobs } from '@/common/organisms/HeroBlobs'
 import { Button } from '@/common/atoms/Button'
 import { useState } from 'react'
 import shared from '@/styles/shared.module.css'
-import { env } from '@/infrastructure/config/env'
+import { submitContact } from '@/infrastructure/api/contactApi'
 import styles from './ContactoSection.module.css'
 
 export function ContactoSection() {
@@ -21,8 +21,8 @@ export function ContactoSection() {
     const company = data.get('company') as string
     const message = data.get('message') as string
     // Honeypot: the hidden checkbox below is what bots fill in. It has to be
-    // read from the form, otherwise it is always sent empty and Web3Forms can
-    // never flag a submission as spam.
+    // read from the form, otherwise it is always sent empty and the spam
+    // filter can never flag a submission.
     const botcheck = data.get('botcheck') ? String(data.get('botcheck')) : ''
 
     if (!name || !email || !company || !message) {
@@ -30,40 +30,18 @@ export function ContactoSection() {
       return
     }
 
-    if (!env.web3forms.accessKey) {
-      setStatus({ type: 'error', text: 'El formulario aún no está configurado para enviar. Escribinos a jiliar.silgado@gmail.com.' })
-      return
-    }
-
     setIsSubmitting(true)
     setStatus({ type: 'info', text: 'Enviando…' })
 
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: env.web3forms.accessKey,
-          subject: `Nuevo contacto desde landing — ${company}`,
-          from_name: name,
-          name,
-          email,
-          company,
-          message,
-          botcheck,
-        }),
-      })
-      const result = (await res.json()) as { success?: boolean; message?: string }
-      if (!res.ok || !result.success) {
-        throw new Error(result.message ?? 'Error al enviar')
-      }
+    const result = await submitContact({ name, email, company, message, botcheck })
+
+    if (result.ok) {
       form.reset()
       setStatus({ type: 'success', text: '¡Gracias! Te responderemos en menos de 24 h.' })
-    } catch {
+    } else {
       setStatus({ type: 'error', text: 'No se pudo enviar el mensaje. Escribinos a jiliar.silgado@gmail.com.' })
-    } finally {
-      setIsSubmitting(false)
     }
+    setIsSubmitting(false)
   }
 
   return (
