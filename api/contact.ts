@@ -110,10 +110,16 @@ function buildHtml(fields: ContactFields): string {
   ].join('');
 }
 
-export default async function handler(request: Request): Promise<Response> {
-  if (request.method !== 'POST') {
-    return jsonResponse(405, { success: false, error: 'Metodo no permitido.' });
-  }
+/**
+ * Export por metodo con nombre, NO `export default`. En `api/` con runtime
+ * nodejs, `export default` significa firma Node `(req, res) => void`: el
+ * `request` que llega es un IncomingMessage (sin `headers.get()`) y el
+ * `Response` que se retorna se descarta sin escribir nada en `res`. Ese
+ * contrato de Vercel esta en vercel.com/docs/functions/functions-api-reference.
+ * Un export con nombre activa la firma Web `Request` -> `Response`, que es la
+ * que este handler asume. Los metodos que no se exportan responden 405 solos.
+ */
+export async function POST(request: Request): Promise<Response> {
   if (!isSameOrigin(request)) {
     return jsonResponse(403, { success: false, error: 'Origen no permitido.' });
   }
