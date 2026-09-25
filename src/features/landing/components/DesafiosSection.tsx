@@ -1,5 +1,4 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
-import { useThemeStore } from '../store/useThemeStore'
 import { ChallengeCard } from '@/common/molecules/ChallengeCard'
 import shared from '@/styles/shared.module.css'
 import styles from './DesafiosSection.module.css'
@@ -56,7 +55,6 @@ const CHALLENGES = [
 ]
 
 export function DesafiosSection() {
-  const mode = useThemeStore((s) => s.mode)
   const { ref: badgeRef, isVisible: badgeVisible } = useScrollReveal()
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal()
   const { ref: gridRef, isVisible: gridVisible } = useScrollReveal()
@@ -66,7 +64,7 @@ export function DesafiosSection() {
       <div
         className={styles.desafiosBg}
         style={{
-          backgroundImage: mode === 'light' ? "url('/img/desafíos del mercado-light.jpg')" : "url('/img/pexels-rostislav-5307735.jpg')",
+          backgroundImage: "url('/img/pexels-rostislav-5307735.jpg')",
         }}
       />
       <div className={styles.desafiosOverlay} />
@@ -77,7 +75,7 @@ export function DesafiosSection() {
             ref={badgeRef as React.RefObject<HTMLDivElement>}
             className={`${shared.reveal} ${shared.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round">
               <circle cx="12" cy="12" r="10" />
               <line x1="12" y1="8" x2="12" y2="12" />
               <line x1="12" y1="16" x2="12.01" y2="16" />

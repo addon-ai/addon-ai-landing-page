@@ -9,7 +9,7 @@ export function Footer() {
           
             <div className={styles.footerLogo}>
               <img
-                src="/logos/logo-vertical-green-tagline.svg"
+                src="/logos/logo-vertical-white-tagline.svg"
                 alt="Addon.ai"
                 className={styles.logoDark}
               />
@@ -56,7 +56,7 @@ export function Footer() {
           <div>
             <h4 className={styles.columnTitle}>Sectores</h4>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              {['Finanzas', 'Salud', 'Comercial'].map((item) => (
+              {['Finanzas', 'Salud', 'Logística'].map((item) => (
                 <li key={item} style={{ marginBottom: 10 }}>
                   <a href="#sectores" className={styles.columnLink}>{item}</a>
                 </li>

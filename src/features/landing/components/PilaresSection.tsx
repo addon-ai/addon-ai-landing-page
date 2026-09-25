@@ -48,6 +48,8 @@ export function PilaresSection() {
 
   return (
     <section id="pilares" className={styles.section}>
+      <img src="/img/pexels-rostislav-5307735.jpg" alt="" aria-hidden="true" className={styles.pilarBg} />
+      <div className={styles.pilarBgOverlay} />
       <div className={shared.wrap}>
         <div className={styles.header}>
           <div

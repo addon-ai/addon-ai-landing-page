@@ -25,11 +25,11 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(5, 10, 20, 0.72) 0%, rgba(5, 10, 20, 0.58) 50%, rgba(5, 10, 20, 0.78) 100%);
+  background: linear-gradient(180deg, rgba(5, 10, 20, 0.82) 0%, rgba(5, 10, 20, 0.72) 50%, rgba(5, 10, 20, 0.88) 100%);
 }
 
 [data-theme='light'] .desafiosOverlay {
-  background: linear-gradient(180deg, rgba(5, 10, 20, 0.68) 0%, rgba(5, 10, 20, 0.55) 50%, rgba(5, 10, 20, 0.75) 100%);
+  background: linear-gradient(180deg, rgba(5, 10, 20, 0.78) 0%, rgba(5, 10, 20, 0.68) 50%, rgba(5, 10, 20, 0.85) 100%);
 }
 
 @supports (-webkit-touch-callout: none) {
@@ -51,11 +51,11 @@
 .badge {
   margin-bottom: 24px;
   display: inline-flex;
-  background: rgba(239, 68, 68, 0.2);
+  background: rgba(59, 130, 246, 0.2);
 }
 
 .badgeText {
-  color: #ef4444;
+  color: var(--blue);
 }
 
 .title {
@@ -72,7 +72,8 @@
 
 .card {
   padding: 36px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(10, 18, 32, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .iconWrap {
@@ -116,30 +117,11 @@
 }
 
 [data-theme='light'] .card {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(36px) saturate(180%) brightness(1.06);
-  -webkit-backdrop-filter: blur(36px) saturate(180%) brightness(1.06);
-  border: none;
-  box-shadow:
-    inset 0 1.5px 1px rgba(255, 255, 255, 0.32),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.25),
-    inset 1px 0 0 rgba(255, 255, 255, 0.07),
-    inset -1px 0 0 rgba(255, 255, 255, 0.04),
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.1),
-    0 28px 70px rgba(0, 0, 0, 0.32),
-    0 8px 18px rgba(0, 0, 0, 0.16);
-}
-
-[data-theme='light'] .card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 6%;
-  right: 6%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28) 20%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0.28) 80%, transparent);
-  pointer-events: none;
-  z-index: 3;
+  background: rgba(10, 18, 32, 0.5);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .revealed {

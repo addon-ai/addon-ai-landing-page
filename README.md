@@ -36,13 +36,13 @@ src/
 - Pilares de Especialización (Software, Data, AI)
 - Quick Wins
 - Paquetes de Servicios
-- Soluciones por Sector (Finanzas, Salud, Comercial)
+- Soluciones por Sector (Finanzas, Salud, Logística)
 - Casos de Éxito
 - Comparativa Addon AI vs Big Four
 - Planes (Surgical Strike, PLG Híbrido, Managed Partner)
 - Compromiso e Impacto (ODS)
 - Modelo de Trabajo (Discovery → Desarrollo → Managed → Transferencia)
-- Contacto — formulario con envío por mailto
+- Contacto — formulario con envío por Web3Forms (`VITE_WEB3FORMS_ACCESS_KEY`)
 
 ## Efectos visuales
 

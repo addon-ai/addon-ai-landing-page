@@ -17,6 +17,7 @@ import { ModeloSection } from '../components/ModeloSection'
 import { ContactoSection } from '../components/ContactoSection'
 import { useEffect } from 'react'
 import { useThemeStore } from '../store/useThemeStore'
+import { env } from '@/infrastructure/config/env'
 
 export default function LandingPage() {
   const { setMode } = useThemeStore()
@@ -107,10 +108,10 @@ export default function LandingPage() {
         <QuickWinsSection />
         <ServiciosSection />
         <SectoresSection />
-        <CasosSection />
+        {env.featureFlags.showCasosSection && <CasosSection />}
         <ComparativaSection />
         <PlanesSection />
-        <CompromisoSection />
+        {env.featureFlags.showImpactoOds && <CompromisoSection />}
         <ModeloSection />
         <ContactoSection />
       </main>

@@ -1,5 +1,6 @@
 import { useScrollReveal } from '@/common/hooks/useScrollReveal'
 import shared from '@/styles/shared.module.css'
+import { env } from '@/infrastructure/config/env'
 import styles from './PlanesSection.module.css'
 
 export function PlanesSection() {
@@ -27,7 +28,7 @@ export function PlanesSection() {
               {plan.popular && <div className={shared.popularBadge}>Popular</div>}
               <div className={styles.planPhase}>{plan.phase}</div>
               <h3 className={styles.planName}>{plan.name}</h3>
-              <div className={styles.planPrice}>{plan.price}</div>
+              {env.featureFlags.showPlanPrices && <div className={styles.planPrice}>{plan.price}</div>}
               <p className={styles.planDesc}>{plan.desc}</p>
               <ul className={styles.featureList}>
                 {plan.features.map((f) => (

@@ -2,14 +2,16 @@ import { useScrollReveal } from '@/common/hooks/useScrollReveal'
 import { Button } from '@/common/atoms/Button'
 import { useState } from 'react'
 import shared from '@/styles/shared.module.css'
+import { env } from '@/infrastructure/config/env'
 import styles from './ContactoSection.module.css'
 
 export function ContactoSection() {
   const { ref: glassRef, isVisible: glassVisible } = useScrollReveal()
   const { ref: infoRef, isVisible: infoVisible } = useScrollReveal()
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState<{ type: 'info' | 'success' | 'error'; text: string } | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.currentTarget
     const data = new FormData(form)
@@ -19,18 +21,44 @@ export function ContactoSection() {
     const message = data.get('message') as string
 
     if (!name || !email || !company || !message) {
-      setStatus('Por favor completa todos los campos correctamente.')
+      setStatus({ type: 'error', text: 'Por favor completa todos los campos correctamente.' })
       return
     }
 
-    const subject = encodeURIComponent(`Nuevo contacto desde landing — ${company}`)
-    const body = encodeURIComponent(`Nombre: ${name}\nEmpresa: ${company}\nCorreo: ${email}\n\nMensaje:\n${message}`)
-    setStatus('Abriendo tu cliente de correo…')
-    window.location.href = `mailto:jiliar.silgado@gmail.com?subject=${subject}&body=${body}`
-    setTimeout(() => {
+    if (!env.web3forms.accessKey) {
+      setStatus({ type: 'error', text: 'El formulario aún no está configurado para enviar. Escribinos a jiliar.silgado@gmail.com.' })
+      return
+    }
+
+    setIsSubmitting(true)
+    setStatus({ type: 'info', text: 'Enviando…' })
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: env.web3forms.accessKey,
+          subject: `Nuevo contacto desde landing — ${company}`,
+          from_name: name,
+          name,
+          email,
+          company,
+          message,
+          botcheck: '',
+        }),
+      })
+      const result = (await res.json()) as { success?: boolean; message?: string }
+      if (!res.ok || !result.success) {
+        throw new Error(result.message ?? 'Error al enviar')
+      }
       form.reset()
-      setStatus('¡Gracias! Te responderemos en menos de 24 h.')
-    }, 800)
+      setStatus({ type: 'success', text: '¡Gracias! Te responderemos en menos de 24 h.' })
+    } catch {
+      setStatus({ type: 'error', text: 'No se pudo enviar el mensaje. Escribinos a jiliar.silgado@gmail.com.' })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -45,6 +73,7 @@ export function ContactoSection() {
           <p className={`${shared.reveal} ${shared.revealed} ${styles.description}`}>Solicita tu diagnóstico gratuito. Sin compromiso, sin jerga innecesaria — solo soluciones.</p>
 
           <form className={styles.contactForm} onSubmit={handleSubmit} noValidate>
+            <input type="checkbox" name="botcheck" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
             <div className={styles.cfGrid}>
               <div className={styles.cfField}>
                 <label htmlFor="cf-name" className={styles.cfLabel}>Nombre completo</label>
@@ -63,8 +92,14 @@ export function ContactoSection() {
                 <textarea id="cf-message" name="message" className={`${styles.cfInput} ${styles.cfTextarea}`} rows={5} placeholder="Cuéntanos brevemente el reto que quieres resolver" required />
               </div>
             </div>
-            <Button type="submit" variant="primary" className={styles.cfSubmit}>Enviar mensaje</Button>
-            {status && <p className={styles.cfStatus} style={{ color: status.includes('Gracias') ? 'var(--emerald)' : status.includes('Abriendo') ? 'var(--text-secondary)' : '#ef4444' }}>{status}</p>}
+            <Button type="submit" variant="primary" className={styles.cfSubmit} disabled={isSubmitting}>
+              {isSubmitting ? 'Enviando…' : 'Enviar mensaje'}
+            </Button>
+            {status && (
+              <p className={styles.cfStatus} style={{ color: status.type === 'success' ? 'var(--emerald)' : status.type === 'error' ? '#ef4444' : 'var(--text-secondary)' }}>
+                {status.text}
+              </p>
+            )}
           </form>
         </div>
 
