@@ -256,6 +256,14 @@ export function HeroSection() {
       <div className={`${shared.wrap} ${styles.wrapInner}`}>
         <div className={styles.heroGrid}>
           <div>
+            <div className={styles.heroVisualResponsive}>
+              <img
+                src="/logos/logo-horizontal-full-primary.svg"
+                alt="Addon.ai"
+                className={styles.heroLogo}
+              />
+            </div>
+
             <h1
               ref={titleRef as React.RefObject<HTMLHeadingElement>}
               className={`${shared.reveal} ${titleVisible ? styles.revealed : ''} ${styles.heroTitle}`}
@@ -282,14 +290,6 @@ export function HeroSection() {
               <Button href="#servicios" variant="secondary">
                 Conoce nuestros servicios
               </Button>
-            </div>
-
-            <div className={styles.heroVisualResponsive}>
-              <img
-                src="/logos/logo-horizontal-full-primary.svg"
-                alt="Addon.ai"
-                className={styles.heroLogo}
-              />
             </div>
 
             <div

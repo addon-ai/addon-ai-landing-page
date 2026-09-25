@@ -115,10 +115,10 @@
   filter: drop-shadow(0 1px 8px rgba(18, 210, 124, 0.12));
 }
 
-/* ── Responsive logo (visible next to stats at ≤770px) ───────────────────── */
+/* ── Responsive logo (brand first, above the H1 at ≤1100px) ──────────────────── */
 
 .heroVisualResponsive {
-  display: none; /* hidden by default, shown at ≤770px */
+  display: none; /* hidden by default, shown at ≤1100px (see breakpoint below) */
 }
 
 /* ── Floating badges ──────────────────────────────────────────────────────── */
@@ -216,10 +216,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /*
+     * The horizontal lockup wordmark is navy (#163a65) on a transparent
+     * background. Measured against the hero surface (--bg #050a14) it reaches
+     * only 1.72:1 contrast, so the wordmark disappears on dark. A light
+     * surface keeps this exact asset legible without recoloring the brand.
+     */
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(22, 58, 101, 0.08);
+    border-radius: 20px;
+    padding: 1.25rem 1.5rem;
+    margin: 0 auto 2.5rem;
+    width: fit-content;
+    max-width: 100%;
   }
   .heroVisualResponsive .heroLogo {
-    max-width: min(470px, 65vw);
-    margin: 3rem auto 0;
+    max-width: min(420px, 60vw);
+    margin: 0;
   }
   .statValue {
     font-size: 1.5rem;
@@ -239,7 +252,12 @@
     padding: 3rem 0;
   }
   .heroVisualResponsive {
-    display: none;
+    padding: 1rem 1.125rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+  }
+  .heroVisualResponsive .heroLogo {
+    max-width: min(420px, 64vw);
   }
 }
 
