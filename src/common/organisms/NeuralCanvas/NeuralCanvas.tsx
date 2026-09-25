@@ -301,18 +301,30 @@ export function NeuralCanvas() {
     window.addEventListener('resize', resize)
     window.addEventListener('resize', () => initNodes())
 
-    const handleMouseMove = (e: MouseEvent) => {
+    // pointer* so the node halo follows a finger or stylus on touch; touch
+    // devices never fire mousemove.
+    const handlePointerMove = (e: PointerEvent) => {
       mouse.x = e.clientX
       mouse.y = e.clientY
       updateHoveredDot()
     }
-    document.addEventListener('mousemove', handleMouseMove)
+    document.addEventListener('pointermove', handlePointerMove)
+
+    const releasePointer = () => {
+      mouse.x = -1000
+      mouse.y = -1000
+      lastHoveredDot = null
+    }
+    document.addEventListener('pointercancel', releasePointer)
+    document.addEventListener('pointerup', releasePointer)
 
     return () => {
       cancelAnimationFrame(animationId)
       window.removeEventListener('resize', resize)
       window.removeEventListener('resize', () => initNodes())
-      document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('pointermove', handlePointerMove)
+      document.removeEventListener('pointercancel', releasePointer)
+      document.removeEventListener('pointerup', releasePointer)
     }
   }, [mode])
 

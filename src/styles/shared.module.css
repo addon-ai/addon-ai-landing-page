@@ -453,6 +453,7 @@
     transform: none;
   }
 
+  /* Cheaper glass on touch: keep the material, drop the extra blur cost. */
   .glassBisel,
   .liquidGlass,
   .liquidGlassStrong,
@@ -461,21 +462,9 @@
     -webkit-backdrop-filter: blur(12px) saturate(150%);
   }
 
-  .refractLayer,
-  .glowAurora,
-  .glowCore,
-  .glowRim {
-    display: none;
-  }
-
-  .liquidGlass::before,
-  .liquidGlassStrong::before {
-    display: none;
-  }
-
-  .decorativeCanvas {
-    display: none;
-  }
+  /* Background motion (HeroBlobs glow + NeuralCanvas network) now runs on
+     tablet and phone. Both are cheap: 4 radial gradients and 60 nodes.
+     prefers-reduced-motion below still turns them off. */
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -238,6 +238,18 @@
   }
 }
 
+/* Tablet range: the logo carries the brand above the H1, so give it more
+   presence than the small-screen default. Capped to stay clear of the
+   541px phone breakpoint. */
+@media (min-width: 541px) and (max-width: 1100px) {
+  .heroVisualResponsive {
+    margin-bottom: 3rem;
+  }
+  .heroVisualResponsive .heroLogo {
+    max-width: min(620px, 76vw);
+  }
+}
+
 @media (max-width: 540px) {
   .section {
     padding: 3rem 0;

@@ -60,9 +60,12 @@ export default function LandingPage() {
 
     // Refraction + glow effect on glass elements
     document.querySelectorAll('[data-glass]').forEach((el) => {
-      el.addEventListener('mousemove', (e) => {
+      // pointer* (not mouse*) so a finger or stylus drives it on touch too:
+      // touch devices never fire mousemove, which is why the effect was
+      // inert on tablet and phone.
+      el.addEventListener('pointermove', (e) => {
         const rect = el.getBoundingClientRect()
-        const me = e as MouseEvent
+        const me = e as PointerEvent
         const x = ((me.clientX - rect.left) / rect.width * 100).toFixed(1)
         const y = ((me.clientY - rect.top) / rect.height * 100).toFixed(1)
         const rx = el.querySelector('.refract-layer, [class*="refract"]') as HTMLElement | null
@@ -77,7 +80,11 @@ export default function LandingPage() {
         ;(el as HTMLElement).style.setProperty('--gx', x + '%')
         ;(el as HTMLElement).style.setProperty('--gy', y + '%')
       })
-      el.addEventListener('mouseleave', () => {
+
+      // Reset on leave AND on pointercancel: when a finger lifts off a touch
+      // screen pointerleave is not guaranteed, which would leave the glow
+      // stuck at the last contact point.
+      const resetGlow = () => {
         const rx = el.querySelector('.refract-layer, [class*="refract"]') as HTMLElement | null
         if (rx) {
           rx.style.removeProperty('--rx')
@@ -86,7 +93,9 @@ export default function LandingPage() {
         ;(el as HTMLElement).style.removeProperty('--angle')
         ;(el as HTMLElement).style.removeProperty('--gx')
         ;(el as HTMLElement).style.removeProperty('--gy')
-      })
+      }
+      el.addEventListener('pointerleave', resetGlow)
+      el.addEventListener('pointercancel', resetGlow)
     })
 
     return () => {

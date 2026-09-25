@@ -41,6 +41,22 @@
   transform: translateX(0);
 }
 
+/* Dark-mode drawer: the shared .liquidGlassStrong panel is a 4-12% WHITE wash,
+   which over a near-black page leaves the drawer translucent and the nav links
+   fighting the hero and canvas behind it. Give it a real opaque navy base and
+   keep the glass sheen on top. Specificity is 2 parts, so it wins over the
+   single-class .liquidGlassStrong regardless of stylesheet order.
+   Light mode is deliberately untouched. */
+[data-theme='dark'] .menuContent {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(255, 255, 255, 0.08) 100%),
+    var(--bg);
+  /* Opaque base means the inherited 40px blur has nothing left to sample.
+     Drop it: pure GPU saving on mobile, no visual change. */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
 /* ── Close button ───────────────────────────────────────────────────────── */
 
 .closeBtn {
@@ -78,4 +94,16 @@
   font-size: 18px;
   color: var(--text-secondary);
   text-decoration: none;
+}
+
+/* ── Divider above the CTA ──────────────────────────────────────────────── */
+
+.menuDivider {
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* A 10% white rule is invisible on the near-white light panel. */
+[data-theme='light'] .menuDivider {
+  border-top-color: rgba(22, 58, 101, 0.14);
 }

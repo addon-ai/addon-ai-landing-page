@@ -74,7 +74,7 @@ export function MobileMenu({ showCasosSection, onNavClick }: MobileMenuProps) {
           </a>
         ))}
 
-        <div style={{ paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+        <div className={styles.menuDivider}>
           <Button
             href="#contacto"
             variant="primary"
