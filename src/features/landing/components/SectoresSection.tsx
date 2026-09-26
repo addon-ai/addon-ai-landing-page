@@ -5,6 +5,17 @@ import styles from './SectoresSection.module.css'
 
 const SECTORS = [
   {
+    name: 'Logística',
+    tag: 'LOGÍSTICA & SUPPLY CHAIN',
+    img: '/img/ecomerce.jpg',
+    arch: 'Orientada a eventos (event-driven) y serverless.',
+    result: 'Plataforma tecnológica integrada WMS, OMS y TMS, orientada a resultados operativos.',
+    color: 'var(--blue)',
+    iconGrad: 'linear-gradient(135deg, var(--blue), var(--violet))',
+    tagBg: 'rgba(59,130,246,0.9)',
+    align: 'left' as const,
+  },
+  {
     name: 'Finanzas',
     tag: 'SERVICIOS FINANCIEROS',
     img: '/img/trading.jpg',
@@ -13,7 +24,7 @@ const SECTORS = [
     color: 'var(--cyan)',
     iconGrad: 'linear-gradient(135deg, var(--emerald), var(--cyan))',
     tagBg: 'rgba(6,182,212,0.9)',
-    align: 'left' as const,
+    align: 'right' as const,
   },
   {
     name: 'Calidad',
@@ -24,17 +35,6 @@ const SECTORS = [
     color: 'var(--emerald)',
     iconGrad: 'linear-gradient(135deg, var(--cyan), var(--blue))',
     tagBg: 'rgba(34,197,94,0.9)',
-    align: 'right' as const,
-  },
-  {
-    name: 'Logística',
-    tag: 'LOGÍSTICA & SUPPLY CHAIN',
-    img: '/img/ecomerce.jpg',
-    arch: 'Orientada a eventos (event-driven) y serverless.',
-    result: 'Plataforma tecnológica integrada WMS, OMS y TMS, orientada a resultados operativos.',
-    color: 'var(--blue)',
-    iconGrad: 'linear-gradient(135deg, var(--blue), var(--violet))',
-    tagBg: 'rgba(59,130,246,0.9)',
     align: 'left' as const,
   },
 ]

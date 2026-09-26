@@ -14,11 +14,11 @@ export function QuickWinsSection() {
 
       <div className={shared.wrap}>
         <div className={styles.header}>
-          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${styles.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''}`}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" strokeWidth="2" strokeLinecap="round">
+          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${styles.badge} ${shared.badgeGlassGradient} ${badgeVisible ? styles.revealed : ''}`}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
             </svg>
-            <span style={{ color: 'var(--emerald)' }}>Quick Wins</span>
+            <span style={{ color: '#ffffff' }}>Quick Wins</span>
           </div>
           <h2 ref={titleRef as React.RefObject<HTMLHeadingElement>} className={`${shared.reveal} ${titleVisible ? styles.revealed : ''} ${styles.title}`}>Resultados <span className={shared.gradientTextAlt}>semanales</span></h2>
         </div>

@@ -13,9 +13,9 @@ export function PlanesSection() {
 
       <div className={shared.wrap}>
         <div className={styles.header}>
-          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${shared.liquidGlassSubtle} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" strokeWidth="2" strokeLinecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-            <span style={{ color: 'var(--cyan)' }}>Modelos de Compromiso</span>
+          <div ref={badgeRef as React.RefObject<HTMLDivElement>} className={`${shared.reveal} ${shared.badge} ${shared.badgeGlassGradient} ${badgeVisible ? styles.revealed : ''} ${styles.badge}`}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            <span style={{ color: '#ffffff' }}>Modelos de Compromiso</span>
           </div>
           <h2 className={`${shared.reveal} ${badgeVisible ? styles.revealed : ''} ${styles.title}`}>Planes que escalan <span className={shared.gradientText}>contigo</span></h2>
         </div>
